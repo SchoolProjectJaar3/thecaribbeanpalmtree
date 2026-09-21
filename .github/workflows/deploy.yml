@@ -1,0 +1,114 @@
+name: Tests & deploy
+
+# Pull requests naar main worden getest.
+# Bij een push naar main wordt de site daarna ook gebouwd (Composer + Vite) en
+# op de branch `deploy` gezet. DirectAdmin haalt die branch op en zet hem in
+# public_html. Zie README.md voor de eenmalige instellingen in DirectAdmin.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          composer install --no-interaction --no-progress --prefer-dist
+          npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Run tests
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+          php artisan test
+
+  deploy:
+    name: Deploy
+    needs: tests
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: deploy
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          coverage: none
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install production dependencies
+        run: |
+          composer install --no-dev --no-interaction --no-progress --prefer-dist --optimize-autoloader
+          npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Publish to the deploy branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Broncode plus wat de server nodig heeft maar niet in git staat.
+          # .github hoort niet op de server.
+          git rm -r --cached --quiet .github
+          git add --force vendor public/build bootstrap/cache/packages.php
+          tree=$(git write-tree)
+
+          # Nieuwe commit bovenop de vorige deploy, zodat DirectAdmin gewoon kan fetchen
+          message="Deploy ${GITHUB_SHA::7}: $(git log -1 --format=%s)"
+          if git fetch --depth=1 origin deploy; then
+            parent=$(git rev-parse FETCH_HEAD)
+            if [ "$(git rev-parse "$parent^{tree}")" = "$tree" ]; then
+              echo "Geen wijzigingen sinds de vorige deploy."
+              exit 0
+            fi
+            commit=$(git commit-tree "$tree" -p "$parent" -m "$message")
+          else
+            commit=$(git commit-tree "$tree" -m "$message")
+          fi
+
+          git push origin "$commit:refs/heads/deploy"
+
+      - name: Trigger DirectAdmin
+        env:
+          WEBHOOK_URL: ${{ secrets.DIRECTADMIN_WEBHOOK_URL }}
+        run: |
+          if [ -z "$WEBHOOK_URL" ]; then
+            echo "::warning::Secret DIRECTADMIN_WEBHOOK_URL ontbreekt: klik in DirectAdmin zelf op Fetch en Deploy."
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 300 -X POST "$WEBHOOK_URL"
