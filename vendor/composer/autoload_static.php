@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit103c21ca0f3068790f66a9a9411d0f75
+class ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -486,9 +486,23 @@ class ComposerStaticInit103c21ca0f3068790f66a9a9411d0f75
 
     public static $classMap = array (
         'AllowDynamicProperties' => __DIR__ . '/..' . '/symfony/polyfill-php82/Resources/stubs/AllowDynamicProperties.php',
+        'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
+        'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
+        'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
+        'App\\Http\\Controllers\\Auth\\EmailVerificationPromptController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationPromptController.php',
+        'App\\Http\\Controllers\\Auth\\NewPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/NewPasswordController.php',
+        'App\\Http\\Controllers\\Auth\\PasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordController.php',
+        'App\\Http\\Controllers\\Auth\\PasswordResetLinkController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordResetLinkController.php',
+        'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
+        'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
+        'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -5207,9 +5221,9 @@ class ComposerStaticInit103c21ca0f3068790f66a9a9411d0f75
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit103c21ca0f3068790f66a9a9411d0f75::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit103c21ca0f3068790f66a9a9411d0f75::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit103c21ca0f3068790f66a9a9411d0f75::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d::$classMap;
 
         }, null, ClassLoader::class);
     }
