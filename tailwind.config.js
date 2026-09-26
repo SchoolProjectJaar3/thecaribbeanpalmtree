@@ -11,6 +11,18 @@ export default {
 
     theme: {
         extend: {
+            /* 
+            Kleuren die gebruikt worden in de website, deze zijn ook te vinden in het PVA-document.
+            hoofd -> basis -> accent -> detail -> spaarzaam
+            */
+            colors: {
+                'sand-white': '#FDFBF7',
+                'deep-blue': '#0B3B5C',
+                'turquoise': '#1CA9C9',
+                'sand': '#E8C77A',
+                'coral': '#F2664B',
+            },
+
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
