@@ -4,7 +4,7 @@
 @php
 /*
 Voorbeeldcontent voor de homepagina (zie PVA hoofdstuk 6.1).
-De definitieve teksten, foto's, reviews en FAQ worden aangeleverd door de opdrachtgever
+De definitieve teksten, reviews en FAQ worden aangeleverd door de opdrachtgever
 en komen later uit de beheeromgeving.
 */
 
@@ -20,11 +20,11 @@ $kerngegevens = [
 
 // Sfeerimpressie (uitsnede van de fotogalerij)
 $sfeerimpressie = [
-    ['titel' => 'Zwembad en terras', 'klasse' => 'sm:col-span-2 sm:row-span-2 from-turquoise to-deep-blue'],
-    ['titel' => 'Woonkamer', 'klasse' => 'from-sand to-turquoise'],
-    ['titel' => 'Keuken', 'klasse' => 'from-deep-blue to-turquoise'],
-    ['titel' => 'Slaapkamer', 'klasse' => 'from-turquoise to-sand'],
-    ['titel' => 'Uitzicht', 'klasse' => 'from-sand to-deep-blue'],
+    ['titel' => 'Zwembad en terras', 'foto' => 'zwembad_terras.avif', 'alt' => 'Privézwembad met houten terras en ligbedden', 'klasse' => 'sm:col-span-2 sm:row-span-2'],
+    ['titel' => 'Woonkamer', 'foto' => 'woonkamer.webp', 'alt' => 'Lichte woonkamer met bank en openslaande deuren naar het terras', 'klasse' => ''],
+    ['titel' => 'Keuken', 'foto' => 'keuken.jpg', 'alt' => 'Moderne keuken met kookeiland en barkrukken', 'klasse' => ''],
+    ['titel' => 'Slaapkamer', 'foto' => 'slaapkamer.avif', 'alt' => 'Slaapkamer met tweepersoonsbed en airconditioning', 'klasse' => ''],
+    ['titel' => 'Uitzicht', 'foto' => 'uitzicht.jpg', 'alt' => 'Uitzicht over het zwembad, de tropische tuin en de zee', 'klasse' => ''],
 ];
 
 // Voorzieningen (uitsnede van "Het huis")
@@ -77,9 +77,13 @@ $whatsappUrl = 'https://wa.me/'; // TODO: WhatsApp-nummer van de accommodatie to
 
 <!-- Hero -->
 <section class="relative isolate overflow-hidden bg-deep-blue">
-    <!-- Tijdelijke achtergrond: vervangen door eigen foto of video van het huis en het uitzicht -->
-    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-deep-blue via-deep-blue to-turquoise" aria-hidden="true"></div>
-    <div class="absolute inset-0 -z-10 bg-deep-blue/40" aria-hidden="true"></div>
+    <img
+        src="{{ asset('images/website_static/grote_banner.webp') }}"
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover"
+        fetchpriority="high">
+    <!-- Donkere laag voor leesbare tekst op de foto -->
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-deep-blue/90 via-deep-blue/60 to-deep-blue/20" aria-hidden="true"></div>
 
     <div class="mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6 lg:px-8">
         <p class="text-sm font-semibold uppercase tracking-widest text-sand">
@@ -148,10 +152,15 @@ $whatsappUrl = 'https://wa.me/'; // TODO: WhatsApp-nummer van de accommodatie to
             </a>
         </div>
 
-        <!-- Tijdelijke fotovlakken: vervangen door eigen fotografie (WebP, lazy loading) -->
         <div class="mt-10 grid auto-rows-[12rem] grid-cols-1 gap-4 sm:grid-cols-4">
             @foreach ($sfeerimpressie as $foto)
-            <div class="relative overflow-hidden rounded-xl bg-gradient-to-br {{ $foto['klasse'] }}" role="img" aria-label="{{ $foto['titel'] }}">
+            <div class="relative overflow-hidden rounded-xl bg-deep-blue/10 {{ $foto['klasse'] }}">
+                <img
+                    src="{{ asset('images/website_static/' . $foto['foto']) }}"
+                    alt="{{ $foto['alt'] }}"
+                    class="h-full w-full object-cover transition duration-500 hover:scale-105"
+                    loading="lazy"
+                    decoding="async">
                 <span class="absolute bottom-3 left-3 rounded-md bg-deep-blue/70 px-3 py-1 text-sm font-medium text-white">
                     {{ $foto['titel'] }}
                 </span>
@@ -165,8 +174,12 @@ $whatsappUrl = 'https://wa.me/'; // TODO: WhatsApp-nummer van de accommodatie to
 <!-- Over het huis -->
 <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <!-- Tijdelijk fotovlak: vervangen door eigen foto van de woning -->
-        <div class="aspect-[4/3] rounded-xl bg-gradient-to-tr from-sand via-sand-white to-turquoise" role="img" aria-label="De vakantiewoning"></div>
+        <img
+            src="{{ asset('images/website_static/woonkamer.webp') }}"
+            alt="Woonkamer met stenen muur en openslaande deuren naar het terras"
+            class="aspect-[4/3] w-full rounded-xl object-cover shadow-sm"
+            loading="lazy"
+            decoding="async">
 
         <div>
             <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Het huis</p>
