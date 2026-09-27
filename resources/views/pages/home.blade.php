@@ -371,10 +371,12 @@ $whatsappUrl = 'https://wa.me/'; // TODO: WhatsApp-nummer van de accommodatie to
 <!-- Over de eigenaar -->
 <section class="py-16 sm:py-24">
     <div class="mx-auto grid max-w-5xl items-center gap-10 px-4 sm:px-6 md:grid-cols-[16rem_1fr] lg:px-8">
-        <!-- Tijdelijk fotovlak: vervangen door persoonlijke foto van Wilma -->
-        <div class="mx-auto flex h-64 w-64 items-center justify-center rounded-full bg-gradient-to-br from-sand to-turquoise text-5xl font-bold text-white" role="img" aria-label="Foto van Wilma">
-            W
-        </div>
+        <img
+            src="{{ asset('images/website_static/i_lab-wilma-uai-258x258.jpg') }}"
+            alt="Wilma, eigenaar van The Caribbean Palm Tree"
+            class="mx-auto h-64 w-64 rounded-full object-cover shadow-sm ring-4 ring-sand/60"
+            loading="lazy"
+            decoding="async">
 
         <div>
             <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Over de eigenaar</p>
