@@ -1,7 +1,7 @@
 <!-- footer -->
 <footer>
 
-Copyright 2026 
+    Copyright 2026
 
 
 </footer>
