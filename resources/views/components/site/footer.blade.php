@@ -12,13 +12,13 @@
         </div>
 
         <div>
-            <h3 class=" text-red-400 text-lg font-semibold mb-4 relative pb-2 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 ">Snelle Links</h3>
+            <h3 class="text-red-400 text-lg font-semibold mb-4 relative pb-2 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5">Snelle Links</h3>
             <ul class="text-sm space-y-2">
                 <li><a href="/" class="text-gray-700 hover:text-black transition-colors">Home</a></li>
-                <li><a href="het-huis" class="text-gray-700 hover:text-black transition-colors">Het huis</a></li>
-                <li><a href="fotos" class="text-gray-700 hover:text-black transition-colors">Foto's</a></li>
-                <li><a href="beschikbaarheid" class="text-gray-700 hover:text-black transition-colors">Beschikbaarheid</a></li>
-                <li><a href="tarieven" class="text-gray-700 hover:text-black transition-colors">Tarieven</a></li>
+                <li><a href="/het-huis" class="text-gray-700 hover:text-black transition-colors">Het huis</a></li>
+                <li><a href="/fotos" class="text-gray-700 hover:text-black transition-colors">Foto's</a></li>
+                <li><a href="/beschikbaarheid" class="text-gray-700 hover:text-black transition-colors">Beschikbaarheid</a></li>
+                <li><a href="/tarieven" class="text-gray-700 hover:text-black transition-colors">Tarieven</a></li>
             </ul>
         </div>
 
