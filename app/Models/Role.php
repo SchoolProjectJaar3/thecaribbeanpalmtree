@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+#[Fillable(['code', 'name', 'description'])]
+class Role extends Model
+{
+    public $timestamps = false;
+
+    public static function defaultRole(): self
+    {
+        return static::firstOrCreate(['code' => 'user'], ['name' => 'User']);
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+}
