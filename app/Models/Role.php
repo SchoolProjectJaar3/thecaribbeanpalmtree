@@ -13,7 +13,7 @@ class Role extends Model
 
     public static function defaultRole(): self
     {
-        return static::firstOrCreate(['code' => 'editor'], ['name' => 'Editor']);
+        return static::firstOrCreate(['code' => 'user'], ['name' => 'User']);
     }
 
     public function users(): HasMany

@@ -8,6 +8,13 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasTable('users')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropUnique('users_email_unique');
+            });
+            Schema::rename('users', 'users_legacy');
+        }
+
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('role_id');
@@ -36,5 +43,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+
+        if (Schema::hasTable('users_legacy')) {
+            Schema::rename('users_legacy', 'users');
+            Schema::table('users', function (Blueprint $table) {
+                $table->unique('email');
+            });
+        }
     }
 };
