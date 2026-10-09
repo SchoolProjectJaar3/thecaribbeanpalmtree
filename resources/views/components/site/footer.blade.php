@@ -26,7 +26,7 @@
             <h3 class="text-red-400 text-lg font-semibold mb-4 relative pb-2 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 after:bg-gray-800">Voorwaarden</h3>
             <ul class="text-sm">
                 <li>
-                    <a href="#" class="text-gray-700 hover:text-black transition-colors flex items-center justify-start gap-2">
+                    <a href="privacy-voorwaarden" class="text-gray-700 hover:text-black transition-colors flex items-center justify-start gap-2">
                         <i class="fa-solid fa-shield-halved text-gray-800"></i> Privacy Voorwaarden
                     </a>
                     <a href="#" class="text-gray-700 hover:text-black transition-colors flex items-center justify-start gap-2">
