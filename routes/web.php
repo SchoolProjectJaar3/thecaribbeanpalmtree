@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Beheer\DashboardController;
 use App\Http\Controllers\FormulierController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,9 +27,16 @@ Route::post('/contact', [FormulierController::class, 'contact'])->middleware('th
 Route::view('/reserveren', 'pages.reserveren')->name('reserveren');
 Route::post('/reserveren', [FormulierController::class, 'reserveren'])->middleware('throttle:6,1')->name('reserveren.verstuur');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Beheeromgeving voor de eigenaar
+Route::middleware(['auth', 'verified'])->prefix('beheer')->name('beheer.')->group(function () {
+    Route::get('/', DashboardController::class)->name('dashboard');
+    Route::view('/reserveringen', 'beheer.reserveringen')->name('reserveringen');
+    Route::view('/beschikbaarheid', 'beheer.beschikbaarheid')->name('beschikbaarheid');
+    Route::view('/tarieven', 'beheer.tarieven')->name('tarieven');
+    Route::view('/fotos', 'beheer.fotos')->name('fotos');
+    Route::view('/teksten', 'beheer.teksten')->name('teksten');
+    Route::view('/woning', 'beheer.woning')->name('woning');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
