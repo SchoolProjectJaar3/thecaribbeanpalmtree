@@ -36,10 +36,10 @@
         </div>
 
         <!-- Onthoud mij -->
-        <label for="remember_me" class="inline-flex w-fit w-fit items-center gap-2">
-            <input id="remember_me" type="checkbox" class="rounded border-deep-blue/30 text-turquoise shadow-sm focus:ring-turquoise" name="remember">
-            <span class="text-sm text-deep-blue/80">Ingelogd blijven</span>
-        </label>
+        <!-- 
+        beste lezer ik heb dit stuk eruit gehaald, omdat in het document stond,
+        dat =>automatisch uitloggen na inactiviteit moest gebeuren. 
+        -->
 
         <x-primary-button class="w-full">
             Inloggen

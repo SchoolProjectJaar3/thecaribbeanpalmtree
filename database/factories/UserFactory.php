@@ -25,7 +25,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'role_id' => fn () => Role::defaultRole()->id,
+            'role_id' => fn() => Role::defaultRole()->id,
+            'is_active' => true,
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
@@ -39,7 +40,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
