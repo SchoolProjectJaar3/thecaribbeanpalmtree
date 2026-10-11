@@ -1,47 +1,55 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <x-slot:heading>Inloggen</x-slot:heading>
+    <x-slot:intro>Log in om reserveringen, tarieven en de woning te beheren.</x-slot:intro>
 
-    <form method="POST" action="{{ route('login') }}">
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-6" :status="session('status')" />
+
+    <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 
-        <!-- Email Address -->
+        <!-- E-mailadres -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-label for="email" value="E-mailadres" />
+            <x-text-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- Wachtwoord -->
+        <div>
+            <div class="flex items-center justify-between gap-4">
+                <x-input-label for="password" value="Wachtwoord" />
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                @if (Route::has('password.request'))
+                <a class="text-sm rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2" href="{{ route('password.request') }}">
+                    Wachtwoord vergeten?
+                </a>
+                @endif
+            </div>
+
+            <x-text-input id="password" class="mt-1 block w-full"
+                type="password"
+                name="password"
+                required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+        <!-- Onthoud mij -->
+        <label for="remember_me" class="inline-flex items-center gap-2">
+            <input id="remember_me" type="checkbox" class="rounded border-deep-blue/30 text-turquoise shadow-sm focus:ring-turquoise" name="remember">
+            <span class="text-sm text-deep-blue/80">Ingelogd blijven</span>
+        </label>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
+        <x-primary-button class="w-full">
+            Inloggen
+        </x-primary-button>
     </form>
+
+    @if (Route::has('register'))
+    <x-slot:footer>
+        Nog geen account?
+        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2" href="{{ route('register') }}">Registreren</a>
+    </x-slot:footer>
+    @endif
 </x-guest-layout>
