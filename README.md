@@ -34,6 +34,8 @@ De site draait dan op <http://127.0.0.1:8000> en ververst automatisch als je iet
 
 Kom niet aan de branch `deploy`: die wordt automatisch door GitHub Actions gevuld.
 
+Hoe we binnen het team met elkaar omgaan, staat in de [gedragscode](CODE_OF_CONDUCT.md).
+
 ## Zo komt de site online
 
 DirectAdmin kan zelf geen `composer install` of `npm run build` draaien, dus dat doet GitHub:
