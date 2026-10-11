@@ -66,7 +66,7 @@ $onderdelen = collect(config('beheer.navigatie'))
                         @foreach ($eerstvolgende as $reservering)
                         <tr>
                             <td class="whitespace-nowrap px-5 py-3">
-                                <span class="block font-medium text-deep-blue">{{ $reservering->guest?->name }}</span>
+                                <span class="block font-medium text-deep-blue">{{ $reservering->gast }}</span>
                                 <span class="block text-xs text-deep-blue/60">{{ $reservering->reservation_number }}</span>
                             </td>
                             <td class="whitespace-nowrap px-5 py-3 text-deep-blue/80">{{ $datum($reservering->arrival_date) }}</td>
@@ -90,7 +90,7 @@ $onderdelen = collect(config('beheer.navigatie'))
             <ul class="divide-y divide-deep-blue/10">
                 @foreach ($aanvragen as $aanvraag)
                 <li class="px-5 py-3">
-                    <p class="font-medium text-deep-blue">{{ $aanvraag->guest?->name }}</p>
+                    <p class="font-medium text-deep-blue">{{ $aanvraag->gast }}</p>
                     <p class="mt-0.5 text-sm text-deep-blue/70">
                         {{ $datum($aanvraag->arrival_date) }} t/m {{ $datum($aanvraag->departure_date) }}
                     </p>

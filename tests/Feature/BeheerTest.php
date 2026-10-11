@@ -1,12 +1,9 @@
 <?php
 
 use App\Enums\ReservationStatus;
-use App\Models\Accommodation;
-use App\Models\ContactMessage;
-use App\Models\Guest;
-use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 dataset('beheerpaginas', [
     'dashboard' => ['beheer.dashboard', 'Dashboard'],
@@ -18,24 +15,24 @@ dataset('beheerpaginas', [
     'woninggegevens' => ['beheer.woning', 'Woninggegevens'],
 ]);
 
-function reservering(Accommodation $woning, string $aankomst, string $vertrek, ReservationStatus $status): Reservation
+function reservering(int $woning, string $aankomst, string $vertrek, ReservationStatus $status): void
 {
     static $volgnummer = 0;
 
-    $gast = Guest::create([
+    $gast = DB::table('guests')->insertGetId([
         'first_name' => 'Jan',
         'last_name' => 'Jansen',
         'email' => 'jan' . ++$volgnummer . '@example.com',
     ]);
 
-    return Reservation::create([
+    DB::table('reservations')->insert([
         'reservation_number' => 'R2026-' . str_pad($volgnummer, 4, '0', STR_PAD_LEFT),
-        'accommodation_id' => $woning->id,
-        'guest_id' => $gast->id,
+        'accommodation_id' => $woning,
+        'guest_id' => $gast,
         'arrival_date' => $aankomst,
         'departure_date' => $vertrek,
         'adults' => 2,
-        'status' => $status,
+        'status' => $status->value,
         'total_amount' => 1000,
     ]);
 }
@@ -63,7 +60,7 @@ it('markeert het actieve menu-item', function () {
 it('toont de gegevens uit de database op het dashboard', function () {
     Carbon::setTestNow('2026-10-11');
 
-    $woning = Accommodation::create([
+    $woning = DB::table('accommodations')->insertGetId([
         'name' => 'The Caribbean Palm Tree',
         'slug' => 'the-caribbean-palm-tree',
         'max_guests' => 6,
@@ -77,7 +74,7 @@ it('toont de gegevens uit de database op het dashboard', function () {
     reservering($woning, '2026-12-01', '2026-12-08', ReservationStatus::Request);
     reservering($woning, '2026-10-01', '2026-10-05', ReservationStatus::Cancelled);
 
-    ContactMessage::create(['name' => 'Piet', 'email' => 'piet@example.com', 'message' => 'Hallo']);
+    DB::table('contact_messages')->insert(['name' => 'Piet', 'email' => 'piet@example.com', 'message' => 'Hallo']);
 
     $this->actingAs(User::factory()->create())
         ->get(route('beheer.dashboard'))
@@ -87,6 +84,7 @@ it('toont de gegevens uit de database op het dashboard', function () {
         ->assertViewHas('nieuweBerichten', 1)
         ->assertViewHas('bezetting', 32)
         ->assertSee('R2026-0001')
+        ->assertSee('Jan Jansen')
         ->assertSee('3 slaapkamers, 2 badkamers');
 });
 
