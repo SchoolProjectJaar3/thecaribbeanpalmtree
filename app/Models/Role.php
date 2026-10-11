@@ -2,19 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['code', 'name', 'description'])]
 class Role extends Model
 {
     public $timestamps = false;
 
-    public static function defaultRole(): self
-    {
-        return static::firstOrCreate(['code' => 'user'], ['name' => 'User']);
-    }
+    protected $fillable = ['code', 'name', 'description'];
 
     public function users(): HasMany
     {

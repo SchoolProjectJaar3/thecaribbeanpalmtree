@@ -8,13 +8,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        if (Schema::hasTable('users')) {
-            Schema::table('users', function (Blueprint $table) {
-                $table->dropUnique('users_email_unique');
-            });
-            Schema::rename('users', 'users_legacy');
-        }
-
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('role_id');
@@ -26,9 +19,10 @@ return new class extends Migration
             $table->string('phone', 20)->nullable();
             $table->unsignedInteger('language_id')->nullable()->comment('Preferred language of the admin panel');
             $table->boolean('is_active')->default(true);
-            $table->string('two_factor_secret')->nullable()->comment('Stored encrypted, NULL = 2FA disabled');
+            $table->text('two_factor_secret')->nullable()->comment('Stored encrypted, NULL = 2FA disabled');
             $table->dateTime('email_verified_at')->nullable();
             $table->dateTime('last_login_at')->nullable();
+            $table->rememberToken();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable()->comment('Soft delete');
@@ -43,12 +37,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
-
-        if (Schema::hasTable('users_legacy')) {
-            Schema::rename('users_legacy', 'users');
-            Schema::table('users', function (Blueprint $table) {
-                $table->unique('email');
-            });
-        }
     }
 };
