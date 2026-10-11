@@ -35,12 +35,6 @@
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <!-- Onthoud mij -->
-        <!-- 
-        beste lezer ik heb dit stuk eruit gehaald, omdat in het document stond,
-        dat =>automatisch uitloggen na inactiviteit moest gebeuren. 
-        -->
-
         <x-primary-button class="w-full">
             Inloggen
         </x-primary-button>
