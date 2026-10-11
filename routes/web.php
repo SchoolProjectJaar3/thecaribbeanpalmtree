@@ -28,7 +28,7 @@ Route::view('/reserveren', 'pages.reserveren')->name('reserveren');
 Route::post('/reserveren', [FormulierController::class, 'reserveren'])->middleware('throttle:6,1')->name('reserveren.verstuur');
 
 // Beheeromgeving voor de eigenaar
-Route::middleware(['auth', 'verified'])->prefix('beheer')->name('beheer.')->group(function () {
+Route::middleware(['auth', 'active'])->prefix('beheer')->name('beheer.')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::view('/reserveringen', 'beheer.reserveringen')->name('reserveringen');
     Route::view('/beschikbaarheid', 'beheer.beschikbaarheid')->name('beschikbaarheid');
@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])->prefix('beheer')->name('beheer.')->grou
     Route::view('/woning', 'beheer.woning')->name('woning');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'active'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
