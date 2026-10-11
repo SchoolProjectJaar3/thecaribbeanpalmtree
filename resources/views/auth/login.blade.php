@@ -5,7 +5,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-6" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}" class="space-y-5">
+    <form method="POST" action="{{ route('login') }}" class="grid gap-5">
         @csrf
 
         <!-- E-mailadres -->
@@ -36,7 +36,7 @@
         </div>
 
         <!-- Onthoud mij -->
-        <label for="remember_me" class="inline-flex items-center gap-2">
+        <label for="remember_me" class="inline-flex w-fit w-fit items-center gap-2">
             <input id="remember_me" type="checkbox" class="rounded border-deep-blue/30 text-turquoise shadow-sm focus:ring-turquoise" name="remember">
             <span class="text-sm text-deep-blue/80">Ingelogd blijven</span>
         </label>

@@ -5,7 +5,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-6" :status="session('status')" />
 
-    <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
+    <form method="POST" action="{{ route('password.email') }}" class="grid gap-5">
         @csrf
 
         <!-- E-mailadres -->

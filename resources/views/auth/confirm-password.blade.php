@@ -2,7 +2,7 @@
     <x-slot:heading>Bevestig je wachtwoord</x-slot:heading>
     <x-slot:intro>Dit is een beveiligd onderdeel. Bevestig je wachtwoord om verder te gaan.</x-slot:intro>
 
-    <form method="POST" action="{{ route('password.confirm') }}" class="space-y-5">
+    <form method="POST" action="{{ route('password.confirm') }}" class="grid gap-5">
         @csrf
 
         <!-- Wachtwoord -->

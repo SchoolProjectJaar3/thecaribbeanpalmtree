@@ -2,7 +2,7 @@
     <x-slot:heading>Nieuw wachtwoord</x-slot:heading>
     <x-slot:intro>Kies een nieuw wachtwoord voor je account.</x-slot:intro>
 
-    <form method="POST" action="{{ route('password.store') }}" class="space-y-5">
+    <form method="POST" action="{{ route('password.store') }}" class="grid gap-5">
         @csrf
 
         <!-- Password Reset Token -->

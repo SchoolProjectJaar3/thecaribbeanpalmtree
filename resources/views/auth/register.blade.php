@@ -2,7 +2,7 @@
     <x-slot:heading>Account aanmaken</x-slot:heading>
     <x-slot:intro>Vul je gegevens in om een account aan te maken.</x-slot:intro>
 
-    <form method="POST" action="{{ route('register') }}" class="space-y-5">
+    <form method="POST" action="{{ route('register') }}" class="grid gap-5">
         @csrf
 
         <!-- Naam -->
