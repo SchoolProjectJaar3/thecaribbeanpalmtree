@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -14,19 +13,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['role_id', 'email', 'password', 'first_name', 'infix', 'last_name', 'phone', 'language_id'])]
-#[Hidden(['password', 'two_factor_secret'])]
+#[Hidden(['password', 'remember_token', 'two_factor_secret'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
-    protected $rememberTokenName = '';
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -40,7 +32,7 @@ class User extends Authenticatable
 
     protected function name(): Attribute
     {
-        return Attribute::get(fn () => collect([$this->first_name, $this->infix, $this->last_name])
+        return Attribute::get(fn() => collect([$this->first_name, $this->infix, $this->last_name])
             ->filter()
             ->implode(' '));
     }
@@ -48,5 +40,10 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(Language::class);
     }
 }
