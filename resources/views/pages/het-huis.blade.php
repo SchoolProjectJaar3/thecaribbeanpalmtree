@@ -2,7 +2,7 @@
 @extends('layouts.app', ['title' => 'Het huis | The Caribbean Palm Tree'])
 
 @php
-$kerngegevens = $accommodation?->kerngegevens() ?? [];
+$kerngegevens = config('woning.kerngegevens');
 $voorzieningen = config('woning.voorzieningen');
 $ruimtes = config('woning.ruimtes');
 @endphp
@@ -17,7 +17,6 @@ $ruimtes = config('woning.ruimtes');
 
 
 <!-- Kerngegevens -->
-@if (count($kerngegevens))
 <section class="border-b border-deep-blue/10 bg-white" aria-label="Kerngegevens">
     <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
@@ -35,7 +34,7 @@ $ruimtes = config('woning.ruimtes');
         </ul>
     </div>
 </section>
-@endif
+
 
 <!-- Beschrijving -->
 <section class="py-16 sm:py-20">

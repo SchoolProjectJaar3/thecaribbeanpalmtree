@@ -37,15 +37,4 @@ class Facility extends Model
             ->whereHas('language', fn($q) => $q->where('code', $code))
             ->first();
     }
-
-    public function name(?string $code = null): ?string
-    {
-        $code ??= app()->getLocale();
-
-        $translation = $this->translations->first(fn ($t) => $t->language->code === $code)
-            ?? $this->translations->first(fn ($t) => $t->language->is_default);
-
-        return $translation?->name;
-    }
-
 }
