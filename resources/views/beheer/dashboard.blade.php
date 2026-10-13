@@ -1,9 +1,9 @@
 @php
 $datum = fn ($datum) => $datum->locale('nl')->translatedFormat('j M Y');
 $onderdelen = collect(config('beheer.navigatie'))
-    ->pluck('items')
-    ->flatten(1)
-    ->reject(fn ($item) => $item['route'] === 'beheer.dashboard');
+->pluck('items')
+->flatten(1)
+->reject(fn ($item) => $item['route'] === 'beheer.dashboard');
 @endphp
 
 <x-beheer-layout
@@ -112,7 +112,7 @@ $onderdelen = collect(config('beheer.navigatie'))
             @foreach ($onderdelen as $onderdeel)
             <a
                 href="{{ route($onderdeel['route']) }}"
-                class="group flex items-start gap-4 rounded-xl border border-deep-blue/10 bg-white p-5 shadow-sm transition hover:-translate-y-px hover:border-turquoise/40 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-turquoise">
+                class="group flex items-start gap-4 rounded-xl border border-deep-blue/10 bg-white p-5 shadow-sm transition hover:-translate-y-px hover:border-turquoise/40 hover:shadow-md focus:outline-none focus:ring-0 focus:ring-turquoise">
                 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-deep-blue text-sand">
                     <x-site.icon :name="$onderdeel['icoon']" class="h-5 w-5" />
                 </span>

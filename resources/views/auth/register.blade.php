@@ -59,6 +59,6 @@
 
     <x-slot:footer>
         Heb je al een account?
-        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2" href="{{ route('login') }}">Inloggen</a>
+        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2" href="{{ route('login') }}">Inloggen</a>
     </x-slot:footer>
 </x-guest-layout>

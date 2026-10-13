@@ -6,7 +6,7 @@
             <!-- Logo -->
             <a
                 href="/"
-                class="flex shrink-0 items-center rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2"
+                class="flex shrink-0 items-center rounded-lg focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0"
                 aria-label="The Caribbean Palm Tree - Home">
                 <img
                     src="{{ asset('images/the-caribbean-palm-tree-compact-logo.png') }}"
@@ -97,10 +97,12 @@
                     </summary>
                     <!-- Meer dropdown -->
                     <div
-                        class="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-xl border border-deep-blue/10 bg-white p-2 shadow-lg
-                               opacity-0 invisible translate-y-[-5px] scale-95
-                               transition-all duration-200
-                               group-open:visible group-open:opacity-100 group-open:translate-y-0 group-open:scale-100">
+                        class="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-xl
+                                border border-deep-blue/10 bg-white p-2
+                                shadow-[0_10px_25px_rgba(11,59,92,0.18)]
+                                opacity-0 invisible translate-y-[-5px] scale-95
+                                transition-all duration-200
+                                group-open:visible group-open:opacity-100 group-open:translate-y-0 group-open:scale-100">
 
                         <a
                             href="/omgeving"
@@ -146,7 +148,7 @@
                     aria-label="Taalkeuze">
                     <a
                         href="#"
-                        class="rounded px-1 py-1 text-deep-blue transition-colors hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise">
+                        class="rounded px-1 py-1 text-deep-blue transition-colors hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">
                         NL
                     </a>
 
@@ -154,7 +156,7 @@
 
                     <a
                         href="#"
-                        class="rounded px-1 py-1 text-deep-blue transition-colors hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise">
+                        class="rounded px-1 py-1 text-deep-blue transition-colors hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">
                         EN
                     </a>
                 </div>
@@ -191,7 +193,7 @@
 
                     <!-- Hamburger -->
                     <summary
-                        class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-lg text-deep-blue transition-colors hover:bg-deep-blue/10 focus:outline-none focus:ring-2 focus:ring-turquoise"
+                        class="flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center rounded-lg text-deep-blue transition-colors hover:bg-deep-blue/10 focus:outline-none focus:ring-0 focus:ring-turquoise"
                         aria-label="Menu openen">
 
                         <!-- Hamburger icon -->
@@ -319,7 +321,7 @@
                             class="mt-3 flex min-h-12 items-center justify-center gap-2 rounded-lg bg-coral px-5 py-3 text-sm font-semibold text-white shadow-sm
                                    transition-all duration-200
                                    hover:-translate-y-0.5 hover:bg-coral/90 hover:shadow-md
-                                   focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2
+                                   focus:outline-none focus:ring-0 focus:ring-coral focus:ring-offset-2
                                    active:translate-y-0">
                             Bekijk beschikbaarheid
 
