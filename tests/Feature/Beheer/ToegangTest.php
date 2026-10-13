@@ -48,3 +48,10 @@ it('blokkeert inloggen na 5 foute pogingen', function () {
 
     $this->assertGuest();
 });
+
+it('stuurt een beheerder na het inloggen naar het dashboard', function () {
+    $user = User::factory()->create();
+
+    $this->post('/login', ['email' => $user->email, 'password' => 'password'])
+        ->assertRedirect(route('beheer.dashboard', absolute: false));
+});
