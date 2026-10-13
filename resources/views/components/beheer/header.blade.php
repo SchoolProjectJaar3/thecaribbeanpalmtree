@@ -11,7 +11,7 @@ $initialen = mb_strtoupper(mb_substr($gebruiker->first_name, 0, 1) . mb_substr($
             type="button"
             @click="menuOpen = true"
             :aria-expanded="menuOpen.toString()"
-            class="-ml-2 flex h-11 w-11 items-center justify-center rounded-lg text-deep-blue transition-colors hover:bg-deep-blue/5 focus:outline-none focus:ring-2 focus:ring-turquoise lg:hidden">
+            class="-ml-2 flex h-11 w-11 items-center justify-center rounded-lg text-deep-blue transition-colors hover:bg-deep-blue/5 focus:outline-none focus:ring-0 focus:ring-turquoise lg:hidden">
             <span class="sr-only">Menu openen</span>
             <x-site.icon name="menu" />
         </button>
@@ -28,7 +28,7 @@ $initialen = mb_strtoupper(mb_substr($gebruiker->first_name, 0, 1) . mb_substr($
                 @click="open = ! open"
                 :aria-expanded="open.toString()"
                 aria-haspopup="true"
-                class="flex items-center gap-3 rounded-lg p-1.5 text-left transition-colors hover:bg-deep-blue/5 focus:outline-none focus:ring-2 focus:ring-turquoise">
+                class="flex items-center gap-3 rounded-lg p-1.5 text-left transition-colors hover:bg-deep-blue/5 focus:outline-none focus:ring-0 focus:ring-turquoise">
                 <span class="flex h-9 w-9 items-center justify-center rounded-full bg-turquoise text-sm font-semibold text-white" aria-hidden="true">{{ $initialen }}</span>
                 <span class="hidden leading-tight sm:block">
                     <span class="block text-sm font-semibold text-deep-blue">{{ $gebruiker->name }}</span>
@@ -36,7 +36,12 @@ $initialen = mb_strtoupper(mb_substr($gebruiker->first_name, 0, 1) . mb_substr($
                     <span class="block text-xs text-deep-blue/60">{{ $gebruiker->role->name }}</span>
                     @endif
                 </span>
-                <x-site.icon name="chevron-down" class="hidden h-4 w-4 text-deep-blue/60 sm:block" />
+                <span
+                    class="hidden transition-transform duration-200 ease-out sm:block"
+                    :class="open ? 'rotate-180' : ''"
+                    aria-hidden="true">
+                    <x-site.icon name="chevron-down" class="h-4 w-4 text-deep-blue/60" />
+                </span>
             </button>
 
             <div

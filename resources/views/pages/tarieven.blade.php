@@ -120,8 +120,8 @@ $euro = fn ($bedrag) => '€ ' . number_format($bedrag, 0, ',', '.');
                     <label for="calc-personen" class="block text-sm font-semibold text-deep-blue">Aantal personen</label>
                     <select id="calc-personen" x-model="personen" class="mt-1 block w-full rounded-lg border-deep-blue/20 bg-white text-deep-blue shadow-sm focus:border-turquoise focus:ring-turquoise">
                         @for ($i = 1; $i <= 6; $i++)
-                        <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'persoon' : 'personen' }}</option>
-                        @endfor
+                            <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'persoon' : 'personen' }}</option>
+                            @endfor
                     </select>
                 </div>
             </form>
@@ -167,7 +167,7 @@ $euro = fn ($bedrag) => '€ ' . number_format($bedrag, 0, ',', '.');
                         Let op: de minimale verblijfsduur voor deze periode is <strong x-text="resultaat.minNachten + ' nachten'"></strong>.
                     </p>
 
-                    <a :href="'/reserveren?aankomst=' + aankomst + '&vertrek=' + vertrek + '&personen=' + personen" class="mt-6 flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+                    <a :href="'/reserveren?aankomst=' + aankomst + '&vertrek=' + vertrek + '&personen=' + personen" class="mt-6 flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                         Doorgaan naar reserveren
                     </a>
                 </div>

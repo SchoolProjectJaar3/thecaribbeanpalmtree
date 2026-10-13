@@ -4,9 +4,9 @@
 @php
 $t = config('woning.tarieven');
 $begin = [
-    'aankomst' => old('aankomst', request('aankomst', '')),
-    'vertrek' => old('vertrek', request('vertrek', '')),
-    'personen' => old('personen', request('personen', 2)),
+'aankomst' => old('aankomst', request('aankomst', '')),
+'vertrek' => old('vertrek', request('vertrek', '')),
+'personen' => old('personen', request('personen', 2)),
 ];
 @endphp
 
@@ -52,8 +52,8 @@ $begin = [
                         <label for="personen" class="block text-sm font-semibold text-deep-blue">Aantal personen<span class="text-coral" aria-hidden="true"> *</span></label>
                         <select id="personen" name="personen" x-model="personen" required class="mt-1 block w-full rounded-lg border-deep-blue/20 bg-white text-deep-blue shadow-sm focus:border-turquoise focus:ring-turquoise">
                             @for ($i = 1; $i <= 6; $i++)
-                            <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'persoon' : 'personen' }}</option>
-                            @endfor
+                                <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'persoon' : 'personen' }}</option>
+                                @endfor
                         </select>
                         @error('personen')<p class="mt-1 text-sm font-medium text-coral">{{ $message }}</p>@enderror
                         <p class="mt-1 text-xs text-deep-blue/60">De woning biedt plaats aan maximaal 6 personen.</p>
@@ -89,7 +89,7 @@ $begin = [
                     @error('akkoord')<p class="mt-1 text-sm font-medium text-coral">{{ $message }}</p>@enderror
                 </div>
 
-                <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-coral px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-coral/90 focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2 sm:w-auto">
+                <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-coral px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-coral/90 focus:outline-none focus:ring-0 focus:ring-coral focus:ring-offset-2 sm:w-auto">
                     Aanvraag versturen
                 </button>
             </form>
@@ -137,7 +137,7 @@ $begin = [
 
                 <p class="mt-4 text-sm font-medium text-coral" x-show="ongeldig" x-cloak role="alert">De vertrekdatum moet na de aankomstdatum liggen.</p>
 
-                <a href="/beschikbaarheid" class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+                <a href="/beschikbaarheid" class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                     Controleer de beschikbaarheid <x-site.icon name="arrow-right" class="h-4 w-4" />
                 </a>
             </div>
