@@ -56,12 +56,35 @@ class Accommodation extends Model
             'facility_id'
         );
     }
-
-    // Vertaling in een bepaalde taal bijvoobeeld $accommodation->translate('nl')
+    
     public function translate(string $code): ?AccommodationTranslation
     {
         return $this->translations()
             ->whereHas('language', fn($q) => $q->where('code', $code))
             ->first();
     }
+
+    public function translation(?string $code = null): ?AccommodationTranslation
+    {
+        $code ??= app()->getLocale();
+
+        return $this->translations->first(fn ($t) => $t->language->code === $code)
+            ?? $this->translations->first(fn ($t) => $t->language->is_default);
+    }
+
+   public function kerngegevens(): array
+    {
+        $codes = $this->facilities->pluck('code');
+
+        return [
+            ['icoon' => 'users', 'label' => 'Personen', 'waarde' => 'Max. ' . $this->max_guests],
+            ['icoon' => 'bed',        'label' => 'Slaapkamers', 'waarde' => $this->bedrooms . ' kamers'],
+            ['icoon' => 'pool',       'label' => 'Zwembad',     'waarde' => $codes->contains('pool') ? 'Privé' : 'Nee'],
+            ['icoon' => 'snowflake',  'label' => 'Airco',       'waarde' => $codes->contains('air_conditioning') ? 'Slaapkamers' : 'Nee'],
+            ['icoon' => 'wifi',       'label' => 'Wifi',        'waarde' => $codes->contains('wifi') ? 'Glasvezel' : 'Nee'],
+            ['icoon' => 'pin',        'label' => 'Locatie',     'waarde' => $this->city],
+            
+        ];
+    }
+
 }
