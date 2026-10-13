@@ -18,23 +18,23 @@ class AccommodationSeeder extends Seeder
         $en = Language::where('code', 'en')->firstOrFail();
 
         $accommodation = Accommodation::updateOrCreate(['slug' => 'the-caribbean-palm-tree'], [
-        'name' => 'The Caribbean Palm Tree',
-        'max_guests' => 6,
-        'bedrooms' => 3,
-        'bathrooms' => 2,
-        'pets_allowed' => false,
-        'city' => 'Harmonie',
-        'country_code' => 'CW',
-        'is_active' => true,
+            'name' => 'The Caribbean Palm Tree',
+            'max_guests' => 4,      // testvalue
+            'bedrooms' => 2,        // testvalue
+            'bathrooms' => 1,       // testvalue
+            'pets_allowed' => false,
+            'city' => 'Harmonie',
+            'country_code' => 'CW',
+            'is_active' => true,
         ]);
 
         $accommodation->translations()->updateOrCreate(['language_id' => $nl->id], [
-            'short_description' => 'Een ruime, lichte woning met een eigen zwembad en een tuin vol tropisch groen. Hier kom je na een dag op het strand helemaal tot rust.',
-            'description' => "De woning ligt rustig en centraal op Harmonie, op korte rijafstand van de mooiste stranden, van Willemstad en van de luchthaven. Binnen en buiten lopen vloeiend in elkaar over: de openslaande deuren van de woonkamer komen uit op het terras met het privézwembad.\n\nDe drie slaapkamers hebben airconditioning en de keuken is volledig uitgerust. Zo heb je alles wat je nodig hebt, of je nu een week of een maand blijft.",
+            'short_description' => 'Luxe vakantiewoning op Curaçao, rustig en centraal gelegen.',
+            'description' => 'Testbeschrijving in het Nederlands.',
         ]);
         $accommodation->translations()->updateOrCreate(['language_id' => $en->id], [
-            'short_description' => 'A spacious, bright home with its own pool and a garden full of tropical greenery. After a day at the beach, this is where you come to unwind.',
-            'description' => "The home is quiet and central in Harmonie, a short drive from the most beautiful beaches, Willemstad and the airport. Inside and outside flow into each other: the French doors of the living room open onto the terrace with the private pool.\n\nThe three bedrooms have air conditioning and the kitchen is fully equipped. You have everything you need, whether you stay for a week or a month.",
+            'short_description' => 'Luxury holiday home on Curaçao, quiet and central.',
+            'description' => 'Test description in English.',
         ]);
 
         $facilities = [

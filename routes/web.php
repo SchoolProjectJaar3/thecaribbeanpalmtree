@@ -3,13 +3,14 @@
 use App\Http\Controllers\Beheer\DashboardController;
 use App\Http\Controllers\FormulierController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PaginaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [PaginaController::class, 'home']);
+Route::get('/', function () {
+    return view('pages.home');
+});
 
 // Publieke pagina's (PVA hoofdstuk 5 en 6)
-Route::get('/het-huis', [PaginaController::class, 'hetHuis'])->name('het-huis');
+Route::view('/het-huis', 'pages.het-huis')->name('het-huis');
 Route::view('/fotos', 'pages.fotos')->name('fotos');
 Route::view('/beschikbaarheid', 'pages.beschikbaarheid')->name('beschikbaarheid');
 Route::view('/tarieven', 'pages.tarieven')->name('tarieven');
