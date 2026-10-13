@@ -18,7 +18,7 @@
         <form method="POST" action="{{ route('logout') }}" class="text-center">
             @csrf
 
-            <button type="submit" class="text-sm rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+            <button type="submit" class="text-sm rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 Uitloggen
             </button>
         </form>

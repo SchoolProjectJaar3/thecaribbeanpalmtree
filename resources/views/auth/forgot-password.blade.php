@@ -22,6 +22,6 @@
 
     <x-slot:footer>
         Weet je het weer?
-        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2" href="{{ route('login') }}">Terug naar inloggen</a>
+        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2" href="{{ route('login') }}">Terug naar inloggen</a>
     </x-slot:footer>
 </x-guest-layout>

@@ -13,29 +13,29 @@ $kerngegevens = config('woning.kerngegevens');
 
 // Sfeerimpressie (uitsnede van de fotogalerij)
 $sfeerimpressie = [
-    ['titel' => 'Zwembad en terras', 'foto' => 'zwembad_terras.avif', 'alt' => 'Privézwembad met houten terras en ligbedden', 'klasse' => 'sm:col-span-2 sm:row-span-2'],
-    ['titel' => 'Woonkamer', 'foto' => 'woonkamer.webp', 'alt' => 'Lichte woonkamer met bank en openslaande deuren naar het terras', 'klasse' => ''],
-    ['titel' => 'Keuken', 'foto' => 'keuken.jpg', 'alt' => 'Moderne keuken met kookeiland en barkrukken', 'klasse' => ''],
-    ['titel' => 'Slaapkamer', 'foto' => 'slaapkamer.avif', 'alt' => 'Slaapkamer met tweepersoonsbed en airconditioning', 'klasse' => ''],
-    ['titel' => 'Uitzicht', 'foto' => 'uitzicht.jpg', 'alt' => 'Uitzicht over het zwembad, de tropische tuin en de zee', 'klasse' => ''],
+['titel' => 'Zwembad en terras', 'foto' => 'zwembad_terras.avif', 'alt' => 'Privézwembad met houten terras en ligbedden', 'klasse' => 'sm:col-span-2 sm:row-span-2'],
+['titel' => 'Woonkamer', 'foto' => 'woonkamer.webp', 'alt' => 'Lichte woonkamer met bank en openslaande deuren naar het terras', 'klasse' => ''],
+['titel' => 'Keuken', 'foto' => 'keuken.jpg', 'alt' => 'Moderne keuken met kookeiland en barkrukken', 'klasse' => ''],
+['titel' => 'Slaapkamer', 'foto' => 'slaapkamer.avif', 'alt' => 'Slaapkamer met tweepersoonsbed en airconditioning', 'klasse' => ''],
+['titel' => 'Uitzicht', 'foto' => 'uitzicht.jpg', 'alt' => 'Uitzicht over het zwembad, de tropische tuin en de zee', 'klasse' => ''],
 ];
 
 // Voorzieningen (uitsnede van "Het huis")
 $voorzieningen = [
-    'Privézwembad met ruim terras en tuin',
-    'Volledig uitgeruste keuken met vaatwasser',
-    'Airconditioning in alle slaapkamers',
-    'Smart-tv en snel glasvezelinternet',
-    'Wasmachine, barbecue en kinderbed',
-    'Eigen parkeerplaats op het terrein',
+'Privézwembad met ruim terras en tuin',
+'Volledig uitgeruste keuken met vaatwasser',
+'Airconditioning in alle slaapkamers',
+'Smart-tv en snel glasvezelinternet',
+'Wasmachine, barbecue en kinderbed',
+'Eigen parkeerplaats op het terrein',
 ];
 
 // Omgeving (hoogtepunten, reistijden uit het PVA)
 $omgeving = [
-    ['titel' => 'Stranden', 'tekst' => 'Daaibooi, Kokomo en Playa Porto Marie liggen allemaal binnen een kwartier rijden.', 'reistijd' => 'vanaf 14 min.'],
-    ['titel' => 'Snorkelen en duiken', 'tekst' => 'Ontdek het koraalrif en de schildpadden bij Playa Grandi en de Knip-baaien.', 'reistijd' => 'vanaf 26 min.'],
-    ['titel' => 'Willemstad', 'tekst' => 'Kleurrijke gevels, de Pontjesbrug en gezellige terrassen in de historische binnenstad.', 'reistijd' => '18 min.'],
-    ['titel' => 'Natuur', 'tekst' => 'Beklim de Christoffelberg, spot flamingo\'s of bezoek de golven van Shete Boka.', 'reistijd' => 'dagtrip'],
+['titel' => 'Stranden', 'tekst' => 'Daaibooi, Kokomo en Playa Porto Marie liggen allemaal binnen een kwartier rijden.', 'reistijd' => 'vanaf 14 min.'],
+['titel' => 'Snorkelen en duiken', 'tekst' => 'Ontdek het koraalrif en de schildpadden bij Playa Grandi en de Knip-baaien.', 'reistijd' => 'vanaf 26 min.'],
+['titel' => 'Willemstad', 'tekst' => 'Kleurrijke gevels, de Pontjesbrug en gezellige terrassen in de historische binnenstad.', 'reistijd' => '18 min.'],
+['titel' => 'Natuur', 'tekst' => 'Beklim de Christoffelberg, spot flamingo\'s of bezoek de golven van Shete Boka.', 'reistijd' => 'dagtrip'],
 ];
 
 // Reviews (voorbeeldcontent, wordt later ingevoerd via de beheeromgeving)
@@ -78,13 +78,13 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div class="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
                 href="/beschikbaarheid"
-                class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2 focus:ring-offset-deep-blue">
+                class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0 focus:ring-offset-deep-blue">
                 Bekijk beschikbaarheid
             </a>
 
             <a
                 href="/reserveren"
-                class="inline-flex min-h-12 items-center justify-center rounded-lg bg-coral px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-coral/90 focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2 focus:ring-offset-deep-blue">
+                class="inline-flex min-h-12 items-center justify-center rounded-lg bg-coral px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-coral/90 focus:outline-none focus:ring-0 focus:ring-coral focus:ring-offset-0 focus:ring-offset-deep-blue">
                 Boek nu
             </a>
         </div>
@@ -121,7 +121,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Een eerste blik op je verblijf</h2>
             </div>
 
-            <a href="/fotos" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+            <a href="/fotos" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle foto's <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -174,7 +174,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 @endforeach
             </ul>
 
-            <a href="/het-huis" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+            <a href="/het-huis" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle voorzieningen <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -205,7 +205,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
             @endforeach
         </div>
 
-        <a href="/omgeving" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+        <a href="/omgeving" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
             Ontdek de omgeving <span aria-hidden="true">&rarr;</span>
         </a>
     </div>
@@ -225,7 +225,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
             <a
                 href="/reserveren"
-                class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+                class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 Naar het reserveringsformulier
             </a>
         </div>
@@ -256,7 +256,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Wat onze gasten zeggen</h2>
             </div>
 
-            <a href="/reviews" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+            <a href="/reviews" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Alle reviews <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -292,7 +292,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div class="mt-10 divide-y divide-deep-blue/10 rounded-xl border border-deep-blue/10 bg-sand-white">
             @foreach ($faq as $item)
             <details class="group">
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-deep-blue hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-inset focus:ring-turquoise">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-inset focus:ring-turquoise">
                     {{ $item['vraag'] }}
                     <span class="text-xl text-turquoise transition group-open:rotate-45" aria-hidden="true">+</span>
                 </summary>
@@ -304,7 +304,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         </div>
 
         <div class="mt-8 text-center">
-            <a href="/faq" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+            <a href="/faq" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle vragen <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -331,7 +331,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 de lekkerste restaurants en alles wat je nodig hebt voor een onvergetelijk verblijf.
             </p>
 
-            <a href="/over-de-eigenaar" class="mt-6 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+            <a href="/over-de-eigenaar" class="mt-6 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Lees het hele verhaal <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -351,7 +351,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a
                 href="/beschikbaarheid"
-                class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2 focus:ring-offset-deep-blue">
+                class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2 focus:ring-offset-deep-blue">
                 Bekijk beschikbaarheid
             </a>
 
@@ -359,7 +359,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 href="{{ $whatsappUrl }}"
                 target="_blank"
                 rel="noopener"
-                class="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-deep-blue">
+                class="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-0 focus:ring-white focus:ring-offset-2 focus:ring-offset-deep-blue">
                 <x-site.icon name="whatsapp" class="h-5 w-5" />
                 WhatsApp
             </a>
@@ -367,7 +367,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
         <p class="mt-8 text-sm text-white/70">
             Of mail naar
-            <a href="mailto:{{ $email }}" class="font-semibold text-sand hover:text-white focus:outline-none focus:ring-2 focus:ring-sand">{{ $email }}</a>
+            <a href="mailto:{{ $email }}" class="font-semibold text-sand hover:text-white focus:outline-none focus:ring-0 focus:ring-sand">{{ $email }}</a>
         </p>
     </div>
 </section>

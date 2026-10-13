@@ -44,7 +44,7 @@
             <div class="flex items-center justify-between gap-4">
                 <a
                     href="/"
-                    class="flex items-center gap-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2 lg:invisible"
+                    class="flex items-center gap-3 rounded-lg focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2 lg:invisible"
                     aria-label="The Caribbean Palm Tree - Home">
                     <img
                         src="{{ asset('images/the-caribbean-palm-tree-compact-logo.png') }}"
@@ -54,7 +54,7 @@
 
                 <a
                     href="/"
-                    class="inline-flex items-center gap-1 rounded-md text-sm font-medium text-deep-blue/70 transition-colors hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+                    class="inline-flex items-center gap-1 rounded-md text-sm font-medium text-deep-blue/70 transition-colors hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                     <span aria-hidden="true">&larr;</span> Terug naar de website
                 </a>
             </div>

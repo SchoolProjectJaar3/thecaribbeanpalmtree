@@ -5,10 +5,10 @@
 $contact = config('woning.contact');
 $t = config('woning.tarieven');
 $inhoud = [
-    'boekingsvoorwaarden' => 'Boekingsvoorwaarden',
-    'huisregels' => 'Huisregels',
-    'privacy' => 'Privacyverklaring',
-    'cookies' => 'Cookies',
+'boekingsvoorwaarden' => 'Boekingsvoorwaarden',
+'huisregels' => 'Huisregels',
+'privacy' => 'Privacyverklaring',
+'cookies' => 'Cookies',
 ];
 @endphp
 
@@ -29,7 +29,7 @@ $inhoud = [
             <ul class="mt-3 space-y-1">
                 @foreach ($inhoud as $anker => $naam)
                 <li>
-                    <a href="#{{ $anker }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-deep-blue hover:bg-white hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise">{{ $naam }}</a>
+                    <a href="#{{ $anker }}" class="block rounded-lg px-3 py-2 text-sm font-medium text-deep-blue hover:bg-white hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">{{ $naam }}</a>
                 </li>
                 @endforeach
             </ul>

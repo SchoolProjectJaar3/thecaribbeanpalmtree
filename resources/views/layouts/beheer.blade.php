@@ -48,7 +48,7 @@
                 <button
                     type="button"
                     @click="menuOpen = false"
-                    class="absolute -right-12 top-4 flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white">
+                    class="absolute -right-12 top-4 flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 focus:outline-none focus:ring-0 focus:ring-white">
                     <span class="sr-only">Menu sluiten</span>
                     <x-site.icon name="close" />
                 </button>
