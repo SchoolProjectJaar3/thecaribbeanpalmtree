@@ -21,7 +21,7 @@
                 <x-input-label for="password" value="Wachtwoord" />
 
                 @if (Route::has('password.request'))
-                <a class="text-sm rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2" href="{{ route('password.request') }}">
+                <a class="text-sm rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0" href="{{ route('password.request') }}">
                     Wachtwoord vergeten?
                 </a>
                 @endif
@@ -43,7 +43,7 @@
     @if (Route::has('register'))
     <x-slot:footer>
         Nog geen account?
-        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2" href="{{ route('register') }}">Registreren</a>
+        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0" href="{{ route('register') }}">Registreren</a>
     </x-slot:footer>
     @endif
 </x-guest-layout>

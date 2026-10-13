@@ -1,5 +1,11 @@
 @php
 $datum = fn ($datum) => $datum->locale('nl')->translatedFormat('j M Y');
+
+// Tijdelijk: de formulieren slaan nog niets op (zie FormulierController).
+// Zet op true zodra reserveringen en berichten worden opgeslagen.
+
+$formulierenOpgeslagen = false;
+$toon = fn ($waarde) => $formulierenOpgeslagen ? $waarde : '–';
 $onderdelen = collect(config('beheer.navigatie'))
 ->pluck('items')
 ->flatten(1)
@@ -14,27 +20,27 @@ $onderdelen = collect(config('beheer.navigatie'))
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <x-beheer.stat
             label="Openstaande aanvragen"
-            :value="$openAanvragen"
+            :value="$toon($openAanvragen)"
             icon="inbox"
             hint="Wachten op jouw beoordeling"
             :href="route('beheer.reserveringen')" />
 
         <x-beheer.stat
             label="Aankomsten"
-            :value="$aankomsten"
+            :value="$toon($aankomsten)"
             icon="calendar"
             hint="In de komende 30 dagen"
             :href="route('beheer.beschikbaarheid')" />
 
         <x-beheer.stat
             :label="'Bezetting ' . now()->locale('nl')->translatedFormat('F')"
-            :value="$bezetting . '%'"
+            :value="$toon($bezetting) . '%'"
             icon="chart"
             hint="Geboekte nachten deze maand" />
 
         <x-beheer.stat
             label="Nieuwe berichten"
-            :value="$nieuweBerichten"
+            :value="$toon($nieuweBerichten)"
             icon="mail"
             hint="Via het contactformulier" />
     </div>
