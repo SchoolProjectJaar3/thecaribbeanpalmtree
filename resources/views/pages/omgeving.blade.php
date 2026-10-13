@@ -54,7 +54,7 @@ $extraStranden = config('woning.extra_stranden');
         </div>
 
         <details class="group mt-8 rounded-xl border border-deep-blue/10 bg-white shadow-sm">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-deep-blue hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-inset focus:ring-turquoise">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-inset focus:ring-turquoise">
                 Meer stranden om te ontdekken
                 <x-site.icon name="chevron-down" class="h-5 w-5 text-turquoise transition group-open:rotate-180" />
             </summary>
@@ -85,7 +85,7 @@ $extraStranden = config('woning.extra_stranden');
                 allowfullscreen></iframe>
         </div>
 
-        <a href="https://www.google.com/maps/search/?api=1&query=Harmonie%2C%20Cura%C3%A7ao" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+        <a href="https://www.google.com/maps/search/?api=1&query=Harmonie%2C%20Cura%C3%A7ao" target="_blank" rel="noopener" class="mt-4 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
             Open in Google Maps <x-site.icon name="arrow-right" class="h-4 w-4" />
         </a>
     </div>

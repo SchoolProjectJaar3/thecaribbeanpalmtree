@@ -68,11 +68,11 @@ $tarieven = config('woning.tarieven');
                     :href="reserveerUrl"
                     :aria-disabled="!compleet"
                     :class="compleet ? 'bg-coral text-white hover:bg-coral/90' : 'pointer-events-none bg-deep-blue/10 text-deep-blue/40'"
-                    class="mt-6 flex min-h-12 items-center justify-center rounded-lg px-5 py-3 text-base font-semibold shadow-sm transition focus:outline-none focus:ring-2 focus:ring-coral focus:ring-offset-2">
+                    class="mt-6 flex min-h-12 items-center justify-center rounded-lg px-5 py-3 text-base font-semibold shadow-sm transition focus:outline-none focus:ring-0 focus:ring-coral focus:ring-offset-2">
                     Doorgaan naar reserveren
                 </a>
 
-                <button type="button" @click="reset()" x-show="aankomst" x-cloak class="mt-3 w-full text-center text-sm font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+                <button type="button" @click="reset()" x-show="aankomst" x-cloak class="mt-3 w-full text-center text-sm font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                     Keuze wissen
                 </button>
             </div>

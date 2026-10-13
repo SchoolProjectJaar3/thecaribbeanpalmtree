@@ -3,7 +3,7 @@
     <!-- Logo -->
     <a
         href="{{ route('beheer.dashboard') }}"
-        class="-mx-1 mt-5 flex items-center gap-3 rounded-lg px-1 py-1 focus:outline-none focus:ring-2 focus:ring-turquoise">
+        class="-mx-1 mt-5 flex items-center gap-3 rounded-lg px-1 py-1 focus:outline-none focus:ring-0 focus:ring-turquoise">
         <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sand-white">
             <img
                 src="{{ asset('images/the-caribbean-palm-tree-compact-logo.png') }}"
@@ -29,7 +29,7 @@
                     <a
                         href="{{ route($item['route']) }}"
                         @if ($actief) aria-current="page" @endif
-                        class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-turquoise {{ $actief ? 'bg-white/10 text-white' : 'text-white/75 hover:bg-white/5 hover:text-white' }}">
+                        class="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors focus:outline-none focus:ring-0 focus:ring-turquoise {{ $actief ? 'bg-white/10 text-white' : 'text-white/75 hover:bg-white/5 hover:text-white' }}">
                         <x-site.icon :name="$item['icoon']" class="h-5 w-5 shrink-0 {{ $actief ? 'text-sand' : 'text-white/50 group-hover:text-white' }}" />
                         {{ $item['label'] }}
                     </a>
@@ -45,7 +45,7 @@
         href="{{ url('/') }}"
         target="_blank"
         rel="noopener"
-        class="mt-6 flex items-center gap-3 rounded-lg border border-white/15 px-3 py-2.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-turquoise">
+        class="mt-6 flex items-center gap-3 rounded-lg border border-white/15 px-3 py-2.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/5 hover:text-white focus:outline-none focus:ring-0 focus:ring-turquoise">
         <x-site.icon name="external" class="h-5 w-5 shrink-0 text-white/50" />
         Bekijk de website
     </a>
