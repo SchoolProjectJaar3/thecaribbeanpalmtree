@@ -57,7 +57,7 @@ $ruimtes = config('woning.ruimtes');
                 </p>
             </div>
 
-            <a href="/beschikbaarheid" class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+            <a href="/beschikbaarheid" class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 Bekijk beschikbaarheid
             </a>
         </div>
@@ -130,7 +130,7 @@ $ruimtes = config('woning.ruimtes');
         </div>
 
         <div class="mt-8">
-            <a href="/fotos" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-2 focus:ring-turquoise">
+            <a href="/fotos" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle foto's <x-site.icon name="arrow-right" class="h-4 w-4" />
             </a>
         </div>

@@ -4,7 +4,7 @@
 @php
 $categorieen = config('woning.foto_categorieen');
 $fotos = collect(config('woning.fotos'))->map(fn ($foto) => $foto + [
-    'url' => asset('images/website_static/' . $foto['bestand']),
+'url' => asset('images/website_static/' . $foto['bestand']),
 ])->values();
 @endphp
 
@@ -27,7 +27,7 @@ $fotos = collect(config('woning.fotos'))->map(fn ($foto) => $foto + [
                 @click="filter = '{{ $sleutel }}'"
                 :aria-pressed="filter === '{{ $sleutel }}'"
                 :class="filter === '{{ $sleutel }}' ? 'border-deep-blue bg-deep-blue text-white' : 'border-deep-blue/20 bg-white text-deep-blue hover:border-turquoise hover:text-turquoise'"
-                class="rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+                class="rounded-full border px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 {{ $naam }}
             </button>
             @endforeach
@@ -40,7 +40,7 @@ $fotos = collect(config('woning.fotos'))->map(fn ($foto) => $foto + [
                 type="button"
                 x-show="toon('{{ $foto['categorie'] }}')"
                 @click="openFoto({{ $i }})"
-                class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-deep-blue/10 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+                class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-deep-blue/10 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 <img
                     src="{{ $foto['url'] }}"
                     alt="{{ $foto['alt'] }}"
@@ -72,11 +72,11 @@ $fotos = collect(config('woning.fotos'))->map(fn ($foto) => $foto + [
         aria-modal="true"
         aria-label="Fotoweergave">
 
-        <button type="button" @click="sluit()" class="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white" aria-label="Sluiten">
+        <button type="button" @click="sluit()" class="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-0 focus:ring-white" aria-label="Sluiten">
             <x-site.icon name="close" />
         </button>
 
-        <button type="button" @click="vorige()" class="absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white sm:left-6" aria-label="Vorige foto">
+        <button type="button" @click="vorige()" class="absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-0 focus:ring-white sm:left-6" aria-label="Vorige foto">
             <x-site.icon name="chevron-left" />
         </button>
 
@@ -85,7 +85,7 @@ $fotos = collect(config('woning.fotos'))->map(fn ($foto) => $foto + [
             <figcaption class="mt-4 text-center text-white" x-text="fotos[index].titel"></figcaption>
         </figure>
 
-        <button type="button" @click="volgende()" class="absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white sm:right-6" aria-label="Volgende foto">
+        <button type="button" @click="volgende()" class="absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 focus:outline-none focus:ring-0 focus:ring-white sm:right-6" aria-label="Volgende foto">
             <x-site.icon name="chevron-right" />
         </button>
     </div>

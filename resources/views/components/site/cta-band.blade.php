@@ -29,7 +29,7 @@ $tekst ??= 'Bekijk welke data vrij zijn en vraag vrijblijvend je verblijf aan. W
 
         <p class="mt-8 text-sm text-white/70">
             Of mail naar
-            <a href="mailto:{{ $contact['email'] }}" class="font-semibold text-sand hover:text-white focus:outline-none focus:ring-2 focus:ring-sand">{{ $contact['email'] }}</a>
+            <a href="mailto:{{ $contact['email'] }}" class="font-semibold text-sand hover:text-white focus:outline-none focus:ring-0 focus:ring-sand">{{ $contact['email'] }}</a>
         </p>
     </div>
 </section>

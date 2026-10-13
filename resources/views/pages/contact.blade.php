@@ -44,7 +44,7 @@ $contact = config('woning.contact');
                     <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
                 </div>
 
-                <button type="submit" class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2">
+                <button type="submit" class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                     Bericht versturen
                 </button>
 
@@ -63,11 +63,11 @@ $contact = config('woning.contact');
                 <ul class="mt-5 space-y-4 text-sm">
                     <li class="flex items-start gap-3">
                         <x-site.icon name="mail" class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" />
-                        <a href="mailto:{{ $contact['email'] }}" class="font-medium text-deep-blue hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise">{{ $contact['email'] }}</a>
+                        <a href="mailto:{{ $contact['email'] }}" class="font-medium text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">{{ $contact['email'] }}</a>
                     </li>
                     <li class="flex items-start gap-3">
                         <x-site.icon name="phone" class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" />
-                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['telefoon']) }}" class="font-medium text-deep-blue hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise">{{ $contact['telefoon'] }}</a>
+                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['telefoon']) }}" class="font-medium text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">{{ $contact['telefoon'] }}</a>
                     </li>
                     <li class="flex items-start gap-3">
                         <x-site.icon name="pin" class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" />
@@ -79,7 +79,7 @@ $contact = config('woning.contact');
                     href="https://wa.me/{{ $contact['whatsapp'] }}"
                     target="_blank"
                     rel="noopener"
-                    class="mt-6 flex min-h-12 items-center justify-center gap-2 rounded-lg bg-deep-blue px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-deep-blue/90 focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-offset-2">
+                    class="mt-6 flex min-h-12 items-center justify-center gap-2 rounded-lg bg-deep-blue px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-deep-blue/90 focus:outline-none focus:ring-0 focus:ring-deep-blue focus:ring-offset-2">
                     <x-site.icon name="whatsapp" class="h-5 w-5" />
                     Stuur een WhatsApp-bericht
                 </a>

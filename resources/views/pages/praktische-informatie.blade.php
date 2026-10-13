@@ -43,7 +43,7 @@ $noodnummers = config('woning.noodnummers');
             <div class="flex items-center justify-between gap-6 p-5">
                 <dt class="font-semibold text-deep-blue">{{ $nummer['naam'] }}</dt>
                 <dd class="font-semibold text-deep-blue">
-                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $nummer['nummer']) }}" class="inline-flex items-center gap-2 hover:text-turquoise focus:outline-none focus:ring-2 focus:ring-turquoise">
+                    <a href="tel:{{ preg_replace('/[^0-9+]/', '', $nummer['nummer']) }}" class="inline-flex items-center gap-2 hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">
                         <x-site.icon name="phone" class="h-5 w-5 text-turquoise" /> {{ $nummer['nummer'] }}
                     </a>
                 </dd>
