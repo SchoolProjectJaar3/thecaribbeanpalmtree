@@ -499,7 +499,6 @@ class ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d
         'App\\Http\\Controllers\\Beheer\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Beheer/DashboardController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\FormulierController' => __DIR__ . '/../..' . '/app/Http/Controllers/FormulierController.php',
-        'App\\Http\\Controllers\\PaginaController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaginaController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Middleware\\EnsureUserIsActive' => __DIR__ . '/../..' . '/app/Http/Middleware/EnsureUserIsActive.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
