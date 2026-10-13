@@ -9,7 +9,8 @@ en komen later uit de beheeromgeving.
 */
 
 // Kerngegevens (strook met iconen)
-$kerngegevens = config('woning.kerngegevens');
+$kerngegevens = $accommodation?->kerngegevens() ?? [];
+$beschrijving = $accommodation?->translation()?->short_description;
 
 // Sfeerimpressie (uitsnede van de fotogalerij)
 $sfeerimpressie = [
@@ -21,14 +22,7 @@ $sfeerimpressie = [
 ];
 
 // Voorzieningen (uitsnede van "Het huis")
-$voorzieningen = [
-    'Privézwembad met ruim terras en tuin',
-    'Volledig uitgeruste keuken met vaatwasser',
-    'Airconditioning in alle slaapkamers',
-    'Smart-tv en snel glasvezelinternet',
-    'Wasmachine, barbecue en kinderbed',
-    'Eigen parkeerplaats op het terrein',
-];
+$voorzieningen = $accommodation?->facilities->map(fn ($f) => $f->name())->filter()->values()->all() ?? [];
 
 // Omgeving (hoogtepunten, reistijden uit het PVA)
 $omgeving = [
@@ -93,6 +87,8 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
 
 <!-- Kerngegevens -->
+ 
+@if (count($kerngegevens))
 <section class="border-b border-deep-blue/10 bg-white" aria-label="Kerngegevens">
     <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
@@ -110,6 +106,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         </ul>
     </div>
 </section>
+@endif
 
 
 <!-- Sfeerimpressie -->
@@ -158,10 +155,9 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div>
             <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Het huis</p>
             <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Alle comfort voor een zorgeloze vakantie</h2>
-            <p class="mt-4 leading-relaxed text-deep-blue/80">
-                Een ruime, lichte woning met een eigen zwembad en een tuin vol tropisch groen.
-                Hier kom je na een dag op het strand helemaal tot rust.
-            </p>
+            @if ($beschrijving)
+            <p class="mt-4 leading-relaxed text-deep-blue/80">{{ $beschrijving }}</p>
+            @endif
 
             <ul class="mt-8 grid gap-3 sm:grid-cols-2">
                 @foreach ($voorzieningen as $voorziening)
