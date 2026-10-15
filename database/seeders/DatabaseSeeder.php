@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             RoleSeeder::class,
             AccommodationSeeder::class,
+            CmsSeeder::class,
             AdminUserSeeder::class,
         ]);
     }
