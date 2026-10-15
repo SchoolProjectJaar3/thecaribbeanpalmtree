@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Beheer\DashboardController;
+use App\Http\Controllers\Beheer\TekstenController;
 use App\Http\Controllers\FormulierController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaginaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,11 +32,15 @@ Route::post('/reserveren', [FormulierController::class, 'reserveren'])->middlewa
 // Beheeromgeving voor de eigenaar
 Route::middleware(['auth', 'active'])->prefix('beheer')->name('beheer.')->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
+
     Route::view('/reserveringen', 'beheer.reserveringen')->name('reserveringen');
     Route::view('/beschikbaarheid', 'beheer.beschikbaarheid')->name('beschikbaarheid');
     Route::view('/tarieven', 'beheer.tarieven')->name('tarieven');
     Route::view('/fotos', 'beheer.fotos')->name('fotos');
-    Route::view('/teksten', 'beheer.teksten')->name('teksten');
+
+    Route::get('/teksten', [TekstenController::class, 'index'])->name('teksten');
+    Route::put('/teksten', [TekstenController::class, 'update'])->name('teksten.update');
+
     Route::view('/woning', 'beheer.woning')->name('woning');
 });
 
