@@ -4,12 +4,9 @@ use App\Http\Controllers\Beheer\DashboardController;
 use App\Http\Controllers\Beheer\TekstenController;
 use App\Http\Controllers\FormulierController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PaginaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('pages.home');
-});
+Route::view('/', 'pages.home')->name('home');
 
 // Publieke pagina's (PVA hoofdstuk 5 en 6)
 Route::view('/het-huis', 'pages.het-huis')->name('het-huis');
@@ -39,7 +36,10 @@ Route::middleware(['auth', 'active'])->prefix('beheer')->name('beheer.')->group(
     Route::view('/fotos', 'beheer.fotos')->name('fotos');
 
     Route::get('/teksten', [TekstenController::class, 'index'])->name('teksten');
-    Route::put('/teksten', [TekstenController::class, 'update'])->name('teksten.update');
+    Route::get('/teksten/algemeen', [TekstenController::class, 'editAlgemeen'])->name('teksten.algemeen');
+    Route::put('/teksten/algemeen', [TekstenController::class, 'updateAlgemeen'])->name('teksten.algemeen.update');
+    Route::get('/teksten/{page:key}', [TekstenController::class, 'edit'])->name('teksten.edit');
+    Route::put('/teksten/{page:key}', [TekstenController::class, 'update'])->name('teksten.update');
 
     Route::view('/woning', 'beheer.woning')->name('woning');
 });

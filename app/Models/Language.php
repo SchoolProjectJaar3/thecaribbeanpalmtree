@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class Language extends Model
 {
@@ -13,7 +14,7 @@ class Language extends Model
         'name',
         'is_default',
         'is_active',
-        'sort_order'
+        'sort_order',
     ];
 
     protected function casts(): array
@@ -22,5 +23,13 @@ class Language extends Model
             'is_default' => 'boolean',
             'is_active' => 'boolean',
         ];
+    }
+
+    /**
+     * Alleen de actieve talen, in de volgorde waarin ze op de website staan.
+     */
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('is_active', true)->orderBy('sort_order');
     }
 }
