@@ -39,11 +39,4 @@
             Inloggen
         </x-primary-button>
     </form>
-
-    @if (Route::has('register'))
-    <x-slot:footer>
-        Nog geen account?
-        <a class="rounded-md font-semibold text-turquoise transition-colors hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0" href="{{ route('register') }}">Registreren</a>
-    </x-slot:footer>
-    @endif
 </x-guest-layout>
