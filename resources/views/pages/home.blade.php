@@ -8,9 +8,6 @@ De definitieve teksten, reviews en FAQ worden aangeleverd door de opdrachtgever
 en komen later uit de beheeromgeving.
 */
 
-// Kerngegevens (strook met iconen)
-$kerngegevens = config('woning.kerngegevens');
-
 // Sfeerimpressie (uitsnede van de fotogalerij)
 $sfeerimpressie = [
 ['titel' => 'Zwembad en terras', 'foto' => 'zwembad_terras.avif', 'alt' => 'Privézwembad met houten terras en ligbedden', 'klasse' => 'sm:col-span-2 sm:row-span-2'],
@@ -20,15 +17,8 @@ $sfeerimpressie = [
 ['titel' => 'Uitzicht', 'foto' => 'uitzicht.jpg', 'alt' => 'Uitzicht over het zwembad, de tropische tuin en de zee', 'klasse' => ''],
 ];
 
-// Voorzieningen (uitsnede van "Het huis")
-$voorzieningen = [
-'Privézwembad met ruim terras en tuin',
-'Volledig uitgeruste keuken met vaatwasser',
-'Airconditioning in alle slaapkamers',
-'Smart-tv en snel glasvezelinternet',
-'Wasmachine, barbecue en kinderbed',
-'Eigen parkeerplaats op het terrein',
-];
+// Voorzieningen (uitsnede van "Het huis", beheerd bij de woninggegevens)
+$voorzieningen = $woning?->facilities->take(6) ?? collect();
 
 // Omgeving (hoogtepunten, reistijden uit het PVA)
 $omgeving = [
@@ -93,23 +83,9 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
 
 <!-- Kerngegevens -->
-<section class="border-b border-deep-blue/10 bg-white" aria-label="Kerngegevens">
-    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-            @foreach ($kerngegevens as $item)
-            <li class="flex items-center gap-3">
-                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand/30 text-deep-blue">
-                    <x-site.icon :name="$item['icoon']" />
-                </span>
-                <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-deep-blue/60">{{ $item['label'] }}</p>
-                    <p class="font-semibold text-deep-blue">{{ $item['waarde'] }}</p>
-                </div>
-            </li>
-            @endforeach
-        </ul>
-    </div>
-</section>
+@if ($woning)
+<x-site.kerngegevens :woning="$woning" />
+@endif
 
 
 <!-- Sfeerimpressie -->
@@ -158,21 +134,22 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div>
             <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Het huis</p>
             <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Alle comfort voor een zorgeloze vakantie</h2>
-            <p class="mt-4 leading-relaxed text-deep-blue/80">
-                Een ruime, lichte woning met een eigen zwembad en een tuin vol tropisch groen.
-                Hier kom je na een dag op het strand helemaal tot rust.
-            </p>
+            @if ($woning?->text('short_description'))
+            <p class="mt-4 leading-relaxed text-deep-blue/80">{{ $woning->text('short_description') }}</p>
+            @endif
 
+            @if ($voorzieningen->isNotEmpty())
             <ul class="mt-8 grid gap-3 sm:grid-cols-2">
                 @foreach ($voorzieningen as $voorziening)
                 <li class="flex items-start gap-3">
                     <svg class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
-                    <span class="text-deep-blue">{{ $voorziening }}</span>
+                    <span class="text-deep-blue">{{ $voorziening->name() }}</span>
                 </li>
                 @endforeach
             </ul>
+            @endif
 
             <a href="/het-huis" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle voorzieningen <span aria-hidden="true">&rarr;</span>

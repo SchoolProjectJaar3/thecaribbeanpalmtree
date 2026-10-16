@@ -1,5 +1,8 @@
 <?php
 
+use Database\Seeders\AccommodationSeeder;
+use Database\Seeders\LanguageSeeder;
+
 dataset('paginas', [
     'home' => ['/', 'The Caribbean Palm Tree'],
     'het huis' => ['/het-huis', 'Alle comfort voor een zorgeloze vakantie'],
@@ -58,6 +61,8 @@ it('verstuurt een reserveringsaanvraag', function () {
 });
 
 it('valideert de reserveringsaanvraag', function () {
+    $this->seed([LanguageSeeder::class, AccommodationSeeder::class]);
+
     $this->post('/reserveren', [
         'aankomst' => now()->addDays(10)->toDateString(),
         'vertrek' => now()->addDays(5)->toDateString(),
@@ -70,4 +75,29 @@ it('valideert de reserveringsaanvraag', function () {
 it('vult het reserveringsformulier in met de gekozen data', function () {
     $this->get('/reserveren?aankomst=2030-01-10&vertrek=2030-01-17')
         ->assertOk();
+});
+
+it('toont de woninggegevens uit de database', function () {
+    $this->seed([LanguageSeeder::class, AccommodationSeeder::class]);
+
+    $this->get('/het-huis')
+        ->assertOk()
+        ->assertSee('6 gasten')
+        ->assertSee('3 kamers')
+        ->assertSee('2 badkamers')
+        ->assertSee('Niet toegestaan')
+        ->assertSee('De woning ligt rustig en centraal op Harmonie')
+        ->assertSee('Vaatwasser');
+
+    $this->get('/')
+        ->assertOk()
+        ->assertSee('6 gasten')
+        ->assertSee('Een ruime, lichte woning met een eigen zwembad');
+
+    $this->get('/privacy-voorwaarden')
+        ->assertOk()
+        ->assertSee('De woning biedt plaats aan maximaal 6 personen.')
+        ->assertSee('Inchecken kan vanaf 15.00 uur, uitchecken kan tot 11.00 uur.')
+        ->assertSee('Huisdieren zijn niet toegestaan.')
+        ->assertSee('Ga zuinig om met water en energie.');
 });

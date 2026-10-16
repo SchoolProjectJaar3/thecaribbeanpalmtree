@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Beheer\DashboardController;
 use App\Http\Controllers\Beheer\TekstenController;
+use App\Http\Controllers\Beheer\WoningController;
 use App\Http\Controllers\FormulierController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,8 @@ Route::middleware(['auth', 'active'])->prefix('beheer')->name('beheer.')->group(
     Route::get('/teksten/{page:key}', [TekstenController::class, 'edit'])->name('teksten.edit');
     Route::put('/teksten/{page:key}', [TekstenController::class, 'update'])->name('teksten.update');
 
-    Route::view('/woning', 'beheer.woning')->name('woning');
+    Route::get('/woning', [WoningController::class, 'edit'])->name('woning');
+    Route::put('/woning', [WoningController::class, 'update'])->name('woning.update');
 });
 
 Route::middleware(['auth', 'active'])->group(function () {
