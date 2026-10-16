@@ -119,7 +119,7 @@ $euro = fn ($bedrag) => '€ ' . number_format($bedrag, 0, ',', '.');
                 <div class="sm:col-span-2">
                     <label for="calc-personen" class="block text-sm font-semibold text-deep-blue">Aantal personen</label>
                     <select id="calc-personen" x-model="personen" class="mt-1 block w-full rounded-lg border-deep-blue/20 bg-white text-deep-blue shadow-sm focus:border-turquoise focus:ring-turquoise">
-                        @for ($i = 1; $i <= 6; $i++)
+                        @for ($i = 1; $i <= max(1, $woning?->max_guests ?? 1); $i++)
                             <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'persoon' : 'personen' }}</option>
                             @endfor
                     </select>

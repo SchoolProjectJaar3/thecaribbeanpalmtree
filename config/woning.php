@@ -11,6 +11,9 @@
 | (tabellen woning, tarieven, reviews, faq, ...) en wordt dit bestand
 | vervangen door modellen.
 |
+| De kenmerken, beschrijving, huisregels en voorzieningen van de woning
+| komen al uit de database en worden beheerd via Beheer > Woninggegevens.
+|
 */
 
 return [
@@ -25,55 +28,6 @@ return [
         'whatsapp' => '316123456789',
         'reactietijd' => 'binnen 24 uur',
         'tijdsverschil' => 'Curaçao loopt in de winter 5 uur en in de zomer 6 uur achter op Nederland.',
-    ],
-
-    // Strook met kerngegevens op de homepage en de pagina "Het huis".
-    'kerngegevens' => [
-        ['icoon' => 'users', 'label' => 'Personen', 'waarde' => '6 gasten'],
-        ['icoon' => 'bed', 'label' => 'Slaapkamers', 'waarde' => '3 kamers'],
-        ['icoon' => 'pool', 'label' => 'Zwembad', 'waarde' => 'Privé'],
-        ['icoon' => 'snowflake', 'label' => 'Airco', 'waarde' => 'Slaapkamers'],
-        ['icoon' => 'wifi', 'label' => 'Wifi', 'waarde' => 'Glasvezel'],
-        ['icoon' => 'pin', 'label' => 'Locatie', 'waarde' => 'Harmonie'],
-    ],
-
-    // Voorzieningen, gegroepeerd (PVA 6.2).
-    'voorzieningen' => [
-        [
-            'titel' => 'Slapen en wonen',
-            'items' => [
-                ['icoon' => 'bed', 'titel' => '3 slaapkamers', 'tekst' => 'Rustige, lichte kamers met ruime kasten en uitzicht op de tuin.'],
-                ['icoon' => 'bath', 'titel' => '2 badkamers', 'tekst' => 'Met regendouche en voldoende handdoeken voor iedereen.'],
-                ['icoon' => 'users', 'titel' => 'Plek voor 6 gasten', 'tekst' => 'Ideaal voor een gezin of een groep vrienden.'],
-                ['icoon' => 'crib', 'titel' => 'Kinderbed', 'tekst' => 'Een kinderbed is gratis beschikbaar.'],
-            ],
-        ],
-        [
-            'titel' => 'Keuken en huishouden',
-            'items' => [
-                ['icoon' => 'kitchen', 'titel' => 'Volledig uitgeruste keuken', 'tekst' => 'Kookeiland, gasfornuis en alles om heerlijk te koken.'],
-                ['icoon' => 'dishwasher', 'titel' => 'Vaatwasser', 'tekst' => 'Na het eten hoef je niet af te wassen.'],
-                ['icoon' => 'washing', 'titel' => 'Wasmachine', 'tekst' => 'Handig bij een langer verblijf.'],
-                ['icoon' => 'bbq', 'titel' => 'Barbecue', 'tekst' => 'Grillen onder de sterren op het terras.'],
-            ],
-        ],
-        [
-            'titel' => 'Comfort',
-            'items' => [
-                ['icoon' => 'snowflake', 'titel' => 'Airconditioning', 'tekst' => 'In alle slaapkamers voor een koele nachtrust.'],
-                ['icoon' => 'tv', 'titel' => 'Smart-tv', 'tekst' => 'Met Netflix en andere streamingdiensten.'],
-                ['icoon' => 'wifi', 'titel' => 'Glasvezelinternet', 'tekst' => 'Snel en stabiel, ook om te werken.'],
-            ],
-        ],
-        [
-            'titel' => 'Buiten',
-            'items' => [
-                ['icoon' => 'pool', 'titel' => 'Privézwembad', 'tekst' => 'Een eigen zwembad, alleen voor jouw gezelschap.'],
-                ['icoon' => 'sun', 'titel' => 'Terras', 'tekst' => 'Overdekt terras met ligbedden en loungehoek.'],
-                ['icoon' => 'palm', 'titel' => 'Tuin', 'tekst' => 'Tropische tuin met palmbomen.'],
-                ['icoon' => 'parking', 'titel' => 'Parkeerplaats', 'tekst' => 'Eigen parkeerplaats op het terrein.'],
-            ],
-        ],
     ],
 
     // Indeling per ruimte.

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Accommodation;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer([
+            'pages.home',
+            'pages.het-huis',
+            'pages.reserveren',
+            'pages.tarieven',
+            'pages.privacy-voorwaarden',
+        ], fn ($view) => $view->with('woning', Accommodation::current()));
     }
 }
