@@ -494,7 +494,6 @@ class ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d
         'App\\Http\\Controllers\\Auth\\NewPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/NewPasswordController.php',
         'App\\Http\\Controllers\\Auth\\PasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordController.php',
         'App\\Http\\Controllers\\Auth\\PasswordResetLinkController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordResetLinkController.php',
-        'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\Beheer\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Beheer/DashboardController.php',
         'App\\Http\\Controllers\\Beheer\\TekstenController' => __DIR__ . '/../..' . '/app/Http/Controllers/Beheer/TekstenController.php',
