@@ -31,10 +31,15 @@ class Facility extends Model
         );
     }
 
-    public function translate(string $code): ?FacilityTranslation
+    /**
+     * De naam in de gevraagde taal, met de standaardtaal als terugval. Zonder
+     * taal krijg je de naam in de standaardtaal.
+     */
+    public function name(?string $code = null): string
     {
-        return $this->translations()
-            ->whereHas('language', fn($q) => $q->where('code', $code))
-            ->first();
+        $translation = ($code === null ? null : $this->translations->first(fn (FacilityTranslation $translation) => $translation->language->code === $code))
+            ?? $this->translations->first(fn (FacilityTranslation $translation) => $translation->language->is_default);
+
+        return $translation->name ?? $this->code;
     }
 }

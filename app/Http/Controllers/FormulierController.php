@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Accommodation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -31,12 +32,12 @@ class FormulierController extends Controller
 
     public function reserveren(Request $request): RedirectResponse
     {
-        $maxPersonen = 6;
+        $maxPersonen = Accommodation::current()?->max_guests;
 
         $request->validate([
             'aankomst' => ['required', 'date', 'after_or_equal:today'],
             'vertrek' => ['required', 'date', 'after:aankomst'],
-            'personen' => ['required', 'integer', 'min:1', 'max:' . $maxPersonen],
+            'personen' => ['required', 'integer', 'min:1', ...($maxPersonen ? ['max:' . $maxPersonen] : [])],
             'naam' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:150'],
             'telefoon' => ['nullable', 'string', 'max:30'],
@@ -61,7 +62,7 @@ class FormulierController extends Controller
             'aankomst.after_or_equal' => 'De aankomstdatum mag niet in het verleden liggen.',
             'vertrek.after' => 'De vertrekdatum moet na de aankomstdatum liggen.',
             'personen.min' => 'Kies minimaal 1 persoon.',
-            'personen.max' => 'De woning biedt plaats aan maximaal 6 personen.',
+            'personen.max' => 'De woning biedt plaats aan maximaal :max personen.',
             'integer' => 'Vul een geldig aantal in.',
             'akkoord.accepted' => 'Ga akkoord met de voorwaarden om je aanvraag te versturen.',
             'website.max' => 'Het formulier kon niet worden verstuurd.',

@@ -10,53 +10,82 @@ use Illuminate\Database\Seeder;
 class AccommodationSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Vul de woning, de teksten en de voorzieningen. Bestaande gegevens worden
+     * niet overschreven, zodat aanpassingen uit het beheer behouden blijven.
      */
     public function run(): void
     {
         $nl = Language::where('code', 'nl')->firstOrFail();
         $en = Language::where('code', 'en')->firstOrFail();
 
-        $accommodation = Accommodation::updateOrCreate(['slug' => 'the-caribbean-palm-tree'], [
+        $accommodation = Accommodation::firstOrCreate(['slug' => 'the-caribbean-palm-tree'], [
             'name' => 'The Caribbean Palm Tree',
-            'max_guests' => 4,      // testvalue
-            'bedrooms' => 2,        // testvalue
-            'bathrooms' => 1,       // testvalue
+            'max_guests' => 6,
+            'bedrooms' => 3,
+            'bathrooms' => 2,
             'pets_allowed' => false,
             'city' => 'Harmonie',
             'country_code' => 'CW',
+            'check_in_time' => '15:00',
+            'check_out_time' => '11:00',
             'is_active' => true,
         ]);
 
-        $accommodation->translations()->updateOrCreate(['language_id' => $nl->id], [
-            'short_description' => 'Luxe vakantiewoning op Curaçao, rustig en centraal gelegen.',
-            'description' => 'Testbeschrijving in het Nederlands.',
+        $accommodation->translations()->firstOrCreate(['language_id' => $nl->id], [
+            'short_description' => 'Een ruime, lichte woning met een eigen zwembad en een tuin vol tropisch groen. Hier kom je na een dag op het strand helemaal tot rust.',
+            'description' => implode("\n\n", [
+                'De woning ligt rustig en centraal op Harmonie, op korte rijafstand van de mooiste stranden, van Willemstad en van de luchthaven. Binnen en buiten lopen vloeiend in elkaar over: de openslaande deuren van de woonkamer komen uit op het terras met het privézwembad.',
+                'De drie slaapkamers hebben airconditioning en de keuken is volledig uitgerust. Zo heb je alles wat je nodig hebt, of je nu een week of een maand blijft.',
+            ]),
+            'house_rules' => implode("\n", [
+                'Roken is binnen niet toegestaan; op het terras mag dat wel.',
+                'Feesten en evenementen zijn niet toegestaan. Houd na 22.00 uur rekening met de buren.',
+                'Ga zuinig om met water en energie.',
+                'Laat de woning bij vertrek netjes en afgesloten achter.',
+            ]),
         ]);
-        $accommodation->translations()->updateOrCreate(['language_id' => $en->id], [
-            'short_description' => 'Luxury holiday home on Curaçao, quiet and central.',
-            'description' => 'Test description in English.',
+        $accommodation->translations()->firstOrCreate(['language_id' => $en->id], [
+            'short_description' => 'A spacious, bright home with a private pool and a garden full of tropical greenery. The perfect place to unwind after a day at the beach.',
+            'description' => implode("\n\n", [
+                'The house is quietly yet centrally located in Harmonie, a short drive from the most beautiful beaches, Willemstad and the airport. Inside and outside flow seamlessly together: the French doors of the living room open onto the terrace with the private pool.',
+                'All three bedrooms have air conditioning and the kitchen is fully equipped. Everything you need, whether you stay for a week or a month.',
+            ]),
+            'house_rules' => implode("\n", [
+                'Smoking is not allowed indoors; it is allowed on the terrace.',
+                'Parties and events are not allowed. Please be considerate of the neighbours after 10 pm.',
+                'Please use water and energy sparingly.',
+                'Leave the house clean and locked when you depart.',
+            ]),
         ]);
 
         $facilities = [
-            ['wifi',             1, 'Wifi',              'Wifi'],
-            ['pool',             2, 'Privézwembad',      'Private pool'],
-            ['air_conditioning', 3, 'Airconditioning',   'Air conditioning'],
-            ['tv',               4, 'Smart-tv',          'Smart TV'],
-            ['kitchen',          5, 'Volledige keuken',  'Fully equipped kitchen'],
-            ['dishwasher',       6, 'Vaatwasser',        'Dishwasher'],
-            ['washing_machine',  7, 'Wasmachine',        'Washing machine'],
-            ['bbq',              8, 'Barbecue',          'Barbecue'],
-            ['parking',          9, 'Parkeerplaats',     'Parking'],
+            ['wifi',             'wifi',       'Wifi',              'Wifi'],
+            ['pool',             'pool',       'Privézwembad',      'Private pool'],
+            ['air_conditioning', 'snowflake',  'Airconditioning',   'Air conditioning'],
+            ['tv',               'tv',         'Smart-tv',          'Smart TV'],
+            ['kitchen',          'kitchen',    'Volledige keuken',  'Fully equipped kitchen'],
+            ['dishwasher',       'dishwasher', 'Vaatwasser',        'Dishwasher'],
+            ['washing_machine',  'washing',    'Wasmachine',        'Washing machine'],
+            ['bbq',              'bbq',        'Barbecue',          'Barbecue'],
+            ['parking',          'parking',    'Parkeerplaats',     'Parking'],
+            ['crib',             'crib',       'Kinderbed',         'Baby cot'],
+            ['terrace',          'sun',        'Overdekt terras',   'Covered terrace'],
+            ['garden',           'palm',       'Tropische tuin',    'Tropical garden'],
         ];
 
         $ids = [];
-        foreach ($facilities as [$code, $order, $nameNl, $nameEn]) {
-            $facility = Facility::updateOrCreate(['code' => $code], ['sort_order' => $order]);
-            $facility->translations()->updateOrCreate(['language_id' => $nl->id], ['name' => $nameNl]);
-            $facility->translations()->updateOrCreate(['language_id' => $en->id], ['name' => $nameEn]);
+        foreach ($facilities as $order => [$code, $icon, $nameNl, $nameEn]) {
+            $facility = Facility::firstOrCreate(['code' => $code], ['icon' => $icon, 'sort_order' => $order + 1]);
+            $facility->icon ??= $icon;
+            $facility->save();
+
+            $facility->translations()->firstOrCreate(['language_id' => $nl->id], ['name' => $nameNl]);
+            $facility->translations()->firstOrCreate(['language_id' => $en->id], ['name' => $nameEn]);
             $ids[] = $facility->id;
         }
 
-        $accommodation->facilities()->syncWithoutDetaching($ids);
+        if ($accommodation->wasRecentlyCreated) {
+            $accommodation->facilities()->attach($ids);
+        }
     }
 }

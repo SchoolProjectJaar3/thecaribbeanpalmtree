@@ -3,10 +3,11 @@
 
 @php
 $t = config('woning.tarieven');
+$maxPersonen = max(1, $woning?->max_guests ?? 1);
 $begin = [
 'aankomst' => old('aankomst', request('aankomst', '')),
 'vertrek' => old('vertrek', request('vertrek', '')),
-'personen' => old('personen', request('personen', 2)),
+'personen' => old('personen', min((int) request('personen', 2), $maxPersonen)),
 ];
 @endphp
 
@@ -51,12 +52,14 @@ $begin = [
                     <div>
                         <label for="personen" class="block text-sm font-semibold text-deep-blue">Aantal personen<span class="text-coral" aria-hidden="true"> *</span></label>
                         <select id="personen" name="personen" x-model="personen" required class="mt-1 block w-full rounded-lg border-deep-blue/20 bg-white text-deep-blue shadow-sm focus:border-turquoise focus:ring-turquoise">
-                            @for ($i = 1; $i <= 6; $i++)
+                            @for ($i = 1; $i <= $maxPersonen; $i++)
                                 <option value="{{ $i }}">{{ $i }} {{ $i === 1 ? 'persoon' : 'personen' }}</option>
                                 @endfor
                         </select>
                         @error('personen')<p class="mt-1 text-sm font-medium text-coral">{{ $message }}</p>@enderror
-                        <p class="mt-1 text-xs text-deep-blue/60">De woning biedt plaats aan maximaal 6 personen.</p>
+                        @if ($woning)
+                        <p class="mt-1 text-xs text-deep-blue/60">De woning biedt plaats aan maximaal {{ $woning->max_guests }} {{ $woning->max_guests === 1 ? 'persoon' : 'personen' }}.</p>
+                        @endif
                     </div>
                 </div>
 

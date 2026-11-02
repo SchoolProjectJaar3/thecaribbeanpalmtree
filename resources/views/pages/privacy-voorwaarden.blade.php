@@ -10,6 +10,10 @@ $inhoud = [
 'privacy' => 'Privacyverklaring',
 'cookies' => 'Cookies',
 ];
+$tijden = array_filter([
+$woning?->check_in_time ? 'inchecken kan vanaf ' . str_replace(':', '.', $woning->check_in_time) . ' uur' : null,
+$woning?->check_out_time ? 'uitchecken kan tot ' . str_replace(':', '.', $woning->check_out_time) . ' uur' : null,
+]);
 @endphp
 
 @section('content')
@@ -63,13 +67,16 @@ $inhoud = [
             <section id="huisregels" class="scroll-mt-6">
                 <h2 class="text-2xl font-bold text-deep-blue sm:text-3xl">Huisregels</h2>
                 <ul class="mt-4 list-disc space-y-2 pl-5">
-                    <li>De woning biedt plaats aan maximaal 6 personen.</li>
-                    <li>Inchecken kan vanaf 15.00 uur, uitchecken kan tot 11.00 uur.</li>
-                    <li>Roken is binnen niet toegestaan; op het terras mag dat wel.</li>
-                    <li>Huisdieren zijn niet toegestaan.</li>
-                    <li>Feesten en evenementen zijn niet toegestaan. Houd na 22.00 uur rekening met de buren.</li>
-                    <li>Ga zuinig om met water en energie.</li>
-                    <li>Laat de woning bij vertrek netjes en afgesloten achter.</li>
+                    @if ($woning)
+                    <li>De woning biedt plaats aan maximaal {{ $woning->max_guests }} {{ $woning->max_guests === 1 ? 'persoon' : 'personen' }}.</li>
+                    @if ($tijden)
+                    <li>{{ ucfirst(implode(', ', $tijden)) }}.</li>
+                    @endif
+                    <li>{{ $woning->pets_allowed ? 'Huisdieren zijn welkom.' : 'Huisdieren zijn niet toegestaan.' }}</li>
+                    @foreach ($woning->houseRules() as $regel)
+                    <li>{{ $regel }}</li>
+                    @endforeach
+                    @endif
                 </ul>
             </section>
 
