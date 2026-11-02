@@ -2,8 +2,7 @@
 @extends('layouts.app', ['title' => 'Het huis | The Caribbean Palm Tree'])
 
 @php
-$kerngegevens = config('woning.kerngegevens');
-$voorzieningen = config('woning.voorzieningen');
+$voorzieningen = $woning?->facilities ?? collect();
 $ruimtes = config('woning.ruimtes');
 @endphp
 
@@ -17,23 +16,9 @@ $ruimtes = config('woning.ruimtes');
 
 
 <!-- Kerngegevens -->
-<section class="border-b border-deep-blue/10 bg-white" aria-label="Kerngegevens">
-    <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-            @foreach ($kerngegevens as $item)
-            <li class="flex items-center gap-3">
-                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand/30 text-deep-blue">
-                    <x-site.icon :name="$item['icoon']" />
-                </span>
-                <div>
-                    <p class="text-xs font-medium uppercase tracking-wide text-deep-blue/60">{{ $item['label'] }}</p>
-                    <p class="font-semibold text-deep-blue">{{ $item['waarde'] }}</p>
-                </div>
-            </li>
-            @endforeach
-        </ul>
-    </div>
-</section>
+@if ($woning)
+<x-site.kerngegevens :woning="$woning" />
+@endif
 
 
 <!-- Beschrijving -->
@@ -44,17 +29,13 @@ $ruimtes = config('woning.ruimtes');
                 eyebrow="Over de woning"
                 title="Een thuis op Harmonie" />
 
+            @if ($woning?->paragraphs())
             <div class="mt-4 space-y-4 leading-relaxed text-deep-blue/80">
-                <p>
-                    De woning ligt rustig en centraal op Harmonie, op korte rijafstand van de mooiste stranden,
-                    van Willemstad en van de luchthaven. Binnen en buiten lopen vloeiend in elkaar over: de
-                    openslaande deuren van de woonkamer komen uit op het terras met het privézwembad.
-                </p>
-                <p>
-                    De drie slaapkamers hebben airconditioning en de keuken is volledig uitgerust. Zo heb je alles
-                    wat je nodig hebt, of je nu een week of een maand blijft.
-                </p>
+                @foreach ($woning->paragraphs() as $alinea)
+                <p>{!! nl2br(e($alinea)) !!}</p>
+                @endforeach
             </div>
+            @endif
 
             <a href="/beschikbaarheid" class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 Bekijk beschikbaarheid
@@ -72,6 +53,7 @@ $ruimtes = config('woning.ruimtes');
 
 
 <!-- Voorzieningen -->
+@if ($voorzieningen->isNotEmpty())
 <section class="bg-white py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-site.section-heading
@@ -79,29 +61,19 @@ $ruimtes = config('woning.ruimtes');
             title="Alles wat je nodig hebt"
             intro="Van een volledig uitgeruste keuken tot een eigen zwembad: dit is wat de woning te bieden heeft." />
 
-        <div class="mt-12 grid gap-10 md:grid-cols-2">
-            @foreach ($voorzieningen as $groep)
-            <div>
-                <h3 class="border-b border-sand pb-3 text-xl font-semibold text-deep-blue">{{ $groep['titel'] }}</h3>
-
-                <ul class="mt-5 space-y-5">
-                    @foreach ($groep['items'] as $item)
-                    <li class="flex items-start gap-4">
-                        <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand/30 text-deep-blue">
-                            <x-site.icon :name="$item['icoon']" />
-                        </span>
-                        <div>
-                            <p class="font-semibold text-deep-blue">{{ $item['titel'] }}</p>
-                            <p class="mt-0.5 text-sm leading-relaxed text-deep-blue/70">{{ $item['tekst'] }}</p>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-            </div>
+        <ul class="mt-12 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
+            @foreach ($voorzieningen as $voorziening)
+            <li class="flex items-center gap-4">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-sand/30 text-deep-blue">
+                    <x-site.icon :name="$voorziening->icon ?? 'check'" />
+                </span>
+                <span class="font-semibold text-deep-blue">{{ $voorziening->name() }}</span>
+            </li>
             @endforeach
-        </div>
+        </ul>
     </div>
 </section>
+@endif
 
 
 <!-- Indeling per ruimte -->

@@ -2,12 +2,15 @@
 
 /*
 |--------------------------------------------------------------------------
-| Navigatie van de beheeromgeving
+| Instellingen van de beheeromgeving
 |--------------------------------------------------------------------------
 |
 | De sidebar en de snelkoppelingen op het dashboard worden opgebouwd uit
-| deze lijst. Een nieuw onderdeel voeg je toe door hier een item met een
+| de navigatie. Een nieuw onderdeel voeg je toe door hier een item met een
 | bestaande routenaam op te nemen.
+|
+| De voorzieningen van de woning kunnen een van de iconen hieronder
+| krijgen. De sleutel is de naam van het icoon in <x-site.icon>.
 |
 */
 
@@ -71,6 +74,31 @@ return [
                 ],
             ],
         ],
+    ],
+
+    'voorziening_iconen' => [
+        'wifi' => 'Wifi',
+        'pool' => 'Zwembad',
+        'snowflake' => 'Airconditioning',
+        'tv' => 'Televisie',
+        'kitchen' => 'Keuken',
+        'dishwasher' => 'Vaatwasser',
+        'washing' => 'Wasmachine',
+        'bbq' => 'Barbecue',
+        'parking' => 'Parkeerplaats',
+        'crib' => 'Kinderbed',
+        'bed' => 'Bed',
+        'bath' => 'Bad of douche',
+        'sun' => 'Terras',
+        'palm' => 'Tuin',
+        'umbrella' => 'Parasol',
+        'utensils' => 'Servies en bestek',
+        'water' => 'Water',
+        'shield' => 'Kluis of beveiliging',
+        'key' => 'Sleutel',
+        'car' => 'Auto',
+        'paw' => 'Huisdieren',
+        'check' => 'Vinkje',
     ],
 
 ];
