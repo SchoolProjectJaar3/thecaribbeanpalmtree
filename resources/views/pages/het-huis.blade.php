@@ -9,9 +9,9 @@ $ruimtes = config('woning.ruimtes');
 @section('content')
 
 <x-site.page-hero
-    eyebrow="Het huis"
-    title="Alle comfort voor een zorgeloze vakantie"
-    intro="Een ruime, lichte woning met een eigen zwembad en een tuin vol tropisch groen. Hier kom je na een dag op het strand helemaal tot rust."
+    :eyebrow="$cms?->text('hero', 'eyebrow') ?? 'Het huis'"
+    :title="$cms?->text('hero', 'title') ?? 'Alle comfort voor een zorgeloze vakantie'"
+    :intro="$cms?->text('hero', 'intro') ?? 'Een ruime, lichte woning met een eigen zwembad en een tuin vol tropisch groen. Hier kom je na een dag op het strand helemaal tot rust.'"
     image="zwembad_terras.avif" />
 
 
@@ -26,8 +26,8 @@ $ruimtes = config('woning.ruimtes');
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
             <x-site.section-heading
-                eyebrow="Over de woning"
-                title="Een thuis op Harmonie" />
+                :eyebrow="$cms?->text('description', 'eyebrow') ?? 'Over de woning'"
+                :title="$cms?->text('description', 'title') ?? 'Een thuis op Harmonie'" />
 
             @if ($woning?->paragraphs())
             <div class="mt-4 space-y-4 leading-relaxed text-deep-blue/80">
@@ -57,9 +57,9 @@ $ruimtes = config('woning.ruimtes');
 <section class="bg-white py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-site.section-heading
-            eyebrow="Voorzieningen"
-            title="Alles wat je nodig hebt"
-            intro="Van een volledig uitgeruste keuken tot een eigen zwembad: dit is wat de woning te bieden heeft." />
+            :eyebrow="$cms?->text('amenities', 'eyebrow') ?? 'Voorzieningen'"
+            :title="$cms?->text('amenities', 'title') ?? 'Alles wat je nodig hebt'"
+            :intro="$cms?->text('amenities', 'intro') ?? 'Van een volledig uitgeruste keuken tot een eigen zwembad: dit is wat de woning te bieden heeft.'" />
 
         <ul class="mt-12 grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($voorzieningen as $voorziening)
@@ -80,8 +80,8 @@ $ruimtes = config('woning.ruimtes');
 <section class="py-16 sm:py-20">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-site.section-heading
-            eyebrow="Indeling"
-            title="Een rondleiding door de woning" />
+            :eyebrow="$cms?->text('rooms', 'eyebrow') ?? 'Indeling'"
+            :title="$cms?->text('rooms', 'title') ?? 'Een rondleiding door de woning'" />
 
         <div class="mt-10 grid gap-6 sm:grid-cols-2">
             @foreach ($ruimtes as $ruimte)

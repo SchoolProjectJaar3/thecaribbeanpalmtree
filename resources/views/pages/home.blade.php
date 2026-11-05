@@ -20,13 +20,19 @@ $sfeerimpressie = [
 // Voorzieningen (uitsnede van "Het huis", beheerd bij de woninggegevens)
 $voorzieningen = $woning?->facilities->take(6) ?? collect();
 
-// Omgeving (hoogtepunten, reistijden uit het PVA)
+// Omgeving (hoogtepunten, teksten uit het CMS met deze teksten als terugval)
 $omgeving = [
 ['titel' => 'Stranden', 'tekst' => 'Daaibooi, Kokomo en Playa Porto Marie liggen allemaal binnen een kwartier rijden.', 'reistijd' => 'vanaf 14 min.'],
 ['titel' => 'Snorkelen en duiken', 'tekst' => 'Ontdek het koraalrif en de schildpadden bij Playa Grandi en de Knip-baaien.', 'reistijd' => 'vanaf 26 min.'],
 ['titel' => 'Willemstad', 'tekst' => 'Kleurrijke gevels, de Pontjesbrug en gezellige terrassen in de historische binnenstad.', 'reistijd' => '18 min.'],
 ['titel' => 'Natuur', 'tekst' => 'Beklim de Christoffelberg, spot flamingo\'s of bezoek de golven van Shete Boka.', 'reistijd' => 'dagtrip'],
 ];
+
+$omgeving = collect($omgeving)->map(fn ($plek, $index) => [
+'titel' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_title') ?? $plek['titel'],
+'tekst' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_text') ?? $plek['tekst'],
+'reistijd' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_travel_time') ?? $plek['reistijd'],
+]);
 
 // Reviews (voorbeeldcontent, wordt later ingevoerd via de beheeromgeving)
 $reviews = array_slice(config('woning.reviews'), 0, 3);
@@ -53,29 +59,28 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
     <div class="mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6 lg:px-8">
         <p class="text-sm font-semibold uppercase tracking-widest text-sand">
-            Vakantiewoning op Curaçao
+            {{ $cms?->text('hero', 'eyebrow') ?? 'Vakantiewoning op Curaçao' }}
         </p>
 
         <h1 class="mt-4 max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-            The Caribbean Palm Tree
+            {{ $cms?->text('hero', 'title') ?? 'The Caribbean Palm Tree' }}
         </h1>
 
         <p class="mt-6 max-w-2xl text-lg leading-relaxed text-white/90">
-            Geniet van een luxe vakantiewoning op Curaçao, rustig en centraal gelegen op Harmonie,
-            dichtbij de mooiste stranden van het eiland.
+            {{ $cms?->text('hero', 'intro') ?? 'Geniet van een luxe vakantiewoning op Curaçao, rustig en centraal gelegen op Harmonie, dichtbij de mooiste stranden van het eiland.' }}
         </p>
 
         <div class="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
                 href="/beschikbaarheid"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0 focus:ring-offset-deep-blue">
-                Bekijk beschikbaarheid
+                {{ $cms?->text('hero', 'button') ?? 'Bekijk beschikbaarheid' }}
             </a>
 
             <a
                 href="/reserveren"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-coral px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-coral/90 focus:outline-none focus:ring-0 focus:ring-coral focus:ring-offset-0 focus:ring-offset-deep-blue">
-                Boek nu
+                {{ $cms?->text('hero', 'booking_button') ?? 'Boek nu' }}
             </a>
         </div>
     </div>
@@ -163,10 +168,10 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 <section class="py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl">
-            <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Omgeving</p>
-            <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Het hele eiland binnen handbereik</h2>
+            <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">{{ $cms?->text('surroundings', 'eyebrow') ?? 'Omgeving' }}</p>
+            <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">{{ $cms?->text('surroundings', 'title') ?? 'Het hele eiland binnen handbereik' }}</h2>
             <p class="mt-4 leading-relaxed text-deep-blue/80">
-                Vanaf Harmonie ben je snel bij de mooiste stranden, in Willemstad en op de luchthaven.
+                {{ $cms?->text('surroundings', 'text') ?? 'Vanaf Harmonie ben je snel bij de mooiste stranden, in Willemstad en op de luchthaven.' }}
             </p>
         </div>
 
@@ -183,7 +188,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         </div>
 
         <a href="/omgeving" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
-            Ontdek de omgeving <span aria-hidden="true">&rarr;</span>
+            {{ $cms?->text('surroundings', 'link') ?? 'Ontdek de omgeving' }} <span aria-hidden="true">&rarr;</span>
         </a>
     </div>
 </section>
@@ -203,7 +208,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
             <a
                 href="/reserveren"
                 class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
-                Naar het reserveringsformulier
+                {{ $cms?->text('availability', 'button') ?? 'Naar het reserveringsformulier' }}
             </a>
         </div>
 
@@ -329,7 +334,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
             <a
                 href="/beschikbaarheid"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2 focus:ring-offset-deep-blue">
-                Bekijk beschikbaarheid
+                {{ $cms?->text('closing', 'button') ?? 'Bekijk beschikbaarheid' }}
             </a>
 
             <a
@@ -338,7 +343,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 rel="noopener"
                 class="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-white/30 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10 focus:outline-none focus:ring-0 focus:ring-white focus:ring-offset-2 focus:ring-offset-deep-blue">
                 <x-site.icon name="whatsapp" class="h-5 w-5" />
-                WhatsApp
+                {{ $cms?->text('closing', 'whatsapp_button') ?? 'WhatsApp' }}
             </a>
         </div>
 
