@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\CmsContent;
+use App\Models\CmsPage;
 use Database\Seeders\AccommodationSeeder;
+use Database\Seeders\CmsSeeder;
 use Database\Seeders\LanguageSeeder;
 
 dataset('paginas', [
@@ -100,4 +103,69 @@ it('toont de woninggegevens uit de database', function () {
         ->assertSee('Inchecken kan vanaf 15.00 uur, uitchecken kan tot 11.00 uur.')
         ->assertSee('Huisdieren zijn niet toegestaan.')
         ->assertSee('Ga zuinig om met water en energie.');
+});
+
+function cmsTekst(string $pagina, string $sectie, string $veld, string $taal): ?CmsContent
+{
+    return CmsPage::byKey($pagina)->sections->firstWhere('key', $sectie)->contents
+        ->first(fn ($content) => $content->key === $veld && $content->language->code === $taal);
+}
+
+it('toont de teksten uit het CMS op de homepagina', function () {
+    $this->seed([LanguageSeeder::class, CmsSeeder::class]);
+
+    cmsTekst('home', 'hero', 'title', 'nl')->update(['content' => 'Welkom op Curaçao']);
+    cmsTekst('home', 'hero', 'booking_button', 'nl')->update(['content' => 'Reserveer direct']);
+    cmsTekst('home', 'surroundings', 'text', 'nl')->update(['content' => 'Alles ligt dichtbij.']);
+
+    $this->get('/')
+        ->assertOk()
+        ->assertSee('Welkom op Curaçao')
+        ->assertSee('Reserveer direct')
+        ->assertSee('Alles ligt dichtbij.')
+        ->assertSee('Vakantiewoning op Curaçao');
+});
+
+it('toont de teksten uit het CMS op het huis', function () {
+    $this->seed([LanguageSeeder::class, AccommodationSeeder::class, CmsSeeder::class]);
+
+    cmsTekst('property', 'hero', 'intro', 'nl')->update(['content' => 'Een nieuwe introductie.']);
+    cmsTekst('property', 'amenities', 'title', 'nl')->update(['content' => 'Van alle gemakken voorzien']);
+
+    $this->get('/het-huis')
+        ->assertOk()
+        ->assertSee('Een nieuwe introductie.')
+        ->assertSee('Van alle gemakken voorzien')
+        ->assertSee('Een rondleiding door de woning')
+        ->assertSee('Vaatwasser');
+});
+
+it('toont de Engelse teksten uit het CMS', function () {
+    $this->seed([LanguageSeeder::class, CmsSeeder::class]);
+
+    app()->setLocale('en');
+
+    $this->get('/')
+        ->assertOk()
+        ->assertSee('Holiday home on Curaçao')
+        ->assertSee('Book now');
+
+    $this->get('/het-huis')
+        ->assertOk()
+        ->assertSee('A tour of the house');
+});
+
+it('valt terug op een vaste tekst als een CMS-tekst ontbreekt', function () {
+    $this->seed([LanguageSeeder::class, CmsSeeder::class]);
+
+    cmsTekst('home', 'hero', 'booking_button', 'en')->delete();
+    cmsTekst('home', 'hero', 'eyebrow', 'en')->delete();
+    cmsTekst('home', 'hero', 'eyebrow', 'nl')->delete();
+
+    app()->setLocale('en');
+
+    $this->get('/')
+        ->assertOk()
+        ->assertSee('Boek nu')
+        ->assertSee('Vakantiewoning op Curaçao');
 });
