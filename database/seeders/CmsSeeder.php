@@ -12,19 +12,19 @@ use Illuminate\Support\Collection;
 class CmsSeeder extends Seeder
 {
     /**
-     * Vul de pagina's, secties en teksten uit config/cms.php met de teksten
-     * in database/seeders/cms. Bestaande teksten worden niet overschreven,
-     * zodat aanpassingen uit het beheer behouden blijven.
+     * Seed the pages, sections and texts from config/cms.php with the texts
+     * in database/seeders/cms. Existing texts are not overwritten, so changes
+     * made in the admin area are preserved.
      */
     public function run(): void
     {
         $languages = Language::all()->keyBy('code');
 
-        foreach (array_keys(config('cms.paginas')) as $index => $key) {
+        foreach (array_keys(config('cms.pages')) as $index => $key) {
             $this->seedPage($key, $index + 1, require __DIR__."/cms/{$key}.php", $languages);
         }
 
-        $this->seedTranslations(require __DIR__.'/cms/algemeen.php', $languages);
+        $this->seedTranslations(require __DIR__.'/cms/general.php', $languages);
     }
 
     /**
@@ -44,7 +44,7 @@ class CmsSeeder extends Seeder
             $page->translations()->firstOrCreate(['language_id' => $languages[$code]->id], $translation);
         }
 
-        foreach (array_keys(config("cms.paginas.{$key}.secties")) as $index => $sectionKey) {
+        foreach (array_keys(config("cms.pages.{$key}.sections")) as $index => $sectionKey) {
             $section = $page->sections()->updateOrCreate(
                 ['key' => $sectionKey],
                 ['sort_order' => $index + 1, 'is_visible' => true],
@@ -80,7 +80,7 @@ class CmsSeeder extends Seeder
     }
 
     /**
-     * Zet herhalende items om naar velden met de sleutel item_{nummer}_{veld}.
+     * Convert repeating items into fields with the key item_{number}_{field}.
      *
      * @param  array<string, mixed>  $section
      * @return array<string, array<string, string>>

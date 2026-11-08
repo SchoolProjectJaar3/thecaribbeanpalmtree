@@ -15,10 +15,10 @@
             <h3 class="text-red-400 text-lg font-semibold mb-4 relative pb-2 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5">Snelle Links</h3>
             <ul class="text-sm space-y-2">
                 <li><a href="/" class="text-gray-700 hover:text-black transition-colors">Home</a></li>
-                <li><a href="/het-huis" class="text-gray-700 hover:text-black transition-colors">Het huis</a></li>
-                <li><a href="/fotos" class="text-gray-700 hover:text-black transition-colors">Foto's</a></li>
-                <li><a href="/beschikbaarheid" class="text-gray-700 hover:text-black transition-colors">Beschikbaarheid</a></li>
-                <li><a href="/tarieven" class="text-gray-700 hover:text-black transition-colors">Tarieven</a></li>
+                <li><a href="/the-house" class="text-gray-700 hover:text-black transition-colors">Het huis</a></li>
+                <li><a href="/photos" class="text-gray-700 hover:text-black transition-colors">Foto's</a></li>
+                <li><a href="/availability" class="text-gray-700 hover:text-black transition-colors">Beschikbaarheid</a></li>
+                <li><a href="/rates" class="text-gray-700 hover:text-black transition-colors">Tarieven</a></li>
             </ul>
         </div>
 
@@ -26,7 +26,7 @@
             <h3 class="text-red-400 text-lg font-semibold mb-4 relative pb-2 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-8 after:h-0.5 after:bg-gray-800">Voorwaarden</h3>
             <ul class="text-sm">
                 <li>
-                    <a href="privacy-voorwaarden" class="text-gray-700 hover:text-black transition-colors flex items-center justify-start gap-2">
+                    <a href="/privacy-terms" class="text-gray-700 hover:text-black transition-colors flex items-center justify-start gap-2">
                         <i class="fa-solid fa-shield-halved text-gray-800"></i> Privacy Voorwaarden
                     </a>
                     <a href="#" class="text-gray-700 hover:text-black transition-colors flex items-center justify-start gap-2">

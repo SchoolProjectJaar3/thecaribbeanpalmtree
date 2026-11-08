@@ -59,7 +59,7 @@ class Accommodation extends Model
     }
 
     /**
-     * De woning die op de website staat, met de vertalingen en voorzieningen.
+     * The accommodation shown on the website, with its translations and facilities.
      */
     public static function current(): ?self
     {
@@ -70,21 +70,21 @@ class Accommodation extends Model
     }
 
     /**
-     * Eén tekst van de woning in de gevraagde taal, met de standaardtaal als
-     * terugval. Zonder taal krijg je de tekst in de standaardtaal.
+     * A text of the accommodation in the requested language, falling back to
+     * the default language. Without a language you get the default language.
      */
     public function text(string $field, ?string $code = null): ?string
     {
-        $inTaal = fn (callable $taal) => $this->translations
-            ->first(fn (AccommodationTranslation $translation) => $taal($translation->language))
+        $inLanguage = fn (callable $matches) => $this->translations
+            ->first(fn (AccommodationTranslation $translation) => $matches($translation->language))
             ?->{$field};
 
-        return ($code === null ? null : $inTaal(fn (Language $language) => $language->code === $code))
-            ?? $inTaal(fn (Language $language) => $language->is_default);
+        return ($code === null ? null : $inLanguage(fn (Language $language) => $language->code === $code))
+            ?? $inLanguage(fn (Language $language) => $language->is_default);
     }
 
     /**
-     * De beschrijving, opgedeeld in alinea's op de lege regels.
+     * The description, split into paragraphs on the blank lines.
      *
      * @return list<string>
      */
@@ -97,7 +97,7 @@ class Accommodation extends Model
     }
 
     /**
-     * De huisregels, één regel per regel tekst.
+     * The house rules, one rule per line of text.
      *
      * @return list<string>
      */
@@ -120,8 +120,8 @@ class Accommodation extends Model
     }
 
     /**
-     * Tijden worden als 15:00:00 opgeslagen en als 15:00 teruggegeven, zodat
-     * ze direct in een tijdveld passen.
+     * Times are stored as 15:00:00 and returned as 15:00, so they fit
+     * directly into a time input.
      */
     private function time(): Attribute
     {

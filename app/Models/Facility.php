@@ -32,8 +32,8 @@ class Facility extends Model
     }
 
     /**
-     * De naam in de gevraagde taal, met de standaardtaal als terugval. Zonder
-     * taal krijg je de naam in de standaardtaal.
+     * The name in the requested language, falling back to the default language.
+     * Without a language you get the name in the default language.
      */
     public function name(?string $code = null): string
     {

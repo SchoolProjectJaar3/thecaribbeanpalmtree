@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('password.confirm') }}" class="grid gap-5">
         @csrf
 
-        <!-- Wachtwoord -->
+        <!-- Password -->
         <div>
             <x-input-label for="password" value="Wachtwoord" />
             <x-text-input id="password" class="mt-1 block w-full"

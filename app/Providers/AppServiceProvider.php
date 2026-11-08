@@ -24,13 +24,13 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer([
             'pages.home',
-            'pages.het-huis',
-            'pages.reserveren',
-            'pages.tarieven',
-            'pages.privacy-voorwaarden',
-        ], fn ($view) => $view->with('woning', Accommodation::current()));
+            'pages.property',
+            'pages.booking',
+            'pages.rates',
+            'pages.privacy',
+        ], fn ($view) => $view->with('accommodation', Accommodation::current()));
 
         View::composer('pages.home', fn ($view) => $view->with('cms', CmsPage::byKey('home')));
-        View::composer('pages.het-huis', fn ($view) => $view->with('cms', CmsPage::byKey('property')));
+        View::composer('pages.property', fn ($view) => $view->with('cms', CmsPage::byKey('property')));
     }
 }

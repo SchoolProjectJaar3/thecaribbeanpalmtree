@@ -3,46 +3,46 @@
 
 @php
 /*
-Voorbeeldcontent voor de homepagina (zie PVA hoofdstuk 6.1).
-De definitieve teksten, reviews en FAQ worden aangeleverd door de opdrachtgever
-en komen later uit de beheeromgeving.
+Sample content for the homepage (see project plan chapter 6.1).
+The final texts, reviews and FAQ are supplied by the client and will
+later come from the admin area.
 */
 
-// Sfeerimpressie (uitsnede van de fotogalerij)
-$sfeerimpressie = [
-['titel' => 'Zwembad en terras', 'foto' => 'zwembad_terras.avif', 'alt' => 'Privézwembad met houten terras en ligbedden', 'klasse' => 'sm:col-span-2 sm:row-span-2'],
-['titel' => 'Woonkamer', 'foto' => 'woonkamer.webp', 'alt' => 'Lichte woonkamer met bank en openslaande deuren naar het terras', 'klasse' => ''],
-['titel' => 'Keuken', 'foto' => 'keuken.jpg', 'alt' => 'Moderne keuken met kookeiland en barkrukken', 'klasse' => ''],
-['titel' => 'Slaapkamer', 'foto' => 'slaapkamer.avif', 'alt' => 'Slaapkamer met tweepersoonsbed en airconditioning', 'klasse' => ''],
-['titel' => 'Uitzicht', 'foto' => 'uitzicht.jpg', 'alt' => 'Uitzicht over het zwembad, de tropische tuin en de zee', 'klasse' => ''],
+// Impression (selection from the photo gallery)
+$impression = [
+['title' => 'Zwembad en terras', 'photo' => 'pool_terrace.avif', 'alt' => 'Privézwembad met houten terras en ligbedden', 'class' => 'sm:col-span-2 sm:row-span-2'],
+['title' => 'Woonkamer', 'photo' => 'living_room.webp', 'alt' => 'Lichte woonkamer met bank en openslaande deuren naar het terras', 'class' => ''],
+['title' => 'Keuken', 'photo' => 'kitchen.jpg', 'alt' => 'Moderne keuken met kookeiland en barkrukken', 'class' => ''],
+['title' => 'Slaapkamer', 'photo' => 'bedroom.avif', 'alt' => 'Slaapkamer met tweepersoonsbed en airconditioning', 'class' => ''],
+['title' => 'Uitzicht', 'photo' => 'view.jpg', 'alt' => 'Uitzicht over het zwembad, de tropische tuin en de zee', 'class' => ''],
 ];
 
-// Voorzieningen (uitsnede van "Het huis", beheerd bij de woninggegevens)
-$voorzieningen = $woning?->facilities->take(6) ?? collect();
+// Facilities (selection from "Het huis", managed in the accommodation details)
+$facilities = $accommodation?->facilities->take(6) ?? collect();
 
-// Omgeving (hoogtepunten, teksten uit het CMS met deze teksten als terugval)
-$omgeving = [
-['titel' => 'Stranden', 'tekst' => 'Daaibooi, Kokomo en Playa Porto Marie liggen allemaal binnen een kwartier rijden.', 'reistijd' => 'vanaf 14 min.'],
-['titel' => 'Snorkelen en duiken', 'tekst' => 'Ontdek het koraalrif en de schildpadden bij Playa Grandi en de Knip-baaien.', 'reistijd' => 'vanaf 26 min.'],
-['titel' => 'Willemstad', 'tekst' => 'Kleurrijke gevels, de Pontjesbrug en gezellige terrassen in de historische binnenstad.', 'reistijd' => '18 min.'],
-['titel' => 'Natuur', 'tekst' => 'Beklim de Christoffelberg, spot flamingo\'s of bezoek de golven van Shete Boka.', 'reistijd' => 'dagtrip'],
+// Surroundings (highlights, texts from the CMS with these texts as fallback)
+$surroundings = [
+['title' => 'Stranden', 'text' => 'Daaibooi, Kokomo en Playa Porto Marie liggen allemaal binnen een kwartier rijden.', 'travel_time' => 'vanaf 14 min.'],
+['title' => 'Snorkelen en duiken', 'text' => 'Ontdek het koraalrif en de schildpadden bij Playa Grandi en de Knip-baaien.', 'travel_time' => 'vanaf 26 min.'],
+['title' => 'Willemstad', 'text' => 'Kleurrijke gevels, de Pontjesbrug en gezellige terrassen in de historische binnenstad.', 'travel_time' => '18 min.'],
+['title' => 'Natuur', 'text' => 'Beklim de Christoffelberg, spot flamingo\'s of bezoek de golven van Shete Boka.', 'travel_time' => 'dagtrip'],
 ];
 
-$omgeving = collect($omgeving)->map(fn ($plek, $index) => [
-'titel' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_title') ?? $plek['titel'],
-'tekst' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_text') ?? $plek['tekst'],
-'reistijd' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_travel_time') ?? $plek['reistijd'],
+$surroundings = collect($surroundings)->map(fn ($place, $index) => [
+'title' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_title') ?? $place['title'],
+'text' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_text') ?? $place['text'],
+'travel_time' => $cms?->text('surroundings', 'item_' . ($index + 1) . '_travel_time') ?? $place['travel_time'],
 ]);
 
-// Reviews (voorbeeldcontent, wordt later ingevoerd via de beheeromgeving)
-$reviews = array_slice(config('woning.reviews'), 0, 3);
+// Reviews (sample content, entered via the admin area later)
+$reviews = array_slice(config('site.reviews'), 0, 3);
 
-// Veelgestelde vragen (antwoorden worden aangeleverd door de opdrachtgever)
-$faq = array_slice(config('woning.faq'), 0, 6);
+// Frequently asked questions (answers are supplied by the client)
+$faq = array_slice(config('site.faq'), 0, 6);
 
 // Contact
-$email = config('woning.contact.email');
-$whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
+$email = config('site.contact.email');
+$whatsappUrl = 'https://wa.me/' . config('site.contact.whatsapp');
 @endphp
 
 @section('content')
@@ -50,11 +50,11 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 <!-- Hero -->
 <section class="relative isolate overflow-hidden bg-deep-blue">
     <img
-        src="{{ asset('images/website_static/grote_banner.webp') }}"
+        src="{{ asset('images/website_static/hero_banner.webp') }}"
         alt=""
         class="absolute inset-0 -z-10 h-full w-full object-cover"
         fetchpriority="high">
-    <!-- Donkere laag voor leesbare tekst op de foto -->
+    <!-- Dark overlay for readable text on the photo -->
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-deep-blue/90 via-deep-blue/60 to-deep-blue/20" aria-hidden="true"></div>
 
     <div class="mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6 lg:px-8">
@@ -72,13 +72,13 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
         <div class="mt-10 flex flex-col gap-4 sm:flex-row">
             <a
-                href="/beschikbaarheid"
+                href="/availability"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-0 focus:ring-offset-deep-blue">
                 {{ $cms?->text('hero', 'button') ?? 'Bekijk beschikbaarheid' }}
             </a>
 
             <a
-                href="/reserveren"
+                href="/book"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-coral px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-coral/90 focus:outline-none focus:ring-0 focus:ring-coral focus:ring-offset-0 focus:ring-offset-deep-blue">
                 {{ $cms?->text('hero', 'booking_button') ?? 'Boek nu' }}
             </a>
@@ -87,13 +87,13 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 </section>
 
 
-<!-- Kerngegevens -->
-@if ($woning)
-<x-site.kerngegevens :woning="$woning" />
+<!-- Key facts -->
+@if ($accommodation)
+<x-site.key-facts :accommodation="$accommodation" />
 @endif
 
 
-<!-- Sfeerimpressie -->
+<!-- Impression -->
 <section class="py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
@@ -102,22 +102,22 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Een eerste blik op je verblijf</h2>
             </div>
 
-            <a href="/fotos" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
+            <a href="/photos" class="inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle foto's <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
 
         <div class="mt-10 grid auto-rows-[12rem] grid-cols-1 gap-4 sm:grid-cols-4">
-            @foreach ($sfeerimpressie as $foto)
-            <div class="relative overflow-hidden rounded-xl bg-deep-blue/10 {{ $foto['klasse'] }}">
+            @foreach ($impression as $photo)
+            <div class="relative overflow-hidden rounded-xl bg-deep-blue/10 {{ $photo['class'] }}">
                 <img
-                    src="{{ asset('images/website_static/' . $foto['foto']) }}"
-                    alt="{{ $foto['alt'] }}"
+                    src="{{ asset('images/website_static/' . $photo['photo']) }}"
+                    alt="{{ $photo['alt'] }}"
                     class="h-full w-full object-cover transition duration-500 hover:scale-105"
                     loading="lazy"
                     decoding="async">
                 <span class="absolute bottom-3 left-3 rounded-md bg-deep-blue/70 px-3 py-1 text-sm font-medium text-white">
-                    {{ $foto['titel'] }}
+                    {{ $photo['title'] }}
                 </span>
             </div>
             @endforeach
@@ -126,11 +126,11 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 </section>
 
 
-<!-- Over het huis -->
+<!-- About the house -->
 <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <img
-            src="{{ asset('images/website_static/woonkamer.webp') }}"
+            src="{{ asset('images/website_static/living_room.webp') }}"
             alt="Woonkamer met stenen muur en openslaande deuren naar het terras"
             class="aspect-[4/3] w-full rounded-xl object-cover shadow-sm"
             loading="lazy"
@@ -139,24 +139,24 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div>
             <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Het huis</p>
             <h2 class="mt-2 text-3xl font-bold text-deep-blue sm:text-4xl">Alle comfort voor een zorgeloze vakantie</h2>
-            @if ($woning?->text('short_description'))
-            <p class="mt-4 leading-relaxed text-deep-blue/80">{{ $woning->text('short_description') }}</p>
+            @if ($accommodation?->text('short_description'))
+            <p class="mt-4 leading-relaxed text-deep-blue/80">{{ $accommodation->text('short_description') }}</p>
             @endif
 
-            @if ($voorzieningen->isNotEmpty())
+            @if ($facilities->isNotEmpty())
             <ul class="mt-8 grid gap-3 sm:grid-cols-2">
-                @foreach ($voorzieningen as $voorziening)
+                @foreach ($facilities as $facility)
                 <li class="flex items-start gap-3">
                     <svg class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                     </svg>
-                    <span class="text-deep-blue">{{ $voorziening->name() }}</span>
+                    <span class="text-deep-blue">{{ $facility->name() }}</span>
                 </li>
                 @endforeach
             </ul>
             @endif
 
-            <a href="/het-huis" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
+            <a href="/the-house" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Bekijk alle voorzieningen <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -164,7 +164,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 </section>
 
 
-<!-- Omgeving -->
+<!-- Surroundings -->
 <section class="py-16 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl">
@@ -176,25 +176,25 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         </div>
 
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach ($omgeving as $plek)
+            @foreach ($surroundings as $place)
             <article class="flex flex-col rounded-xl border border-deep-blue/10 bg-white p-6 shadow-sm">
                 <span class="inline-flex w-fit rounded-full bg-sand/30 px-3 py-1 text-xs font-semibold text-deep-blue">
-                    {{ $plek['reistijd'] }}
+                    {{ $place['travel_time'] }}
                 </span>
-                <h3 class="mt-4 text-lg font-semibold text-deep-blue">{{ $plek['titel'] }}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-deep-blue/80">{{ $plek['tekst'] }}</p>
+                <h3 class="mt-4 text-lg font-semibold text-deep-blue">{{ $place['title'] }}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-deep-blue/80">{{ $place['text'] }}</p>
             </article>
             @endforeach
         </div>
 
-        <a href="/omgeving" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
+        <a href="/surroundings" class="mt-8 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
             {{ $cms?->text('surroundings', 'link') ?? 'Ontdek de omgeving' }} <span aria-hidden="true">&rarr;</span>
         </a>
     </div>
 </section>
 
 
-<!-- Beschikbaarheid -->
+<!-- Availability -->
 <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
@@ -206,15 +206,15 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
             </p>
 
             <a
-                href="/reserveren"
+                href="/book"
                 class="mt-8 inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">
                 {{ $cms?->text('availability', 'button') ?? 'Naar het reserveringsformulier' }}
             </a>
         </div>
 
-        <!-- Compacte kalender -->
+        <!-- Compact calendar -->
         <div>
-            <x-site.calendar :maanden="1" />
+            <x-site.calendar :months="1" />
 
             <div class="mt-4 flex justify-center gap-6 text-xs text-deep-blue/70">
                 <span class="flex items-center gap-2">
@@ -246,15 +246,15 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
         <div class="mt-10 grid gap-6 md:grid-cols-3">
             @foreach ($reviews as $review)
             <figure class="flex flex-col rounded-xl border border-deep-blue/10 bg-white p-6 shadow-sm">
-                <x-site.stars :aantal="$review['sterren']" />
+                <x-site.stars :count="$review['stars']" />
 
                 <blockquote class="mt-4 flex-1 leading-relaxed text-deep-blue/80">
-                    &ldquo;{{ $review['tekst'] }}&rdquo;
+                    &ldquo;{{ $review['text'] }}&rdquo;
                 </blockquote>
 
                 <figcaption class="mt-6 border-t border-deep-blue/10 pt-4">
-                    <p class="font-semibold text-deep-blue">{{ $review['naam'] }}</p>
-                    <p class="text-sm text-deep-blue/60">{{ $review['plaats'] }}</p>
+                    <p class="font-semibold text-deep-blue">{{ $review['name'] }}</p>
+                    <p class="text-sm text-deep-blue/60">{{ $review['city'] }}</p>
                 </figcaption>
             </figure>
             @endforeach
@@ -263,7 +263,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 </section>
 
 
-<!-- Veelgestelde vragen -->
+<!-- Frequently asked questions -->
 <section class="bg-white py-16 sm:py-24">
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div class="text-center">
@@ -275,11 +275,11 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
             @foreach ($faq as $item)
             <details class="group">
                 <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 font-semibold text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-inset focus:ring-turquoise">
-                    {{ $item['vraag'] }}
+                    {{ $item['question'] }}
                     <span class="text-xl text-turquoise transition group-open:rotate-45" aria-hidden="true">+</span>
                 </summary>
                 <p class="px-6 pb-5 leading-relaxed text-deep-blue/80">
-                    {{ $item['antwoord'] }}
+                    {{ $item['answer'] }}
                 </p>
             </details>
             @endforeach
@@ -294,7 +294,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 </section>
 
 
-<!-- Over de eigenaar -->
+<!-- About the owner -->
 <section class="py-16 sm:py-24">
     <div class="mx-auto grid max-w-5xl items-center gap-10 px-4 sm:px-6 md:grid-cols-[16rem_1fr] lg:px-8">
         <img
@@ -313,7 +313,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
                 de lekkerste restaurants en alles wat je nodig hebt voor een onvergetelijk verblijf.
             </p>
 
-            <a href="/over-de-eigenaar" class="mt-6 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
+            <a href="/about-the-owner" class="mt-6 inline-flex items-center gap-1 font-semibold text-turquoise hover:text-deep-blue focus:outline-none focus:ring-0 focus:ring-turquoise">
                 Lees het hele verhaal <span aria-hidden="true">&rarr;</span>
             </a>
         </div>
@@ -321,7 +321,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 </section>
 
 
-<!-- Afsluiting -->
+<!-- Closing -->
 <section class="bg-deep-blue py-16 sm:py-24">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-white sm:text-4xl">Klaar voor zon, zee en rust?</h2>
@@ -332,7 +332,7 @@ $whatsappUrl = 'https://wa.me/' . config('woning.contact.whatsapp');
 
         <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-                href="/beschikbaarheid"
+                href="/availability"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2 focus:ring-offset-deep-blue">
                 {{ $cms?->text('closing', 'button') ?? 'Bekijk beschikbaarheid' }}
             </a>
