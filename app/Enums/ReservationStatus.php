@@ -24,7 +24,7 @@ enum ReservationStatus: string
     }
 
     /**
-     * Statussen waarbij de woning daadwerkelijk bezet is.
+     * Statuses in which the accommodation is actually occupied.
      *
      * @return array<int, self>
      */

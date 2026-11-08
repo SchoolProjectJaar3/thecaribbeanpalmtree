@@ -24,7 +24,7 @@ class CmsTranslation extends Model
     }
 
     /**
-     * Alle vaste teksten in de gevraagde taal, met de standaardtaal als terugval.
+     * All fixed texts in the requested language, falling back to the default language.
      *
      * @return Collection<string, string>
      */

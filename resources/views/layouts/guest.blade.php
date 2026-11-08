@@ -1,4 +1,4 @@
-<!-- guest, layout voor de inlog- en accountpagina's (Breeze) -->
+<!-- guest, layout for the login and account pages (Breeze) -->
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -16,10 +16,10 @@
 <body class="bg-sand-white font-sans text-deep-blue antialiased">
     <div class="flex min-h-screen">
 
-        <!-- Beeld (alleen op grote schermen) -->
+        <!-- Image (large screens only) -->
         <aside class="relative isolate hidden w-1/2 overflow-hidden bg-deep-blue lg:flex lg:flex-col lg:justify-between" aria-hidden="true">
             <img
-                src="{{ asset('images/website_static/zwembad_terras.avif') }}"
+                src="{{ asset('images/website_static/pool_terrace.avif') }}"
                 alt=""
                 class="absolute inset-0 -z-10 h-full w-full object-cover">
             <div class="absolute inset-0 -z-10 bg-gradient-to-t from-deep-blue via-deep-blue/70 to-deep-blue/30"></div>
@@ -39,7 +39,7 @@
             </div>
         </aside>
 
-        <!-- Formulier -->
+        <!-- Form -->
         <main class="flex w-full flex-col px-4 py-8 sm:px-6 lg:w-1/2 lg:px-8">
             <div class="flex items-center justify-between gap-4">
                 <a
