@@ -8,7 +8,7 @@
     <form method="POST" action="{{ route('password.email') }}" class="grid gap-5">
         @csrf
 
-        <!-- E-mailadres -->
+        <!-- Email address -->
         <div>
             <x-input-label for="email" value="E-mailadres" />
             <x-text-input id="email" class="mt-1 block w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
