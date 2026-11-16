@@ -48,6 +48,21 @@ class Accommodation extends Model
         return $this->hasMany(AccommodationTranslation::class);
     }
 
+    public function rates(): HasMany
+    {
+        return $this->hasMany(Rate::class);
+    }
+
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function blockedPeriods(): HasMany
+    {
+        return $this->hasMany(BlockedPeriod::class);
+    }
+
     public function facilities(): BelongsToMany
     {
         return $this->belongsToMany(
@@ -75,12 +90,12 @@ class Accommodation extends Model
      */
     public function text(string $field, ?string $code = null): ?string
     {
-        $inTaal = fn (callable $taal) => $this->translations
-            ->first(fn (AccommodationTranslation $translation) => $taal($translation->language))
+        $inTaal = fn(callable $taal) => $this->translations
+            ->first(fn(AccommodationTranslation $translation) => $taal($translation->language))
             ?->{$field};
 
-        return ($code === null ? null : $inTaal(fn (Language $language) => $language->code === $code))
-            ?? $inTaal(fn (Language $language) => $language->is_default);
+        return ($code === null ? null : $inTaal(fn(Language $language) => $language->code === $code))
+            ?? $inTaal(fn(Language $language) => $language->is_default);
     }
 
     /**
@@ -126,8 +141,8 @@ class Accommodation extends Model
     private function time(): Attribute
     {
         return Attribute::make(
-            get: fn (?string $value) => $value === null ? null : substr($value, 0, 5),
-            set: fn (?string $value) => $value === null ? null : substr($value, 0, 5).':00',
+            get: fn(?string $value) => $value === null ? null : substr($value, 0, 5),
+            set: fn(?string $value) => $value === null ? null : substr($value, 0, 5) . ':00',
         );
     }
 }
