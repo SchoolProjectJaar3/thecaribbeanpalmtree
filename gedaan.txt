@@ -1,5 +1,0 @@
-footer
-iets in de back end bij sprint 2
-models aanmaken
-seeders aanmaken
-de notities in github zetten
