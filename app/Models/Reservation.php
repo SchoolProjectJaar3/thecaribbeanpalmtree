@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Reservation extends Model
 {
+    /**
+     * Let op: reservation_number, status en total_amount worden door de
+     * applicatie bepaald en nooit rechtstreeks uit een formulier overgenomen.
+     */
     protected $fillable = [
         'reservation_number',
         'accommodation_id',
@@ -30,12 +34,12 @@ class Reservation extends Model
         return [
             'arrival_date' => 'date',
             'departure_date' => 'date',
-            'cancelled_at' => 'datetime',
-            'status' => ReservationStatus::class,
-            'total_amount' => 'decimal:2',
             'adults' => 'integer',
             'children' => 'integer',
             'pets' => 'integer',
+            'status' => ReservationStatus::class,
+            'total_amount' => 'decimal:2',
+            'cancelled_at' => 'datetime',
         ];
     }
 

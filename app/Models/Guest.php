@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\SoftDeletes;
 
 class Guest extends Model
 {
@@ -25,6 +26,13 @@ class Guest extends Model
         'country_code',
         'language_id',
     ];
+
+    protected function name(): Attribute
+    {
+        return Attribute::get(fn() => collect([$this->first_name, $this->infix, $this->last_name])
+            ->filter()
+            ->implode(' '));
+    }
 
     public function user(): BelongsTo
     {

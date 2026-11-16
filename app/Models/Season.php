@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Season extends Model
 {
+    /**
+     * De tabel seasons heeft geen created_at en updated_at.
+     */
     public $timestamps = false;
 
     protected $fillable = [
