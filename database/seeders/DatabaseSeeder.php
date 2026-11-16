@@ -12,6 +12,10 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             RoleSeeder::class,
             AccommodationSeeder::class,
+            SeasonSeeder::class,
+            RateSeeder::class,
+            ReservationSeeder::class,
+            BlockedPeriodSeeder::class,
             CmsSeeder::class,
             AdminUserSeeder::class,
         ]);

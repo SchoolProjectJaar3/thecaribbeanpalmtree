@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use RuntimeException;
+use App\Models\Rate;
 
 class RateSeeder extends Seeder
 {
@@ -57,20 +58,19 @@ class RateSeeder extends Seeder
         ];
 
         foreach ($rates as $rate) {
-            DB::table('rates')->updateOrInsert(
-                [
-                    'accommodation_id' => $accommodationId,
-                    'season_id' => $rate['season_id'],
-                    'start_date' => $rate['start_date'],
-                    'end_date' => $rate['end_date'],
-                ],
-                [
-                    'price_per_night' => $rate['price_per_night'],
-                    'min_nights' => $rate['min_nights'],
-                    'arrival_day' => null,
-                    'updated_at' => now(),
-                ]
-            );
-        }
-    }
+        Rate::updateOrCreate(
+        [
+            'accommodation_id' => $accommodationId,
+            'season_id' => $rate['season_id'],
+            'start_date' => $rate['start_date'],
+            'end_date' => $rate['end_date'],
+        ],
+        [
+            'price_per_night' => $rate['price_per_night'],
+            'min_nights' => $rate['min_nights'],
+            'arrival_day' => null,
+        ]
+        );
+        }       
+}
 }
