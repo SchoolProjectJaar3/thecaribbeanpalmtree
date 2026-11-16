@@ -1,9 +1,9 @@
 name: Tests & deploy
 
-# Pull requests naar main worden getest.
-# Bij een push naar main wordt de site daarna ook gebouwd (Composer + Vite) en
-# op de branch `deploy` gezet. DirectAdmin haalt die branch op en zet hem in
-# public_html. Zie README.md voor de eenmalige instellingen in DirectAdmin.
+# Pull requests to main are tested.
+# On a push to main the site is then also built (Composer + Vite) and put on
+# the `deploy` branch. DirectAdmin fetches that branch and places it in
+# public_html. See README.md for the one-time settings in DirectAdmin.
 
 on:
   push:
@@ -82,18 +82,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Broncode plus wat de server nodig heeft maar niet in git staat.
-          # .github hoort niet op de server.
+          # Source code plus what the server needs but is not in git.
+          # .github does not belong on the server.
           git rm -r --cached --quiet .github
           git add --force vendor public/build bootstrap/cache/packages.php
           tree=$(git write-tree)
 
-          # Nieuwe commit bovenop de vorige deploy, zodat DirectAdmin gewoon kan fetchen
+          # New commit on top of the previous deploy, so DirectAdmin can simply fetch
           message="Deploy ${GITHUB_SHA::7}: $(git log -1 --format=%s)"
           if git fetch --depth=1 origin deploy; then
             parent=$(git rev-parse FETCH_HEAD)
             if [ "$(git rev-parse "$parent^{tree}")" = "$tree" ]; then
-              echo "Geen wijzigingen sinds de vorige deploy."
+              echo "No changes since the previous deploy."
               exit 0
             fi
             commit=$(git commit-tree "$tree" -p "$parent" -m "$message")
@@ -108,7 +108,7 @@ jobs:
           WEBHOOK_URL: ${{ secrets.DIRECTADMIN_WEBHOOK_URL }}
         run: |
           if [ -z "$WEBHOOK_URL" ]; then
-            echo "::warning::Secret DIRECTADMIN_WEBHOOK_URL ontbreekt: klik in DirectAdmin zelf op Fetch en Deploy."
+            echo "::warning::Secret DIRECTADMIN_WEBHOOK_URL is missing: click Fetch and Deploy in DirectAdmin yourself."
             exit 0
           fi
           curl --fail --silent --show-error --max-time 300 -X POST "$WEBHOOK_URL"

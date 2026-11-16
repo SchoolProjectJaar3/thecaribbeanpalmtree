@@ -50,7 +50,7 @@ class CmsPage extends Model
     }
 
     /**
-     * Haal een pagina op met alle secties, teksten en vertalingen in één keer.
+     * Fetch a page with all its sections, texts and translations at once.
      */
     public static function byKey(string $key): ?self
     {
@@ -60,7 +60,7 @@ class CmsPage extends Model
     }
 
     /**
-     * De vertaling van de pagina in de gevraagde taal, met de standaardtaal als terugval.
+     * The translation of the page in the requested language, falling back to the default language.
      */
     public function translation(?string $code = null): ?CmsPageTranslation
     {
@@ -71,9 +71,9 @@ class CmsPage extends Model
     }
 
     /**
-     * Eén tekst van de pagina in de gevraagde taal, met de standaardtaal als terugval.
+     * A text of the page in the requested language, falling back to the default language.
      *
-     * @param  array<string, string|int|float>  $replace  Waarden voor placeholders, zoals ['aantal' => 5] voor :aantal.
+     * @param  array<string, string|int|float>  $replace  Values for placeholders, such as ['aantal' => 5] for :aantal.
      */
     public function text(string $section, string $key, array $replace = [], ?string $code = null): ?string
     {

@@ -1,13 +1,13 @@
 import Alpine from 'alpinejs';
 
-import beschikbaarheid from './components/beschikbaarheid';
-import fotogalerij from './components/fotogalerij';
-import prijsCalculator from './components/prijsCalculator';
+import availability from './components/availability';
+import photoGallery from './components/photoGallery';
+import priceCalculator from './components/priceCalculator';
 
 window.Alpine = Alpine;
 
-Alpine.data('beschikbaarheid', beschikbaarheid);
-Alpine.data('fotogalerij', fotogalerij);
-Alpine.data('prijsCalculator', prijsCalculator);
+Alpine.data('availability', availability);
+Alpine.data('photoGallery', photoGallery);
+Alpine.data('priceCalculator', priceCalculator);
 
 Alpine.start();

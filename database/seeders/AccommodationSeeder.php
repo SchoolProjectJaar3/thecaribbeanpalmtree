@@ -10,8 +10,8 @@ use Illuminate\Database\Seeder;
 class AccommodationSeeder extends Seeder
 {
     /**
-     * Vul de woning, de teksten en de voorzieningen. Bestaande gegevens worden
-     * niet overschreven, zodat aanpassingen uit het beheer behouden blijven.
+     * Seed the accommodation, its texts and its facilities. Existing data is not
+     * overwritten, so changes made in the admin area are preserved.
      */
     public function run(): void
     {

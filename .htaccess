@@ -1,26 +1,26 @@
-# Op DirectAdmin staat dit project in public_html, maar Laravel hoort vanuit
-# de map public/ te draaien. Daarom sturen we hier elk verzoek door naar
-# public/. Zo zijn .env, vendor/, storage/ enz. niet via de browser op te vragen.
-# (Lokaal met `php artisan serve` of Herd wordt dit bestand niet gebruikt.)
+# On DirectAdmin this project lives in public_html, but Laravel should run from
+# the public/ directory. That is why every request is forwarded to public/
+# here, so .env, vendor/, storage/ etc. cannot be requested from the browser.
+# (Locally with `php artisan serve` or Herd this file is not used.)
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Let's Encrypt-controles van DirectAdmin niet doorsturen
+    # Do not forward the Let's Encrypt checks of DirectAdmin
     RewriteRule ^\.well-known/acme-challenge/ - [L]
 
-    # Slash aan het eind weghalen, anders komt /public/ in de URL terecht
-    # (niet bij bestaande mappen: dan voegt Apache hem weer toe en ontstaat een lus)
+    # Remove the trailing slash, otherwise /public/ ends up in the URL
+    # (not for existing directories: Apache adds it again and causes a loop)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Al het andere afhandelen vanuit public/
+    # Handle everything else from public/
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
-# Zonder mod_rewrite zou de hele projectmap openbaar zijn: dan alles blokkeren
+# Without mod_rewrite the whole project directory would be public: block everything
 <IfModule !mod_rewrite.c>
     Require all denied
 </IfModule>

@@ -1,4 +1,4 @@
-<x-beheer-layout
+<x-admin-layout
     title="Mijn account"
     description="Beheer je persoonlijke gegevens en wachtwoord.">
 
@@ -22,4 +22,4 @@
         </div>
     </div>
 
-</x-beheer-layout>
+</x-admin-layout>

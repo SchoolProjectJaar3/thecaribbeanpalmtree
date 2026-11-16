@@ -2,7 +2,7 @@
 @extends('layouts.app', ['title' => 'Contact | The Caribbean Palm Tree'])
 
 @php
-$contact = config('woning.contact');
+$contact = config('site.contact');
 @endphp
 
 @section('content')
@@ -10,14 +10,14 @@ $contact = config('woning.contact');
 <x-site.page-hero
     eyebrow="Contact"
     title="Heb je een vraag?"
-    intro="Stuur ons een bericht, mail of app ons. We reageren {{ $contact['reactietijd'] }}." />
+    intro="Stuur ons een bericht, mail of app ons. We reageren {{ $contact['response_time'] }}." />
 
 
 <section class="py-16 sm:py-20">
     <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_24rem] lg:px-8">
 
-        <!-- Formulier -->
-        <div id="bevestiging" class="scroll-mt-6">
+        <!-- Form -->
+        <div id="confirmation" class="scroll-mt-6">
             @if (session('status'))
             <div class="mb-8 flex items-start gap-3 rounded-xl border border-turquoise/40 bg-turquoise/10 p-5 text-deep-blue" role="status">
                 <x-site.icon name="check" class="mt-0.5 h-6 w-6 shrink-0 text-turquoise" />
@@ -25,20 +25,20 @@ $contact = config('woning.contact');
             </div>
             @endif
 
-            <form method="POST" action="{{ route('contact.verstuur') }}" class="space-y-5 rounded-xl border border-deep-blue/10 bg-white p-6 shadow-sm sm:p-8" novalidate>
+            <form method="POST" action="{{ route('contact.send') }}" class="space-y-5 rounded-xl border border-deep-blue/10 bg-white p-6 shadow-sm sm:p-8" novalidate>
                 @csrf
 
                 <h2 class="text-2xl font-bold text-deep-blue">Stuur een bericht</h2>
 
                 <div class="grid gap-5 sm:grid-cols-2">
-                    <x-site.field name="naam" label="Naam" :required="true" autocomplete="name" />
+                    <x-site.field name="name" label="Naam" :required="true" autocomplete="name" />
                     <x-site.field name="email" label="E-mailadres" type="email" :required="true" autocomplete="email" />
                 </div>
 
-                <x-site.field name="telefoon" label="Telefoonnummer" type="tel" autocomplete="tel" hint="Optioneel" />
-                <x-site.field name="bericht" label="Bericht" as="textarea" :required="true" />
+                <x-site.field name="phone" label="Telefoonnummer" type="tel" autocomplete="tel" hint="Optioneel" />
+                <x-site.field name="message" label="Bericht" as="textarea" :required="true" />
 
-                <!-- Spambeveiliging: dit veld is voor mensen onzichtbaar en moet leeg blijven -->
+                <!-- Spam protection: this field is invisible to people and must stay empty -->
                 <div class="hidden" aria-hidden="true">
                     <label for="website">Website</label>
                     <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
@@ -50,12 +50,12 @@ $contact = config('woning.contact');
 
                 <p class="text-xs text-deep-blue/60">
                     Je ontvangt automatisch een bevestiging. We gebruiken je gegevens alleen om je vraag te beantwoorden;
-                    lees ons <a href="/privacy-voorwaarden#privacy" class="font-semibold text-turquoise hover:text-deep-blue">privacybeleid</a>.
+                    lees ons <a href="/privacy-terms#privacy" class="font-semibold text-turquoise hover:text-deep-blue">privacybeleid</a>.
                 </p>
             </form>
         </div>
 
-        <!-- Contactgegevens -->
+        <!-- Contact details -->
         <aside class="space-y-6">
             <div class="rounded-xl border border-deep-blue/10 bg-white p-6 shadow-sm">
                 <h2 class="text-xl font-semibold text-deep-blue">Contactgegevens</h2>
@@ -67,7 +67,7 @@ $contact = config('woning.contact');
                     </li>
                     <li class="flex items-start gap-3">
                         <x-site.icon name="phone" class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" />
-                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['telefoon']) }}" class="font-medium text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">{{ $contact['telefoon'] }}</a>
+                        <a href="tel:{{ preg_replace('/[^0-9+]/', '', $contact['phone']) }}" class="font-medium text-deep-blue hover:text-turquoise focus:outline-none focus:ring-0 focus:ring-turquoise">{{ $contact['phone'] }}</a>
                     </li>
                     <li class="flex items-start gap-3">
                         <x-site.icon name="pin" class="mt-0.5 h-5 w-5 shrink-0 text-turquoise" />
@@ -89,7 +89,7 @@ $contact = config('woning.contact');
                 <h3 class="flex items-center gap-2 font-semibold text-deep-blue">
                     <x-site.icon name="clock" class="h-5 w-5 text-turquoise" /> Reactietijd
                 </h3>
-                <p class="mt-3">We reageren {{ $contact['reactietijd'] }}. {{ $contact['tijdsverschil'] }}</p>
+                <p class="mt-3">We reageren {{ $contact['response_time'] }}. {{ $contact['time_difference'] }}</p>
             </div>
         </aside>
     </div>

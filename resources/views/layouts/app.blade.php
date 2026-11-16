@@ -1,4 +1,4 @@
-<!-- app, hier wordt de app layout gedefinieerd -->
+<!-- app, the layout of the public website -->
 <!DOCTYPE html>
 <html lang="nl">
 

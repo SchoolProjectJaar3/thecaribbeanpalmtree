@@ -26,7 +26,7 @@ class Language extends Model
     }
 
     /**
-     * Alleen de actieve talen, in de volgorde waarin ze op de website staan.
+     * Only the active languages, in the order in which they appear on the website.
      */
     public function scopeActive(Builder $query): void
     {

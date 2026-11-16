@@ -15,7 +15,7 @@ class AdminUserSeeder extends Seeder
         $password = env('ADMIN_SEED_PASSWORD');
 
         if (! $email || ! $password) {
-            $this->command->warn('ADMIN_SEED_EMAIL of ADMIN_SEED_PASSWORD ontbreekt in .env, beheerder overgeslagen.');
+            $this->command->warn('ADMIN_SEED_EMAIL or ADMIN_SEED_PASSWORD is missing in .env, skipping the admin user.');
             return;
         }
 

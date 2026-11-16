@@ -1,18 +1,18 @@
-@props(['title' => 'Klaar voor zon, zee en rust?', 'tekst' => null])
+@props(['title' => 'Klaar voor zon, zee en rust?', 'text' => null])
 
 @php
-$contact = config('woning.contact');
-$tekst ??= 'Bekijk welke data vrij zijn en vraag vrijblijvend je verblijf aan. We reageren ' . $contact['reactietijd'] . '.';
+$contact = config('site.contact');
+$text ??= 'Bekijk welke data vrij zijn en vraag vrijblijvend je verblijf aan. We reageren ' . $contact['response_time'] . '.';
 @endphp
 
 <section class="bg-deep-blue py-16 sm:py-20">
     <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
         <h2 class="text-3xl font-bold text-white sm:text-4xl">{{ $title }}</h2>
-        <p class="mt-4 text-lg leading-relaxed text-white/80">{{ $tekst }}</p>
+        <p class="mt-4 text-lg leading-relaxed text-white/80">{{ $text }}</p>
 
         <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <a
-                href="/beschikbaarheid"
+                href="{{ route('availability') }}"
                 class="inline-flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-6 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-2 focus:ring-turquoise focus:ring-offset-2 focus:ring-offset-deep-blue">
                 Bekijk beschikbaarheid
             </a>

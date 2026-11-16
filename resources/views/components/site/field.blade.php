@@ -1,9 +1,9 @@
 @props(['name', 'label', 'type' => 'text', 'as' => 'input', 'required' => false, 'value' => null, 'hint' => null])
 
 @php
-$klasse = 'mt-1 block w-full rounded-lg border-deep-blue/20 bg-white text-deep-blue shadow-sm placeholder:text-deep-blue/40 focus:border-turquoise focus:ring-turquoise';
-if ($errors->has($name)) { $klasse .= ' border-coral'; }
-$waarde = old($name, $value);
+$class = 'mt-1 block w-full rounded-lg border-deep-blue/20 bg-white text-deep-blue shadow-sm placeholder:text-deep-blue/40 focus:border-turquoise focus:ring-turquoise';
+if ($errors->has($name)) { $class .= ' border-coral'; }
+$value = old($name, $value);
 @endphp
 
 <div>
@@ -17,15 +17,15 @@ $waarde = old($name, $value);
         name="{{ $name }}"
         rows="5"
         @required($required)
-        {{ $attributes->merge(['class' => $klasse]) }}>{{ $waarde }}</textarea>
+        {{ $attributes->merge(['class' => $class]) }}>{{ $value }}</textarea>
     @else
     <input
         id="{{ $name }}"
         name="{{ $name }}"
         type="{{ $type }}"
-        value="{{ $waarde }}"
+        value="{{ $value }}"
         @required($required)
-        {{ $attributes->merge(['class' => $klasse]) }}>
+        {{ $attributes->merge(['class' => $class]) }}>
     @endif
 
     @if ($hint)

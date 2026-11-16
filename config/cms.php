@@ -2,29 +2,29 @@
 
 /*
 |--------------------------------------------------------------------------
-| Teksten van de website
+| Website texts
 |--------------------------------------------------------------------------
 |
-| Welke teksten de eigenaar per pagina kan aanpassen. De sleutels van
-| pagina's, secties en velden zijn gelijk aan die in de tabellen
-| cms_pages, cms_sections en cms_contents. De teksten zelf staan in de
-| database en worden gevuld door de CmsSeeder.
+| Which texts the owner can edit per page. The keys of pages, sections
+| and fields match those in the tables cms_pages, cms_sections and
+| cms_contents. The texts themselves are stored in the database and are
+| seeded by the CmsSeeder.
 |
-| Een veld is een label, of een array met een label en een uitleg (hint).
-| Velden met de sleutel 'intro' of 'text', of die eindigen op '_intro' of
-| '_text', krijgen in het beheer een groot tekstvak.
+| A field is a label, or an array with a label and an explanation (hint).
+| Fields with the key 'intro' or 'text', or ending in '_intro' or '_text',
+| get a large text area in the admin area.
 |
-| Herhalende onderdelen, zoals activiteiten, staan onder 'items'. Elk item
-| krijgt de sleutel item_{nummer}_{veld}, bijvoorbeeld item_1_title.
+| Repeating parts, such as activities, are listed under 'items'. Each item
+| gets the key item_{number}_{field}, for example item_1_title.
 |
-| De 'algemeen'-teksten staan op elke pagina en worden opgeslagen in
-| cms_translations, met als sleutel {groep}.{veld}, bijvoorbeeld footer.copyright.
+| The 'general' texts appear on every page and are stored in
+| cms_translations, with the key {group}.{field}, for example footer.copyright.
 |
 */
 
 $hero = [
-    'naam' => 'Bovenaan de pagina',
-    'velden' => [
+    'name' => 'Bovenaan de pagina',
+    'fields' => [
         'eyebrow' => 'Bovenschrift',
         'title' => 'Titel',
         'intro' => 'Introductie',
@@ -32,13 +32,13 @@ $hero = [
 ];
 
 $cta = [
-    'naam' => 'Contactblok onderaan',
-    'velden' => [
+    'name' => 'Contactblok onderaan',
+    'fields' => [
         'title' => 'Titel',
     ],
 ];
 
-$prijsindicatie = [
+$priceEstimate = [
     'night' => 'Eén nacht',
     'nights' => 'Meerdere nachten',
     'discount' => 'Korting',
@@ -49,14 +49,14 @@ $prijsindicatie = [
 
 return [
 
-    'paginas' => [
+    'pages' => [
 
         'home' => [
             'route' => 'home',
-            'secties' => [
+            'sections' => [
                 'hero' => [
-                    'naam' => 'Bovenaan de pagina',
-                    'velden' => [
+                    'name' => 'Bovenaan de pagina',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'intro' => 'Beschrijving',
@@ -65,16 +65,16 @@ return [
                     ],
                 ],
                 'photos' => [
-                    'naam' => 'Sfeerimpressie',
-                    'velden' => [
+                    'name' => 'Sfeerimpressie',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'link' => 'Link naar de foto\'s',
                     ],
                 ],
                 'property' => [
-                    'naam' => 'Het huis',
-                    'velden' => [
+                    'name' => 'Het huis',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'text' => 'Korte tekst over het huis',
@@ -82,17 +82,17 @@ return [
                     ],
                 ],
                 'surroundings' => [
-                    'naam' => 'Omgeving',
-                    'velden' => [
+                    'name' => 'Omgeving',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'text' => 'Tekst over de omgeving',
                         'link' => 'Link naar de omgeving',
                     ],
                     'items' => [
-                        'naam' => 'Plek',
-                        'aantal' => 4,
-                        'velden' => [
+                        'name' => 'Plek',
+                        'count' => 4,
+                        'fields' => [
                             'title' => 'Titel',
                             'text' => 'Tekst',
                             'travel_time' => 'Reistijd',
@@ -100,8 +100,8 @@ return [
                     ],
                 ],
                 'availability' => [
-                    'naam' => 'Beschikbaarheid',
-                    'velden' => [
+                    'name' => 'Beschikbaarheid',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'text' => 'Tekst',
@@ -109,24 +109,24 @@ return [
                     ],
                 ],
                 'reviews' => [
-                    'naam' => 'Reviews',
-                    'velden' => [
+                    'name' => 'Reviews',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'link' => 'Link naar alle reviews',
                     ],
                 ],
                 'faq' => [
-                    'naam' => 'Veelgestelde vragen',
-                    'velden' => [
+                    'name' => 'Veelgestelde vragen',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'link' => 'Link naar alle vragen',
                     ],
                 ],
                 'owner' => [
-                    'naam' => 'Over de eigenaar',
-                    'velden' => [
+                    'name' => 'Over de eigenaar',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'text' => 'Tekst',
@@ -134,8 +134,8 @@ return [
                     ],
                 ],
                 'closing' => [
-                    'naam' => 'Afsluiting',
-                    'velden' => [
+                    'name' => 'Afsluiting',
+                    'fields' => [
                         'title' => 'Titel',
                         'text' => 'Tekst',
                         'button' => 'Knop beschikbaarheid',
@@ -147,12 +147,12 @@ return [
         ],
 
         'property' => [
-            'route' => 'het-huis',
-            'secties' => [
+            'route' => 'property',
+            'sections' => [
                 'hero' => $hero,
                 'description' => [
-                    'naam' => 'Over de woning',
-                    'velden' => [
+                    'name' => 'Over de woning',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'text' => ['label' => 'Tekst', 'hint' => 'Een lege regel begint een nieuwe alinea.'],
@@ -160,24 +160,24 @@ return [
                     ],
                 ],
                 'amenities' => [
-                    'naam' => 'Voorzieningen',
-                    'velden' => [
+                    'name' => 'Voorzieningen',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'intro' => 'Introductie',
                     ],
                 ],
                 'rooms' => [
-                    'naam' => 'Indeling',
-                    'velden' => [
+                    'name' => 'Indeling',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'link' => 'Link naar de foto\'s',
                     ],
                     'items' => [
-                        'naam' => 'Ruimte',
-                        'aantal' => 4,
-                        'velden' => [
+                        'name' => 'Ruimte',
+                        'count' => 4,
+                        'fields' => [
                             'title' => 'Titel',
                             'text' => 'Tekst',
                         ],
@@ -187,12 +187,12 @@ return [
         ],
 
         'photos' => [
-            'route' => 'fotos',
-            'secties' => [
+            'route' => 'photos',
+            'sections' => [
                 'hero' => $hero,
                 'gallery' => [
-                    'naam' => 'Fotogalerij',
-                    'velden' => [
+                    'name' => 'Fotogalerij',
+                    'fields' => [
                         'all_photos' => 'Filter voor alle foto\'s',
                         'text' => 'Opmerking onder de foto\'s',
                     ],
@@ -201,19 +201,19 @@ return [
         ],
 
         'availability' => [
-            'route' => 'beschikbaarheid',
-            'secties' => [
+            'route' => 'availability',
+            'sections' => [
                 'hero' => $hero,
                 'calendar' => [
-                    'naam' => 'Kalender',
-                    'velden' => [
+                    'name' => 'Kalender',
+                    'fields' => [
                         'selected' => 'Legenda: jouw keuze',
                         'unavailable_message' => 'Melding bij bezette dagen',
                     ],
                 ],
                 'summary' => [
-                    'naam' => 'Jouw verblijf',
-                    'velden' => [
+                    'name' => 'Jouw verblijf',
+                    'fields' => [
                         'title' => 'Titel',
                         'arrival' => 'Aankomst',
                         'arrival_placeholder' => 'Aankomst nog niet gekozen',
@@ -229,8 +229,8 @@ return [
                     ],
                 ],
                 'minimum_stay' => [
-                    'naam' => 'Minimale verblijfsduur',
-                    'velden' => [
+                    'name' => 'Minimale verblijfsduur',
+                    'fields' => [
                         'title' => 'Titel',
                         'low_season' => 'Laagseizoen',
                         'high_season' => 'Hoogseizoen',
@@ -239,8 +239,8 @@ return [
                     ],
                 ],
                 'cta' => [
-                    'naam' => 'Contactblok onderaan',
-                    'velden' => [
+                    'name' => 'Contactblok onderaan',
+                    'fields' => [
                         'title' => 'Titel',
                         'text' => 'Tekst',
                     ],
@@ -249,12 +249,12 @@ return [
         ],
 
         'rates' => [
-            'route' => 'tarieven',
-            'secties' => [
+            'route' => 'rates',
+            'sections' => [
                 'hero' => $hero,
                 'seasons' => [
-                    'naam' => 'Prijs per nacht',
-                    'velden' => [
+                    'name' => 'Prijs per nacht',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'low_title' => 'Laagseizoen',
@@ -266,8 +266,8 @@ return [
                     ],
                 ],
                 'costs' => [
-                    'naam' => 'Bijkomende kosten',
-                    'velden' => [
+                    'name' => 'Bijkomende kosten',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'cleaning' => 'Schoonmaakkosten',
@@ -279,8 +279,8 @@ return [
                     ],
                 ],
                 'discounts' => [
-                    'naam' => 'Kortingen',
-                    'velden' => [
+                    'name' => 'Kortingen',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'from_nights' => ['label' => 'Vanaf aantal nachten', 'hint' => ':aantal wordt het aantal nachten.'],
@@ -289,8 +289,8 @@ return [
                     ],
                 ],
                 'calculator' => [
-                    'naam' => 'Prijsindicatie',
-                    'velden' => [
+                    'name' => 'Prijsindicatie',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'intro' => 'Introductie',
@@ -303,11 +303,11 @@ return [
                     ],
                 ],
                 'estimate' => [
-                    'naam' => 'Jouw indicatie',
-                    'velden' => [
+                    'name' => 'Jouw indicatie',
+                    'fields' => [
                         'title' => 'Titel',
                         'empty' => 'Tekst zonder gekozen data',
-                        ...$prijsindicatie,
+                        ...$priceEstimate,
                         'deposit_note' => ['label' => 'Toelichting borg', 'hint' => ':bedrag wordt het bedrag van de borg.'],
                         'minimum_stay' => ['label' => 'Melding minimale verblijfsduur', 'hint' => ':aantal wordt het minimale aantal nachten.'],
                         'button' => 'Knop',
@@ -317,12 +317,12 @@ return [
         ],
 
         'surroundings' => [
-            'route' => 'omgeving',
-            'secties' => [
+            'route' => 'surroundings',
+            'sections' => [
                 'hero' => $hero,
                 'distances' => [
-                    'naam' => 'Afstanden',
-                    'velden' => [
+                    'name' => 'Afstanden',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'intro' => 'Introductie',
@@ -332,14 +332,14 @@ return [
                     ],
                 ],
                 'beaches' => [
-                    'naam' => 'Stranden',
-                    'velden' => [
+                    'name' => 'Stranden',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                     'items' => [
-                        'naam' => 'Strand',
-                        'aantal' => 9,
-                        'velden' => [
+                        'name' => 'Strand',
+                        'count' => 9,
+                        'fields' => [
                             'name' => 'Naam',
                             'travel_time' => 'Reistijd',
                             'distance' => 'Afstand',
@@ -347,14 +347,14 @@ return [
                     ],
                 ],
                 'amenities' => [
-                    'naam' => 'Voorzieningen en steden',
-                    'velden' => [
+                    'name' => 'Voorzieningen en steden',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                     'items' => [
-                        'naam' => 'Bestemming',
-                        'aantal' => 3,
-                        'velden' => [
+                        'name' => 'Bestemming',
+                        'count' => 3,
+                        'fields' => [
                             'name' => 'Naam',
                             'travel_time' => 'Reistijd',
                             'distance' => 'Afstand',
@@ -362,14 +362,14 @@ return [
                     ],
                 ],
                 'restaurants' => [
-                    'naam' => 'Restaurants',
-                    'velden' => [
+                    'name' => 'Restaurants',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                     'items' => [
-                        'naam' => 'Restaurant',
-                        'aantal' => 2,
-                        'velden' => [
+                        'name' => 'Restaurant',
+                        'count' => 2,
+                        'fields' => [
                             'name' => 'Naam',
                             'travel_time' => 'Reistijd',
                             'distance' => 'Afstand',
@@ -377,37 +377,37 @@ return [
                     ],
                 ],
                 'more_beaches' => [
-                    'naam' => 'Meer stranden',
-                    'velden' => [
+                    'name' => 'Meer stranden',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                     'items' => [
-                        'naam' => 'Strand',
-                        'aantal' => 4,
-                        'velden' => [
+                        'name' => 'Strand',
+                        'count' => 4,
+                        'fields' => [
                             'name' => 'Naam',
                         ],
                     ],
                 ],
                 'map' => [
-                    'naam' => 'Kaart',
-                    'velden' => [
+                    'name' => 'Kaart',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'link' => 'Link naar Google Maps',
                     ],
                 ],
                 'activities' => [
-                    'naam' => 'Activiteiten',
-                    'velden' => [
+                    'name' => 'Activiteiten',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'intro' => 'Introductie',
                     ],
                     'items' => [
-                        'naam' => 'Activiteit',
-                        'aantal' => 8,
-                        'velden' => [
+                        'name' => 'Activiteit',
+                        'count' => 8,
+                        'fields' => [
                             'title' => 'Titel',
                             'text' => 'Tekst',
                         ],
@@ -418,11 +418,11 @@ return [
 
         'reviews' => [
             'route' => 'reviews',
-            'secties' => [
+            'sections' => [
                 'hero' => $hero,
                 'summary' => [
-                    'naam' => 'Samenvatting',
-                    'velden' => [
+                    'name' => 'Samenvatting',
+                    'fields' => [
                         'based_on' => ['label' => 'Aantal reviews', 'hint' => ':aantal wordt het aantal reviews.'],
                         'star' => 'Eén ster',
                         'stars' => 'Meerdere sterren',
@@ -434,11 +434,11 @@ return [
 
         'faq' => [
             'route' => 'faq',
-            'secties' => [
+            'sections' => [
                 'hero' => $hero,
                 'contact' => [
-                    'naam' => 'Vraag niet gevonden',
-                    'velden' => [
+                    'name' => 'Vraag niet gevonden',
+                    'fields' => [
                         'title' => 'Titel',
                         'text' => 'Tekst',
                         'button' => 'Knop',
@@ -448,42 +448,42 @@ return [
         ],
 
         'owner' => [
-            'route' => 'over-de-eigenaar',
-            'secties' => [
+            'route' => 'owner',
+            'sections' => [
                 'hero' => [
-                    'naam' => 'Bovenaan de pagina',
-                    'velden' => [
+                    'name' => 'Bovenaan de pagina',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                     ],
                 ],
                 'story' => [
-                    'naam' => 'Verhaal',
+                    'name' => 'Verhaal',
                     'items' => [
-                        'naam' => 'Blok',
-                        'aantal' => 2,
-                        'velden' => [
+                        'name' => 'Blok',
+                        'count' => 2,
+                        'fields' => [
                             'title' => 'Titel',
                             'text' => 'Tekst',
                         ],
                     ],
                 ],
                 'quote' => [
-                    'naam' => 'Citaat',
-                    'velden' => [
+                    'name' => 'Citaat',
+                    'fields' => [
                         'text' => 'Citaat',
                     ],
                 ],
                 'values' => [
-                    'naam' => 'Wat je mag verwachten',
-                    'velden' => [
+                    'name' => 'Wat je mag verwachten',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                     ],
                     'items' => [
-                        'naam' => 'Belofte',
-                        'aantal' => 3,
-                        'velden' => [
+                        'name' => 'Belofte',
+                        'count' => 3,
+                        'fields' => [
                             'title' => 'Titel',
                             'text' => 'Tekst',
                         ],
@@ -494,39 +494,39 @@ return [
         ],
 
         'practical_information' => [
-            'route' => 'praktische-informatie',
-            'secties' => [
+            'route' => 'practical-information',
+            'sections' => [
                 'hero' => $hero,
                 'information' => [
-                    'naam' => 'Informatie',
+                    'name' => 'Informatie',
                     'items' => [
-                        'naam' => 'Onderwerp',
-                        'aantal' => 8,
-                        'velden' => [
+                        'name' => 'Onderwerp',
+                        'count' => 8,
+                        'fields' => [
                             'title' => 'Titel',
                             'text' => 'Tekst',
                         ],
                     ],
                 ],
                 'emergency' => [
-                    'naam' => 'Noodnummers',
-                    'velden' => [
+                    'name' => 'Noodnummers',
+                    'fields' => [
                         'eyebrow' => 'Bovenschrift',
                         'title' => 'Titel',
                         'intro' => 'Introductie',
                     ],
                     'items' => [
-                        'naam' => 'Nummer',
-                        'aantal' => 3,
-                        'velden' => [
+                        'name' => 'Nummer',
+                        'count' => 3,
+                        'fields' => [
                             'name' => 'Naam',
                             'number' => 'Telefoonnummer',
                         ],
                     ],
                 ],
                 'terms' => [
-                    'naam' => 'Voorwaarden',
-                    'velden' => [
+                    'name' => 'Voorwaarden',
+                    'fields' => [
                         'text' => ['label' => 'Tekst', 'hint' => ':link wordt de link naar de boekingsvoorwaarden.'],
                         'link' => 'Linktekst',
                     ],
@@ -536,11 +536,11 @@ return [
 
         'contact' => [
             'route' => 'contact',
-            'secties' => [
+            'sections' => [
                 'hero' => $hero,
                 'form' => [
-                    'naam' => 'Contactformulier',
-                    'velden' => [
+                    'name' => 'Contactformulier',
+                    'fields' => [
                         'title' => 'Titel',
                         'name' => 'Naam',
                         'email' => 'E-mailadres',
@@ -554,15 +554,15 @@ return [
                     ],
                 ],
                 'details' => [
-                    'naam' => 'Contactgegevens',
-                    'velden' => [
+                    'name' => 'Contactgegevens',
+                    'fields' => [
                         'title' => 'Titel',
                         'whatsapp_button' => 'Knop WhatsApp',
                     ],
                 ],
                 'response_time' => [
-                    'naam' => 'Reactietijd',
-                    'velden' => [
+                    'name' => 'Reactietijd',
+                    'fields' => [
                         'title' => 'Titel',
                         'text' => 'Tekst',
                     ],
@@ -571,12 +571,12 @@ return [
         ],
 
         'booking' => [
-            'route' => 'reserveren',
-            'secties' => [
+            'route' => 'booking',
+            'sections' => [
                 'hero' => $hero,
                 'stay' => [
-                    'naam' => 'Je verblijf',
-                    'velden' => [
+                    'name' => 'Je verblijf',
+                    'fields' => [
                         'title' => 'Titel',
                         'arrival' => 'Aankomst',
                         'departure' => 'Vertrek',
@@ -587,8 +587,8 @@ return [
                     ],
                 ],
                 'details' => [
-                    'naam' => 'Jouw gegevens',
-                    'velden' => [
+                    'name' => 'Jouw gegevens',
+                    'fields' => [
                         'title' => 'Titel',
                         'name' => 'Naam',
                         'email' => 'E-mailadres',
@@ -604,11 +604,11 @@ return [
                     ],
                 ],
                 'estimate' => [
-                    'naam' => 'Prijsindicatie',
-                    'velden' => [
+                    'name' => 'Prijsindicatie',
+                    'fields' => [
                         'title' => 'Titel',
                         'empty' => 'Tekst zonder gekozen data',
-                        ...$prijsindicatie,
+                        ...$priceEstimate,
                         'deposit_note' => ['label' => 'Toelichting borg', 'hint' => ':bedrag wordt het bedrag van de borg.'],
                         'minimum_stay' => ['label' => 'Melding minimale verblijfsduur', 'hint' => ':aantal wordt het minimale aantal nachten.'],
                         'invalid_dates' => 'Melding bij ongeldige data',
@@ -616,14 +616,14 @@ return [
                     ],
                 ],
                 'steps' => [
-                    'naam' => 'Zo werkt het',
-                    'velden' => [
+                    'name' => 'Zo werkt het',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                     'items' => [
-                        'naam' => 'Stap',
-                        'aantal' => 3,
-                        'velden' => [
+                        'name' => 'Stap',
+                        'count' => 3,
+                        'fields' => [
                             'text' => 'Tekst',
                         ],
                     ],
@@ -632,18 +632,18 @@ return [
         ],
 
         'privacy' => [
-            'route' => 'privacy-voorwaarden',
-            'secties' => [
+            'route' => 'privacy',
+            'sections' => [
                 'hero' => $hero,
                 'contents' => [
-                    'naam' => 'Inhoudsopgave',
-                    'velden' => [
+                    'name' => 'Inhoudsopgave',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                 ],
                 'booking_terms' => [
-                    'naam' => 'Boekingsvoorwaarden',
-                    'velden' => [
+                    'name' => 'Boekingsvoorwaarden',
+                    'fields' => [
                         'title' => 'Titel',
                         'booking_title' => 'Kop reserveren',
                         'booking_text' => 'Tekst reserveren',
@@ -658,14 +658,14 @@ return [
                     ],
                 ],
                 'house_rules' => [
-                    'naam' => 'Huisregels',
-                    'velden' => [
+                    'name' => 'Huisregels',
+                    'fields' => [
                         'title' => 'Titel',
                     ],
                 ],
                 'privacy' => [
-                    'naam' => 'Privacyverklaring',
-                    'velden' => [
+                    'name' => 'Privacyverklaring',
+                    'fields' => [
                         'title' => 'Titel',
                         'intro' => 'Introductie',
                         'data_title' => 'Kop gegevens',
@@ -679,8 +679,8 @@ return [
                     ],
                 ],
                 'cookies' => [
-                    'naam' => 'Cookies',
-                    'velden' => [
+                    'name' => 'Cookies',
+                    'fields' => [
                         'title' => 'Titel',
                         'text' => 'Tekst',
                     ],
@@ -690,17 +690,17 @@ return [
 
     ],
 
-    'algemeen' => [
+    'general' => [
         'header' => [
-            'naam' => 'Menu bovenaan',
-            'velden' => [
+            'name' => 'Menu bovenaan',
+            'fields' => [
                 'more' => 'Menu-item voor de overige pagina\'s',
                 'button' => 'Knop rechtsboven',
             ],
         ],
         'cta' => [
-            'naam' => 'Contactblok onderaan',
-            'velden' => [
+            'name' => 'Contactblok onderaan',
+            'fields' => [
                 'title' => 'Titel',
                 'text' => 'Tekst',
                 'button' => 'Knop beschikbaarheid',
@@ -709,8 +709,8 @@ return [
             ],
         ],
         'footer' => [
-            'naam' => 'Footer',
-            'velden' => [
+            'name' => 'Footer',
+            'fields' => [
                 'contact_title' => 'Kop contact',
                 'links_title' => 'Kop links',
                 'terms_title' => 'Kop voorwaarden',
@@ -722,16 +722,16 @@ return [
             ],
         ],
         'calendar' => [
-            'naam' => 'Kalender',
-            'velden' => [
+            'name' => 'Kalender',
+            'fields' => [
                 'available' => 'Vrij',
                 'booked' => 'Bezet',
                 'past' => 'Verstreken',
             ],
         ],
         'form' => [
-            'naam' => 'Meldingen in formulieren',
-            'velden' => [
+            'name' => 'Meldingen in formulieren',
+            'fields' => [
                 'required' => 'Verplicht veld',
                 'email' => 'Ongeldig e-mailadres',
                 'too_long' => 'Te lange tekst',
