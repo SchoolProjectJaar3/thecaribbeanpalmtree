@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -51,6 +52,20 @@ class Accommodation extends Model
     public function rates(): HasMany
     {
         return $this->hasMany(Rate::class);
+    }
+
+    /**
+     * The rate periods that have not ended yet, in order of start date.
+     *
+     * @return Collection<int, Rate>
+     */
+    public function upcomingRates(): Collection
+    {
+        return $this->rates()
+            ->with('season')
+            ->whereDate('end_date', '>=', today())
+            ->orderBy('start_date')
+            ->get();
     }
 
     public function reservations(): HasMany

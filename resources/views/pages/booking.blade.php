@@ -2,7 +2,6 @@
 @extends('layouts.app', ['title' => 'Reserveren | The Caribbean Palm Tree'])
 
 @php
-$rates = config('site.rates');
 $maxGuests = max(1, $accommodation?->max_guests ?? 1);
 $initial = [
 'arrival' => old('arrival', request('arrival', '')),
@@ -19,7 +18,7 @@ $initial = [
     intro="Vul je gegevens in en we bekijken je aanvraag. Een online betaling is niet nodig: Wilma keurt je aanvraag goed of af en je ontvangt direct bericht." />
 
 
-<section class="py-16 sm:py-20" x-data="priceCalculator(@js($rates), @js($initial))">
+<section class="py-16 sm:py-20" x-data="priceCalculator(@js(route('rates.quote')), @js($initial))">
     <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_24rem] lg:px-8">
 
         <div id="confirmation" class="scroll-mt-6">
@@ -108,12 +107,14 @@ $initial = [
                 <template x-if="result">
                     <div>
                         <dl class="mt-4 space-y-2 text-sm">
-                            <div class="flex justify-between gap-4">
-                                <dt class="text-deep-blue/70" x-text="result.nights + (result.nights === 1 ? ' nacht' : ' nachten')"></dt>
-                                <dd class="font-medium text-deep-blue" x-text="euro(result.stay)"></dd>
-                            </div>
+                            <template x-for="line in result.lines">
+                                <div class="flex justify-between gap-4">
+                                    <dt class="text-deep-blue/70" x-text="line.nights + (line.nights === 1 ? ' nacht ' : ' nachten ') + line.season.toLowerCase() + ' × ' + euro(line.price_per_night)"></dt>
+                                    <dd class="font-medium text-deep-blue" x-text="euro(line.amount)"></dd>
+                                </div>
+                            </template>
                             <div class="flex justify-between gap-4" x-show="result.discount > 0">
-                                <dt class="text-deep-blue/70" x-text="'Korting (' + result.discountPercent + '%)'"></dt>
+                                <dt class="text-deep-blue/70" x-text="'Korting (' + result.discount_percent + '%)'"></dt>
                                 <dd class="font-medium text-deep-blue" x-text="'- ' + euro(result.discount)"></dd>
                             </div>
                             <div class="flex justify-between gap-4">
@@ -122,7 +123,7 @@ $initial = [
                             </div>
                             <div class="flex justify-between gap-4">
                                 <dt class="text-deep-blue/70">Toeristenbelasting</dt>
-                                <dd class="font-medium text-deep-blue" x-text="euro(result.touristTax)"></dd>
+                                <dd class="font-medium text-deep-blue" x-text="euro(result.tourist_tax)"></dd>
                             </div>
                             <div class="flex justify-between gap-4 border-t border-deep-blue/10 pt-3 text-base">
                                 <dt class="font-semibold text-deep-blue">Totaal</dt>
@@ -132,8 +133,12 @@ $initial = [
 
                         <p class="mt-3 text-xs text-deep-blue/60">Exclusief borg van <span x-text="euro(result.deposit)"></span>.</p>
 
-                        <p class="mt-3 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="!result.meetsMinimum">
-                            Let op: de minimale verblijfsduur voor deze periode is <strong x-text="result.minNights + ' nachten'"></strong>.
+                        <p class="mt-3 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="!result.complete">
+                            Let op: voor <strong x-text="result.unpriced_nights + (result.unpriced_nights === 1 ? ' nacht' : ' nachten')"></strong> zijn nog geen tarieven bekend. Die nachten tellen niet mee in deze indicatie.
+                        </p>
+
+                        <p class="mt-3 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="!result.meets_minimum">
+                            Let op: de minimale verblijfsduur voor deze periode is <strong x-text="result.min_nights + ' nachten'"></strong>.
                         </p>
                     </div>
                 </template>
