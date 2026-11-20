@@ -1,10 +1,6 @@
 <!-- availability -->
 @extends('layouts.app', ['title' => 'Beschikbaarheid | The Caribbean Palm Tree'])
 
-@php
-$rates = config('site.rates');
-@endphp
-
 @section('content')
 
 <x-site.page-hero
@@ -12,7 +8,7 @@ $rates = config('site.rates');
     title="Wanneer kom jij?"
     intro="Kies je aankomst- en vertrekdatum in de kalender. Alleen vrije data zijn te selecteren; je aanvraag komt daarna bij de eigenaar terecht." />
 
-<section class="py-16 sm:py-20" x-data="availability(@js($rates))">
+<section class="py-16 sm:py-20" x-data="availability(@js(route('rates.quote')))">
     <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_22rem] lg:px-8">
 
         <!-- Calendar -->
@@ -59,9 +55,9 @@ $rates = config('site.rates');
 
                 <p class="mt-4 rounded-lg bg-coral/10 p-3 text-sm font-medium text-deep-blue" x-show="message" x-text="message" x-cloak role="alert"></p>
 
-                <p class="mt-4 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="price && !price.meetsMinimum" x-cloak role="alert">
+                <p class="mt-4 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="price && !price.meets_minimum" x-cloak role="alert">
                     De minimale verblijfsduur voor deze periode is
-                    <strong x-text="price ? price.minNights + ' nachten' : ''"></strong>.
+                    <strong x-text="price ? price.min_nights + ' nachten' : ''"></strong>.
                 </p>
 
                 <a
@@ -81,10 +77,13 @@ $rates = config('site.rates');
                 <h3 class="flex items-center gap-2 font-semibold text-deep-blue">
                     <x-site.icon name="info" class="h-5 w-5 text-turquoise" /> Minimale verblijfsduur
                 </h3>
+                @if ($seasonRates->isNotEmpty())
                 <ul class="mt-3 space-y-1">
-                    <li>Laagseizoen (mei t/m november): <strong>{{ $rates['min_nights_low'] }} nachten</strong></li>
-                    <li>Hoogseizoen (december t/m april): <strong>{{ $rates['min_nights_high'] }} nachten</strong></li>
+                    @foreach ($seasonRates as $rate)
+                    <li>{{ $rate->season->name }} ({{ $rate->start_date->locale('nl')->translatedFormat('j M Y') }} t/m {{ $rate->end_date->locale('nl')->translatedFormat('j M Y') }}): <strong>{{ $rate->min_nights }} {{ $rate->min_nights === 1 ? 'nacht' : 'nachten' }}</strong></li>
+                    @endforeach
                 </ul>
+                @endif
                 <p class="mt-3">Een aanvraag voor vrije data komt bij de eigenaar terecht, die deze goedkeurt of afwijst.</p>
             </div>
         </aside>

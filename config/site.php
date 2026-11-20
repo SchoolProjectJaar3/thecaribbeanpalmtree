@@ -13,7 +13,8 @@
 |
 | The features, description, house rules and facilities of the
 | accommodation already come from the database and are managed via
-| Admin > Woninggegevens.
+| Admin > Woninggegevens. The same goes for the prices per night and the
+| minimum number of nights (table rates).
 |
 */
 
@@ -70,13 +71,9 @@ return [
         ],
     ],
 
-    // Rates (project plan 6.5).
+    // Additional costs and discounts (project plan 6.5). The prices per night
+    // and the minimum number of nights are in the table rates.
     'rates' => [
-        'high_season_months' => [12, 1, 2, 3, 4],
-        'price_low' => 145,
-        'price_high' => 195,
-        'min_nights_low' => 5,
-        'min_nights_high' => 7,
         'cleaning' => 95,
         'deposit' => 350,
         'tourist_tax' => 3,
