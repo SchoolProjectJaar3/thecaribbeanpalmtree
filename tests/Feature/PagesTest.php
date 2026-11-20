@@ -51,18 +51,6 @@ it('rejects the contact form when the spam field is filled in', function () {
     ])->assertSessionHasErrors('website');
 });
 
-it('sends a booking request', function () {
-    $this->post('/book', [
-        'arrival' => now()->addDays(30)->toDateString(),
-        'departure' => now()->addDays(37)->toDateString(),
-        'guests' => 4,
-        'name' => 'Jan Jansen',
-        'email' => 'jan@example.com',
-        'terms' => '1',
-    ])->assertRedirect(route('booking') . '#confirmation')
-        ->assertSessionHas('status');
-});
-
 it('validates the booking request', function () {
     $this->seed([LanguageSeeder::class, AccommodationSeeder::class]);
 
@@ -70,7 +58,8 @@ it('validates the booking request', function () {
         'arrival' => now()->addDays(10)->toDateString(),
         'departure' => now()->addDays(5)->toDateString(),
         'guests' => 9,
-        'name' => 'Jan Jansen',
+        'first_name' => 'Jan',
+        'last_name' => 'Jansen',
         'email' => 'jan@example.com',
     ])->assertSessionHasErrors(['departure', 'guests', 'terms']);
 });

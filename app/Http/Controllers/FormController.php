@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accommodation;
+use App\Services\BookingService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\ContactMessage;
@@ -11,9 +12,8 @@ use App\Models\Language;
 /**
  * Contact and booking form (project plan 6.10).
  *
- * Demo: the request is validated and confirmed, but not yet stored or
- * emailed. That follows with the admin area (tables reservations and
- * contact_messages).
+ * Booking requests are stored (see BookingService). Contact messages are
+ * not stored yet, and emails follow in sprint 5.
  */
 class FormController extends Controller
 {
@@ -41,24 +41,33 @@ class FormController extends Controller
             ->with('status', 'Bedankt voor je bericht! We nemen contact met je op en reageren meestal binnen 24 uur.');
     }
 
-    public function booking(Request $request): RedirectResponse
+    public function booking(Request $request, BookingService $bookings): RedirectResponse
     {
-        $maxGuests = Accommodation::current()?->max_guests;
+        $accommodation = Accommodation::current();
 
-        $request->validate([
+        $data = $request->validate([
             'arrival' => ['required', 'date', 'after_or_equal:today'],
             'departure' => ['required', 'date', 'after:arrival'],
-            'guests' => ['required', 'integer', 'min:1', ...($maxGuests ? ['max:' . $maxGuests] : [])],
-            'name' => ['required', 'string', 'max:100'],
+            'guests' => ['required', 'integer', 'min:1', ...($accommodation ? ['max:' . $accommodation->max_guests] : [])],
+            // Separate fields because guests has first_name and last_name;
+            // splitting one name field goes wrong with names like "Jan van der Berg".
+            'first_name' => ['required', 'string', 'max:100'],
+            'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:150'],
-            'phone' => ['nullable', 'string', 'max:30'],
+            'phone' => ['nullable', 'string', 'max:20'],
             'comments' => ['nullable', 'string', 'max:2000'],
             'terms' => ['accepted'],
             'website' => ['nullable', 'max:0'],
         ], $this->messages());
 
+        if ($accommodation === null) {
+            return back()->withInput()->withErrors(['arrival' => 'Reserveren is op dit moment niet mogelijk. Neem contact met ons op.']);
+        }
+
+        $reservation = $bookings->request($accommodation, $data);
+
         return redirect(route('booking') . '#confirmation')
-            ->with('status', 'Bedankt voor je aanvraag! Wilma bekijkt je aanvraag en keurt die goed of af. Je ontvangt daarna automatisch bericht per e-mail.');
+            ->with('status', "Bedankt voor je aanvraag! Je reserveringsnummer is {$reservation->reservation_number}. Wilma bekijkt je aanvraag en keurt die goed of af. Je ontvangt daarna bericht per e-mail.");
     }
 
     /** @return array<string, string> */
