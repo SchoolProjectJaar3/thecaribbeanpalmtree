@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Accommodation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\ContactMessage;
+use App\Models\Language;
 
 /**
  * Contact and booking form (project plan 6.10).
@@ -17,14 +19,24 @@ class FormController extends Controller
 {
     public function contact(Request $request): RedirectResponse
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:150'],
-            'phone' => ['nullable', 'string', 'max:30'],
+            'phone' => ['nullable', 'string', 'max:20'],
             'message' => ['required', 'string', 'max:2000'],
             // Spam protection: this hidden field must stay empty.
             'website' => ['nullable', 'max:0'],
         ], $this->messages());
+
+        ContactMessage::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
+            'message' => $data['message'],
+            'language_id' => Language::where('code', app()->getLocale())->value('id'),
+            'status' => 'new',
+            'ip_address' => $request->ip(),
+        ]);
 
         return redirect(route('contact') . '#confirmation')
             ->with('status', 'Bedankt voor je bericht! We nemen contact met je op en reageren meestal binnen 24 uur.');
