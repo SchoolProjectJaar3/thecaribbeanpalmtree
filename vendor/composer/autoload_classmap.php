@@ -46,6 +46,7 @@ return array(
     'App\\Models\\Season' => $baseDir . '/app/Models/Season.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
+    'App\\Services\\BookingService' => $baseDir . '/app/Services/BookingService.php',
     'App\\Services\\PriceCalculator' => $baseDir . '/app/Services/PriceCalculator.php',
     'App\\View\\Components\\AdminLayout' => $baseDir . '/app/View/Components/AdminLayout.php',
     'App\\View\\Components\\GuestLayout' => $baseDir . '/app/View/Components/GuestLayout.php',

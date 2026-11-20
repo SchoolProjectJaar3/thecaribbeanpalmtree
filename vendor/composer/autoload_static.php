@@ -525,6 +525,7 @@ class ComposerStaticInitad4243a3cc1f36397d6f3ba4bd11fc7d
         'App\\Models\\Season' => __DIR__ . '/../..' . '/app/Models/Season.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Services\\BookingService' => __DIR__ . '/../..' . '/app/Services/BookingService.php',
         'App\\Services\\PriceCalculator' => __DIR__ . '/../..' . '/app/Services/PriceCalculator.php',
         'App\\View\\Components\\AdminLayout' => __DIR__ . '/../..' . '/app/View/Components/AdminLayout.php',
         'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',

@@ -26,6 +26,11 @@ composer run dev
 
 De site draait dan op <http://127.0.0.1:8000> en ververst automatisch als je iets aanpast. Tests draaien met `php artisan test`.
 
+## Keuzes
+
+- **Naam in het boekingsformulier:** het formulier heeft aparte velden voor voornaam en achternaam, net als de tabel `guests`. Een naam automatisch splitsen gaat mis bij namen als "Jan van der Berg". Een tussenvoegsel komt in de achternaam.
+- **Reserveringsaanvraag:** een aanvraag wordt opgeslagen als gast plus reservering met status `request` en een nummer per jaar (`R2026-0001`). Alleen bevestigde, aanbetaalde en betaalde reserveringen en geblokkeerde periodes maken de woning bezet. Een gast met hetzelfde e-mailadres wordt hergebruikt. Zie `App\Services\BookingService`.
+
 ## Werkwijze
 
 1. Maak een eigen branch vanaf `main`, bijvoorbeeld `feat/menukaart`.
