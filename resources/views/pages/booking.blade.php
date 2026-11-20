@@ -66,11 +66,14 @@ $initial = [
                     <h2 id="title-details" class="text-2xl font-bold text-deep-blue">Jouw gegevens</h2>
 
                     <div class="grid gap-5 sm:grid-cols-2">
-                        <x-site.field name="name" label="Naam" :required="true" autocomplete="name" />
-                        <x-site.field name="email" label="E-mailadres" type="email" :required="true" autocomplete="email" />
+                        <x-site.field name="first_name" label="Voornaam" :required="true" autocomplete="given-name" />
+                        <x-site.field name="last_name" label="Achternaam" :required="true" autocomplete="family-name" />
                     </div>
 
-                    <x-site.field name="phone" label="Telefoonnummer" type="tel" autocomplete="tel" hint="Optioneel" />
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        <x-site.field name="email" label="E-mailadres" type="email" :required="true" autocomplete="email" />
+                        <x-site.field name="phone" label="Telefoonnummer" type="tel" autocomplete="tel" hint="Optioneel" />
+                    </div>
                     <x-site.field name="comments" label="Opmerkingen" as="textarea" hint="Bijvoorbeeld een kinderbed, een late aankomst of een speciale gelegenheid." />
                 </div>
 
