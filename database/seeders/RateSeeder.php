@@ -37,23 +37,21 @@ class RateSeeder extends Seeder
             );
         }
 
-        // Demo-tarieven uit config/woning.php.
-        $tarieven = config('woning.tarieven');
-
+        // DEMO-TARIEVEN: vervangen door definitieve prijzen van Wilma.
         $rates = [
             [
                 'season_id' => $lowSeasonId,
                 'start_date' => '2026-05-01',
                 'end_date' => '2026-11-30',
-                'price_per_night' => $tarieven['prijs_laag'],
-                'min_nights' => $tarieven['min_nachten_laag'],
+                'price_per_night' => 145,
+                'min_nights' => 5,
             ],
             [
                 'season_id' => $highSeasonId,
                 'start_date' => '2026-12-01',
                 'end_date' => '2027-04-30',
-                'price_per_night' => $tarieven['prijs_hoog'],
-                'min_nights' => $tarieven['min_nachten_hoog'],
+                'price_per_night' => 195,
+                'min_nights' => 7,
             ],
         ];
 

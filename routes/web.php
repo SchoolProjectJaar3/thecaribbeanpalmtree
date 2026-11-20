@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccommodationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\TextController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\PriceQuoteController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ Route::view('/the-house', 'pages.property')->name('property');
 Route::view('/photos', 'pages.photos')->name('photos');
 Route::view('/availability', 'pages.availability')->name('availability');
 Route::view('/rates', 'pages.rates')->name('rates');
+Route::get('/rates/quote', PriceQuoteController::class)->middleware('throttle:60,1')->name('rates.quote');
 Route::view('/surroundings', 'pages.surroundings')->name('surroundings');
 Route::view('/reviews', 'pages.reviews')->name('reviews');
 Route::view('/faq', 'pages.faq')->name('faq');

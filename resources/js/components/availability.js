@@ -1,13 +1,26 @@
-import { calculatePrice, euro, formatDate } from '../pricing';
+import { euro, formatDate, quoteLoader } from '../pricing';
 
 // Date selection in the calendar (project plan 6.4): only available days can
 // be selected, booked days between arrival and departure are not allowed.
-export default (rates) => ({
+export default (url) => ({
     arrival: null,
     departure: null,
     message: '',
+    price: null,
     euro,
     formatDate,
+
+    init() {
+        const load = quoteLoader(url);
+        const update = () => {
+            load(this.arrival, this.departure, 2)
+                .then((quote) => { this.price = quote; })
+                .catch(() => {});
+        };
+
+        this.$watch('arrival', update);
+        this.$watch('departure', update);
+    },
 
     select(iso) {
         this.message = '';
@@ -38,12 +51,8 @@ export default (rates) => ({
         return '';
     },
 
-    get price() {
-        return calculatePrice(rates, this.arrival, this.departure);
-    },
-
     get complete() {
-        return Boolean(this.price && this.price.meetsMinimum);
+        return Boolean(this.price && this.price.complete && this.price.meets_minimum);
     },
 
     get bookingUrl() {

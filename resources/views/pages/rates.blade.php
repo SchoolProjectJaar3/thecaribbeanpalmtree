@@ -4,6 +4,7 @@
 @php
 $rates = config('site.rates');
 $euro = fn ($amount) => '€ ' . number_format($amount, 0, ',', '.');
+$date = fn ($date) => $date->locale('nl')->translatedFormat('j F Y');
 @endphp
 
 @section('content')
@@ -21,25 +22,27 @@ $euro = fn ($amount) => '€ ' . number_format($amount, 0, ',', '.');
             eyebrow="Prijs per nacht"
             title="Laag- en hoogseizoen" />
 
+        @if ($seasonRates->isEmpty())
+        <p class="mt-10 rounded-xl border border-deep-blue/10 bg-white p-8 text-deep-blue/80 shadow-sm">De tarieven voor de komende periode worden binnenkort bekendgemaakt. Neem gerust <a href="/contact" class="font-semibold text-turquoise hover:text-deep-blue">contact</a> op voor een prijsopgave.</p>
+        @else
         <div class="mt-10 grid gap-6 md:grid-cols-2">
+            @foreach ($seasonRates as $rate)
             <article class="rounded-xl border border-deep-blue/10 bg-white p-8 shadow-sm">
-                <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Laagseizoen</p>
-                <p class="mt-3 text-4xl font-bold text-deep-blue">{{ $euro($rates['price_low']) }} <span class="text-base font-medium text-deep-blue/60">per nacht</span></p>
+                <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-turquoise">
+                    @if ($rate->season->color)
+                    <span class="h-3 w-3 rounded-full" style="background-color: {{ $rate->season->color }}" aria-hidden="true"></span>
+                    @endif
+                    {{ $rate->season->name }}
+                </p>
+                <p class="mt-3 text-4xl font-bold text-deep-blue">{{ $euro($rate->price_per_night) }} <span class="text-base font-medium text-deep-blue/60">per nacht</span></p>
                 <ul class="mt-6 space-y-2 text-deep-blue/80">
-                    <li class="flex items-center gap-2"><x-site.icon name="calendar" class="h-5 w-5 text-turquoise" /> Mei t/m november</li>
-                    <li class="flex items-center gap-2"><x-site.icon name="clock" class="h-5 w-5 text-turquoise" /> Minimaal {{ $rates['min_nights_low'] }} nachten</li>
+                    <li class="flex items-center gap-2"><x-site.icon name="calendar" class="h-5 w-5 text-turquoise" /> {{ $date($rate->start_date) }} t/m {{ $date($rate->end_date) }}</li>
+                    <li class="flex items-center gap-2"><x-site.icon name="clock" class="h-5 w-5 text-turquoise" /> Minimaal {{ $rate->min_nights }} {{ $rate->min_nights === 1 ? 'nacht' : 'nachten' }}</li>
                 </ul>
             </article>
-
-            <article class="rounded-xl border-2 border-sand bg-white p-8 shadow-sm">
-                <p class="text-sm font-semibold uppercase tracking-widest text-turquoise">Hoogseizoen</p>
-                <p class="mt-3 text-4xl font-bold text-deep-blue">{{ $euro($rates['price_high']) }} <span class="text-base font-medium text-deep-blue/60">per nacht</span></p>
-                <ul class="mt-6 space-y-2 text-deep-blue/80">
-                    <li class="flex items-center gap-2"><x-site.icon name="calendar" class="h-5 w-5 text-turquoise" /> December t/m april</li>
-                    <li class="flex items-center gap-2"><x-site.icon name="clock" class="h-5 w-5 text-turquoise" /> Minimaal {{ $rates['min_nights_high'] }} nachten</li>
-                </ul>
-            </article>
+            @endforeach
         </div>
+        @endif
     </div>
 </section>
 
@@ -98,7 +101,7 @@ $euro = fn ($amount) => '€ ' . number_format($amount, 0, ',', '.');
 
 
 <!-- Price estimate -->
-<section class="py-16 sm:py-20" x-data="priceCalculator(@js($rates))">
+<section class="py-16 sm:py-20" x-data="priceCalculator(@js(route('rates.quote')))">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
 
         <div>
@@ -137,12 +140,14 @@ $euro = fn ($amount) => '€ ' . number_format($amount, 0, ',', '.');
             <template x-if="result">
                 <div>
                     <dl class="mt-6 space-y-3 text-sm">
-                        <div class="flex justify-between gap-4">
-                            <dt class="text-deep-blue/70" x-text="result.nights + (result.nights === 1 ? ' nacht' : ' nachten')"></dt>
-                            <dd class="font-medium text-deep-blue" x-text="euro(result.stay)"></dd>
-                        </div>
+                        <template x-for="line in result.lines">
+                            <div class="flex justify-between gap-4">
+                                <dt class="text-deep-blue/70" x-text="line.nights + (line.nights === 1 ? ' nacht ' : ' nachten ') + line.season.toLowerCase() + ' × ' + euro(line.price_per_night)"></dt>
+                                <dd class="font-medium text-deep-blue" x-text="euro(line.amount)"></dd>
+                            </div>
+                        </template>
                         <div class="flex justify-between gap-4" x-show="result.discount > 0">
-                            <dt class="text-deep-blue/70" x-text="'Korting (' + result.discountPercent + '%)'"></dt>
+                            <dt class="text-deep-blue/70" x-text="'Korting (' + result.discount_percent + '%)'"></dt>
                             <dd class="font-medium text-deep-blue" x-text="'- ' + euro(result.discount)"></dd>
                         </div>
                         <div class="flex justify-between gap-4">
@@ -151,7 +156,7 @@ $euro = fn ($amount) => '€ ' . number_format($amount, 0, ',', '.');
                         </div>
                         <div class="flex justify-between gap-4">
                             <dt class="text-deep-blue/70">Toeristenbelasting</dt>
-                            <dd class="font-medium text-deep-blue" x-text="euro(result.touristTax)"></dd>
+                            <dd class="font-medium text-deep-blue" x-text="euro(result.tourist_tax)"></dd>
                         </div>
                         <div class="flex justify-between gap-4 border-t border-deep-blue/10 pt-4 text-base">
                             <dt class="font-semibold text-deep-blue">Totaal</dt>
@@ -163,8 +168,12 @@ $euro = fn ($amount) => '€ ' . number_format($amount, 0, ',', '.');
                         Daarnaast vragen we een borg van <span x-text="euro(result.deposit)"></span>, die je na vertrek terugkrijgt.
                     </p>
 
-                    <p class="mt-4 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="!result.meetsMinimum">
-                        Let op: de minimale verblijfsduur voor deze periode is <strong x-text="result.minNights + ' nachten'"></strong>.
+                    <p class="mt-4 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="!result.complete">
+                        Let op: voor <strong x-text="result.unpriced_nights + (result.unpriced_nights === 1 ? ' nacht' : ' nachten')"></strong> zijn nog geen tarieven bekend. Die nachten tellen niet mee in deze indicatie.
+                    </p>
+
+                    <p class="mt-4 rounded-lg bg-sand/30 p-3 text-sm text-deep-blue" x-show="!result.meets_minimum">
+                        Let op: de minimale verblijfsduur voor deze periode is <strong x-text="result.min_nights + ' nachten'"></strong>.
                     </p>
 
                     <a :href="'/book?arrival=' + arrival + '&departure=' + departure + '&guests=' + guests" class="mt-6 flex min-h-12 items-center justify-center rounded-lg bg-turquoise px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-turquoise/90 focus:outline-none focus:ring-0 focus:ring-turquoise focus:ring-offset-2">

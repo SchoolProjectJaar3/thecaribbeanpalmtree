@@ -1,50 +1,40 @@
-// Price estimate based on the rates (project plan 6.5). The rates come from
-// config/site.php and are passed in from the Blade page.
-
-const DAY = 24 * 60 * 60 * 1000;
+// Price estimate (project plan 6.5). The calculation is done on the server by
+// App\Services\PriceCalculator, with the rates from the database.
 
 function toDate(iso) {
     const [y, m, d] = iso.split('-').map(Number);
     return new Date(Date.UTC(y, m - 1, d));
 }
 
-export function isHighSeason(rates, date) {
-    return rates.high_season_months.includes(date.getUTCMonth() + 1);
+export async function fetchQuote(url, arrival, departure, guests = 2, signal) {
+    const params = new URLSearchParams({ arrival, departure, guests });
+    const response = await fetch(`${url}?${params}`, {
+        headers: { Accept: 'application/json' },
+        signal,
+    });
+
+    if (!response.ok) return null;
+
+    return (await response.json()).quote;
 }
 
-export function calculatePrice(rates, arrival, departure, guests = 2) {
-    if (!arrival || !departure) return null;
+// Keeps only the latest request, so an older answer cannot overwrite a newer one.
+export function quoteLoader(url) {
+    let controller = null;
 
-    const from = toDate(arrival);
-    const to = toDate(departure);
-    const nights = Math.round((to - from) / DAY);
-    if (nights < 1) return null;
+    return async (arrival, departure, guests) => {
+        controller?.abort();
 
-    let stay = 0;
-    for (let i = 0; i < nights; i++) {
-        const night = new Date(from.getTime() + i * DAY);
-        stay += isHighSeason(rates, night) ? rates.price_high : rates.price_low;
-    }
+        if (!arrival || !departure || departure <= arrival) return null;
 
-    const discountRule = [...rates.discounts]
-        .sort((a, b) => b.from - a.from)
-        .find((d) => nights >= d.from);
-    const discountPercent = discountRule ? discountRule.percent : 0;
-    const discount = (stay * discountPercent) / 100;
-    const touristTax = rates.tourist_tax * guests * nights;
-    const minNights = isHighSeason(rates, from) ? rates.min_nights_high : rates.min_nights_low;
+        controller = new AbortController();
 
-    return {
-        nights,
-        stay,
-        discountPercent,
-        discount,
-        cleaning: rates.cleaning,
-        touristTax,
-        total: stay - discount + rates.cleaning + touristTax,
-        deposit: rates.deposit,
-        minNights,
-        meetsMinimum: nights >= minNights,
+        try {
+            return await fetchQuote(url, arrival, departure, guests, controller.signal);
+        } catch (error) {
+            if (error.name === 'AbortError') throw error;
+            return null;
+        }
     };
 }
 
