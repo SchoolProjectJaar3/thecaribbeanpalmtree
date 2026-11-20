@@ -27,7 +27,7 @@ it('stores a contact message with status new', function () {
         ->and($message->phone)->toBe('0612345678')
         ->and($message->message)->toBe('Is de woning in februari nog vrij?')
         ->and($message->status)->toBe('new')
-        ->and($message->ip_address)->toBe('127.0.0.1')
+        ->and($message->ip_address)->toBeNull()
         ->and($message->language->code)->toBe('nl');
 });
 

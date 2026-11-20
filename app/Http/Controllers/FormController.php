@@ -35,7 +35,6 @@ class FormController extends Controller
             'message' => $data['message'],
             'language_id' => Language::where('code', app()->getLocale())->value('id'),
             'status' => 'new',
-            'ip_address' => $request->ip(),
         ]);
 
         return redirect(route('contact') . '#confirmation')
