@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\ReservationStatus;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Query\Builder;
+use App\Models\Accommodation;
+use App\Models\ContactMessage;
+use App\Models\Reservation;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -17,45 +19,29 @@ class DashboardController extends Controller
         $today = Carbon::today();
 
         return view('admin.dashboard', [
-            'accommodation' => DB::table('accommodations')->where('is_active', true)->orderBy('id')->first(),
-            'openRequests' => DB::table('reservations')->where('status', ReservationStatus::Request)->count(),
-            'arrivals' => DB::table('reservations')
-                ->whereIn('status', ReservationStatus::booked())
+            'accommodation' => Accommodation::where('is_active', true)->orderBy('id')->first(),
+            'openRequests' => Reservation::where('status', ReservationStatus::Request)->count(),
+            'arrivals' => Reservation::whereIn('status', ReservationStatus::booked())
                 ->whereBetween('arrival_date', [$today->toDateString(), $today->copy()->addDays(30)->toDateString()])
                 ->count(),
-            'newMessages' => DB::table('contact_messages')->where('status', 'new')->count(),
+            'newMessages' => ContactMessage::where('status', 'new')->count(),
             'occupancy' => $this->occupancy($today->copy()->startOfMonth(), $today->copy()->endOfMonth()->startOfDay()),
             'upcoming' => $this->reservations(fn (Builder $query) => $query
-                ->whereIn('reservations.status', ReservationStatus::booked())
-                ->where('reservations.departure_date', '>', $today->toDateString())
-                ->orderBy('reservations.arrival_date')),
+                ->whereIn('status', ReservationStatus::booked())
+                ->where('departure_date', '>', $today->toDateString())
+                ->orderBy('arrival_date')),
             'bookingRequests' => $this->reservations(fn (Builder $query) => $query
-                ->where('reservations.status', ReservationStatus::Request)
-                ->orderByDesc('reservations.created_at')),
+                ->where('status', ReservationStatus::Request)
+                ->orderByDesc('created_at')),
         ]);
     }
 
     /**
-     * The first five reservations with the name of the guest.
+     * The first five reservations, with their guest.
      */
     private function reservations(callable $filter): Collection
     {
-        $query = DB::table('reservations')
-            ->join('guests', 'guests.id', '=', 'reservations.guest_id')
-            ->select('reservations.*', 'guests.first_name', 'guests.infix', 'guests.last_name')
-            ->limit(5);
-
-        return $filter($query)->get()->map(function (object $reservation) {
-            $reservation->guest = collect([$reservation->first_name, $reservation->infix, $reservation->last_name])
-                ->filter()
-                ->implode(' ');
-            $reservation->arrival_date = Carbon::parse($reservation->arrival_date);
-            $reservation->departure_date = Carbon::parse($reservation->departure_date);
-            $reservation->created_at = Carbon::parse($reservation->created_at);
-            $reservation->status = ReservationStatus::from($reservation->status);
-
-            return $reservation;
-        });
+        return $filter(Reservation::with('guest')->limit(5))->get();
     }
 
     /**
@@ -66,13 +52,12 @@ class DashboardController extends Controller
     {
         $nights = $start->diffInDays($end) + 1;
 
-        $occupied = DB::table('reservations')
-            ->whereIn('status', ReservationStatus::booked())
+        $occupied = Reservation::whereIn('status', ReservationStatus::booked())
             ->where('arrival_date', '<=', $end->toDateString())
             ->where('departure_date', '>', $start->toDateString())
             ->get(['arrival_date', 'departure_date'])
-            ->sum(fn (object $reservation) => Carbon::parse($reservation->arrival_date)->max($start)
-                ->diffInDays(Carbon::parse($reservation->departure_date)->min($end->copy()->addDay())));
+            ->sum(fn (Reservation $reservation) => $reservation->arrival_date->max($start)
+                ->diffInDays($reservation->departure_date->min($end->copy()->addDay())));
 
         return (int) round(min($occupied, $nights) / $nights * 100);
     }

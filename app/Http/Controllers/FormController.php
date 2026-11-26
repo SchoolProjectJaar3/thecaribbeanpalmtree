@@ -12,8 +12,8 @@ use App\Models\Language;
 /**
  * Contact and booking form (project plan 6.10).
  *
- * Booking requests are stored (see BookingService). Contact messages are
- * not stored yet, and emails follow in sprint 5.
+ * Booking requests (see BookingService) and contact messages are stored
+ * in the database. Emails follow in sprint 5.
  */
 class FormController extends Controller
 {
