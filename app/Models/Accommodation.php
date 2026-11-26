@@ -103,6 +103,12 @@ class Accommodation extends Model
         return $dates;
     }
 
+    public function isAvailable(CarbonInterface $arrival, CarbonInterface $departure): bool
+    {
+        return $this->occupiedDates($arrival, $departure) === [];
+    }
+
+
     public function facilities(): BelongsToMany
     {
         return $this->belongsToMany(
