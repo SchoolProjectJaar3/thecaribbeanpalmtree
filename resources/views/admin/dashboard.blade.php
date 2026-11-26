@@ -72,7 +72,7 @@ $sections = collect(config('admin.navigation'))
                         @foreach ($upcoming as $reservation)
                         <tr>
                             <td class="whitespace-nowrap px-5 py-3">
-                                <span class="block font-medium text-deep-blue">{{ $reservation->guest }}</span>
+                                <span class="block font-medium text-deep-blue">{{ $reservation->guest->name }}</span>
                                 <span class="block text-xs text-deep-blue/60">{{ $reservation->reservation_number }}</span>
                             </td>
                             <td class="whitespace-nowrap px-5 py-3 text-deep-blue/80">{{ $formatDate($reservation->arrival_date) }}</td>
@@ -96,7 +96,7 @@ $sections = collect(config('admin.navigation'))
             <ul class="divide-y divide-deep-blue/10">
                 @foreach ($bookingRequests as $bookingRequest)
                 <li class="px-5 py-3">
-                    <p class="font-medium text-deep-blue">{{ $bookingRequest->guest }}</p>
+                    <p class="font-medium text-deep-blue">{{ $bookingRequest->guest->name }}</p>
                     <p class="mt-0.5 text-sm text-deep-blue/70">
                         {{ $formatDate($bookingRequest->arrival_date) }} t/m {{ $formatDate($bookingRequest->departure_date) }}
                     </p>
