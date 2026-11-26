@@ -55,20 +55,7 @@ return [
         ['file' => 'bedroom.avif', 'title' => 'Slaapkamer', 'category' => 'inside', 'alt' => 'Slaapkamer met tweepersoonsbed en airconditioning'],
     ],
 
-    // Availability (project plan 6.4). Booked periods as [days after the 1st
-    // of the current month, number of days], so the demo never gets outdated.
-    'availability' => [
-        'booked' => [
-            [6, 6],
-            [20, 5],
-            [38, 8],
-            [57, 9],
-            [78, 6],
-            [96, 10],
-            [124, 7],
-            [146, 8],
-        ],
-    ],
+    
 
     // Rates (project plan 6.5).
     'rates' => [

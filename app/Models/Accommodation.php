@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Enums\ReservationStatus;
+use Carbon\CarbonInterface;
 
 class Accommodation extends Model
 {
@@ -48,11 +50,6 @@ class Accommodation extends Model
         return $this->hasMany(AccommodationTranslation::class);
     }
 
-    public function rates(): HasMany
-    {
-        return $this->hasMany(Rate::class);
-    }
-
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
@@ -61,6 +58,49 @@ class Accommodation extends Model
     public function blockedPeriods(): HasMany
     {
         return $this->hasMany(BlockedPeriod::class);
+    }
+
+    /**
+     * Occupied days from $from up to (not including) $until, as ['2027-02-01' => true].
+     * A reservation occupies arrival up to departure (departure day is free),
+     * a blocked period occupies start up to and including its end date.
+     */
+    public function occupiedDates(CarbonInterface $from, CarbonInterface $until): array
+    {
+        $dates = [];
+
+        $statuses = array_map(fn ($status) => $status->value, ReservationStatus::booked());
+
+        $reservations = $this->reservations()
+            ->whereIn('status', $statuses)
+            ->whereDate('arrival_date', '<', $until->toDateString())
+            ->whereDate('departure_date', '>', $from->toDateString())
+            ->get();
+
+        $blocked = $this->blockedPeriods()
+            ->whereDate('start_date', '<', $until->toDateString())
+            ->whereDate('end_date', '>=', $from->toDateString())
+            ->get();
+
+        foreach ($reservations as $reservation) {
+            $day = $reservation->arrival_date->copy();
+
+            while ($day->lt($reservation->departure_date)) {
+                $dates[$day->toDateString()] = true;
+                $day->addDay();
+            }
+        }
+
+        foreach ($blocked as $period) {
+            $day = $period->start_date->copy();
+
+            while ($day->lte($period->end_date)) {
+                $dates[$day->toDateString()] = true;
+                $day->addDay();
+            }
+        }
+
+        return $dates;
     }
 
     public function facilities(): BelongsToMany
@@ -141,8 +181,8 @@ class Accommodation extends Model
     private function time(): Attribute
     {
         return Attribute::make(
-            get: fn(?string $value) => $value === null ? null : substr($value, 0, 5),
-            set: fn(?string $value) => $value === null ? null : substr($value, 0, 5) . ':00',
+            get: fn (?string $value) => $value === null ? null : substr($value, 0, 5),
+            set: fn (?string $value) => $value === null ? null : substr($value, 0, 5).':00',
         );
     }
 }

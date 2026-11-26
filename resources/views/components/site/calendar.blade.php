@@ -5,12 +5,10 @@
 $today = \Carbon\Carbon::today();
 $start = $today->copy()->startOfMonth();
 
-$booked = [];
-foreach (config('site.availability.booked') as [$offset, $days]) {
-    for ($i = 0; $i < $days; $i++) {
-        $booked[$start->copy()->addDays($offset + $i)->toDateString()] = true;
-    }
-}
+$booked = \App\Models\Accommodation::current()?->occupiedDates(
+    $start,
+    $start->copy()->addMonthsNoOverflow($months),
+) ?? [];
 
 $weekdays = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'];
 $cellClass = 'flex h-10 w-full items-center justify-center rounded-md text-sm transition';
